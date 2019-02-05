@@ -1,11 +1,11 @@
-## Digiroad OTH - Raportointityökalu
+## Digiroad - Yksityistielomake
 
-Sovelluksella luodaan temporaalisia raportteja OTH kannan tietolajeista. Raportit suodatetaan kunnittain ja niillä voidaan seurata kannan ominaisuustietojen laatua.
+Kopioitu drreport pohjaksi
 
 ## Kehitysympäristön pystyttäminen
 
 Kloonaa projekti:
-$ git clone https://github.com/finnishtransportagency/drreport.git
+$ git clone https://github.com/finnishtransportagency/yksityistie.git
 Käytä GIT Flow prosessin mukaista työtapaa.
 
 NodeJS asennus:
@@ -19,14 +19,8 @@ mvn install:install-file -Dfile=ojdbc14-10.2.0.4.0.jar -DgroupId=com.oracle -Dar
 Maven käännös:
 mvn -B clean package
 
-## Rajapinta
-
-Metodi: GET
-API: /raportit/graafi1/{startdate}/{stopdate}/{kunnat}/{tietolajit}/{hallinnollinenluokka}
-esimerkiksi: 
-
 ## Testit
 
 ## License
 
-Copyright 2017 - present NLS under EUPL v1.1 (English version is included in https://github.com/finnishtransportagency/drreport/blob/develop/LICENSE).
+Copyright 2017 - present NLS under EUPL v1.1 (English version is included in https://github.com/finnishtransportagency/yksityistie/blob/develop/LICENSE).
