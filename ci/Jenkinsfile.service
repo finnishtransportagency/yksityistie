@@ -207,11 +207,11 @@ pipeline {
                         "--build-arg JENKINS_UID=${jenkins_uid}"
                     ].join(" ")
                     docker.build(
-                        "ptpapp-drreport-maven",
+                        "ptpapp-yksityistie-maven",
                         "${build_args} -f ci/Dockerfile.maven ci"
                     )
                     docker.build(
-                        "ptpapp-drreport-node",
+                        "ptpapp-yksityistie-node",
                         "${build_args} -f ci/Dockerfile.node ci"
                     )
                 }
@@ -228,7 +228,7 @@ pipeline {
         stage("Prepare") {
             agent {
                 docker {
-                    image "ptpapp-drreport-node"
+                    image "ptpapp-yksityistie-node"
                     reuseNode true
                 }
             }
@@ -253,7 +253,7 @@ pipeline {
         stage("Build") {
             agent {
                 docker {
-                    image "ptpapp-drreport-maven"
+                    image "ptpapp-yksityistie-maven"
                     reuseNode true
                 }
             }
@@ -311,7 +311,7 @@ pipeline {
         stage("Publish") {
             agent {
                 docker {
-                    image "ptpapp-drreport-maven"
+                    image "ptpapp-yksityistie-maven"
                     reuseNode true
                 }
             }
@@ -359,7 +359,7 @@ pipeline {
             }
             steps {
                 build(
-                    job: "ptpapp/drreport/test/${BRANCH_NAME}",
+                    job: "ptpapp/yksityistie/test/${BRANCH_NAME}",
                     propagate: false,
                     wait: params.action.endsWith("start") ? true : false
                 )
