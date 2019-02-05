@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Digiroadin tilastotyökalu</title>
+		<link rel="stylesheet" href="styles/style.css" type="text/css" media="all" />
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="Emplox Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		<script src="js/bundle.js"></script>
+	</head>
+	<body>	
+		<div id="service" class="service">
+			<div class="container-fluid">
+			<img src="images/logo_Digiroad_png.png" class="img-responsive center-block" alt="Digiroad" display="block" width="150px"> 
+			<div class="row reportrow">
+						<div class="form-group col-md-4">
+							<div class="col-sm-4 col-sm-offset-4">
+								<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Ohje</button>
+							</div>   
+						</div>
+					</div>				
+			<form role="form">				
+			<div class="row">
+				<div class="col-md-12">
+					<div class="row reportrow">
+						<div class="col-md-4">
+							<div class='form-group col-sm-4'>
+								<p data-toggle="tooltip" title="Anna alkupäivämäärä kyselylle.">Alkupvm</p>
+							</div>
+							<div class='form-group col-sm-8'>
+								<div class='input-group date' id='datetimepicker1'>
+									<input type='text' class="form-control" id="startdate" />
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-calendar"></span>
+										</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class='form-group col-sm-4'>
+								<p data-toggle="tooltip" title="Anna loppupäivämäärä kyselylle.">Loppupvm:</p>
+							</div>
+							<div class="form-group col-sm-8">
+								<div class='input-group date' id='datetimepicker2'>
+									<input type='text' class="form-control" id="stopdate"/>
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-calendar"></span>
+										</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row reportrow">
+						<div class="col-md-4">
+							<div class='form-group col-sm-4'>
+								<p data-toggle="tooltip" title="Valitse tietolaji(yksi per kysely).">Tietolaji:</p>
+							</div>
+							<div class='form-group col-sm-8'>
+								<select class="js-data-tietolaji-ajax form-control" style="width: 100%" multiple="multiple"></select>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class='form-group col-sm-4'>
+								<p data-toggle="tooltip" title="Valitse kunnat(1-10kpl)">Kunta:</p>
+							</div>
+							<div class="form-group col-sm-8">
+								<select class="js-data-kunta-ajax form-control" style="width: 100%" multiple="multiple"></select>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class='form-group col-sm-4'>
+								<p data-toggle="tooltip" title="Hallinnollisen luokan suodatus(ei pakollinen kenttä)">Hallinnollinen luokka:</p>
+							</div>
+							<div class='form-group col-sm-8'>
+								<select class="js-data-hallinnollinenluokka-ajax form-control" style="width: 100%" multiple="multiple"></select>
+							</div>
+						</div>
+					</div>
+					<div class="row reportrow">
+						<div class="col-md-4">
+							<div class="form-group col-sm-4">
+								<p data-toggle="tooltip" title="Suhteellinen[%] tai absoluuttinen[kpl] näkymä.">Suhteellisuus: </p>
+							</div>
+							<div class="form-group col-sm-8">
+								<input type="checkbox" name="sw-abs-rel" data-on-text="ON" data-off-text="OFF" checked>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class='form-group col-sm-4'>
+								<p data-toggle="tooltip" title="Kokonaismäärä näkymä.">Yhteenveto: </p>
+							</div>
+							<div class="form-group col-sm-8">
+								<input type="checkbox" name="sw-summary" data-on-text="ON" data-off-text="OFF">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class='form-group col-sm-4'>
+								<p data-toggle="tooltip" title="Kumulatiivinen näkymä.">Kumulatiivisuus: </p>
+							</div>
+							<div class="form-group col-sm-8">
+								<input type="checkbox" name="sw-cumul" data-on-text="ON" data-off-text="OFF" checked>
+							</div>
+						</div>
+					</div>
+					<div class="row reportrow">
+						<div class="form-group col-md-4">
+							<div class="col-sm-4 col-sm-offset-4">
+								<button class="btn btn-default" id="haeGraafiBtn">Hae tiedot</button>
+							</div>   
+						</div>
+						<div class="form-group col-md-4">
+							<div class="col-sm-4 col-sm-offset-4">
+								<button class="btn btn-default" id="haeCSVBtn">Lataa CSV</button>
+							</div>
+						</div>
+					</div>
+		</div>
+			</div>	 
+			<div class="row reportrow chartcontainer">
+				<div id="chart"></div>
+			</div> 
+		 	</form>
+		 	
+		 	<!--  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>-->
+
+				<!-- Modal -->
+				<div id="myModal" class="modal fade" role="dialog">
+				  <div class="modal-dialog">
+				
+				    <!-- Modal content-->
+				    <div class="modal-content" width="50%">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        <h4 class="modal-title">Tervetuloa Digiroadin tilastotyökaluun.</h4>
+				      </div>
+				      <div class="modal-body">
+				        <p>Työkalun avulla voit tarkastella tietolajien päivityksiä haluamasi ajanjakson</p>
+				        <p>aikana yhdessä tai useammassa kunnassa. Tulokset esitetään interaktiivisena</p>
+				        <p>graafina ja tiedot voi ladata palvelusta taulukoksi .CSV -muodossa.</p>
+				        <ol>
+				        	<li>Aseta aikaväli, jolta aineiston muutokset haetaan</li>
+				        	<li>Valitse tietolaji sekä 1-10 tarkasteltavaa kuntaa</li>
+				        	<li>Voit suodattaa tietoja hallinnollisella luokalla</li>
+				        	<li>Muuta kaavion esitystapoja ON-OFF painikkeilla. Lisätietoikkuna aukeaa, kun viet hiiren kaavion päälle ja voit zoomata kaaviota hiiren rullalla</li>
+				        	<li>Lataa tiedot taulukkona koneellesi</li>
+				        </ol>
+				        <p>Ei tuloksia? Kaikkia tietolajeja ei ylläpidetä jatkuvasti eli kokeile hakea pidemmältä aikaväliltä.</p>
+				        <p>Tapahtui virhe? Paina uudelleen Hae tiedot–painiketta!</p>
+				        <br>
+				        <p>Lisätietoja saat
+						<a href="http://www.liikennevirasto.fi/digiroad">Digiroadin verkkosivuilta</a>
+						</p>
+				        <p>Voit myös olla yhteydessä Digiroad-operaattoriin:</p>
+				        <p>040 507 2301 (klo 9-16)</p>
+				        <p>info(a)digiroad.fi</p>
+				        <img src="images/kuva_ohje_gray.png" class="img-responsive center-block" alt="Ohje"> 
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Sulje</button>
+				      </div>
+				    </div>
+				
+				  </div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>	
+
+
+	
+									

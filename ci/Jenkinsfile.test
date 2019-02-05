@@ -1,0 +1,233 @@
+def get_environment() {
+    if (BRANCH_NAME.equals("develop")) { return "dev" }
+    if (BRANCH_NAME.equals("master")) { return "prod" }
+    if (BRANCH_NAME.startsWith("release-")) { return "test" }
+    return ""
+}
+
+def get_robotframework_dmz_external() {
+    if (get_environment().equals("dev")) {
+        return [
+          "https://kehitysjulkinen.liikennevirasto.fi"
+        ]
+    }
+    if (get_environment().equals("prod")) {
+        return [
+          "https://julkinen.liikennevirasto.fi"
+        ]
+    }
+    if (get_environment().equals("test")) {
+      return [
+        "https://testijulkinen.liikennevirasto.fi"
+      ]
+    }
+    return []
+}
+def get_robotframework_dmz_internal() {
+    if (get_environment().equals("dev")) {
+        return []
+    }
+    if (get_environment().equals("prod")) {
+        return [
+          "http://oag.liikennevirasto.fi"
+        ]
+    }
+    if (get_environment().equals("test")) {
+      return [
+        "http://testioag.liikennevirasto.fi"
+      ]
+    }
+    return []
+}
+
+def get_robotframework_hosts()  {
+    if (get_environment().equals("dev")) {
+        return [ "http://livisovt136l.vally.local" ]
+    }
+    if (get_environment().equals("prod")) {
+        return [
+          "http://liviptpapp01l.vally.local",
+          "http://liviptpapp02l.vally.local"
+        ]
+    }
+    if (get_environment().equals("test")) {
+        return [
+          "http://liviptpappt01l.vally.local",
+          "http://liviptpappt02l.vally.local"
+        ]
+    }
+    return []
+}
+
+pipeline {
+    agent any
+    environment {
+        NOTIFY_SLACK_SUBJECT = "${JOB_NAME} - <${RUN_DISPLAY_URL}|${BUILD_DISPLAY_NAME}>"
+    }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: "25"))
+        disableConcurrentBuilds()
+    }
+    stages {
+        stage("Setup") {
+            when {
+                expression {
+                    get_environment()?.trim()
+                }
+            }
+            steps {
+                script {
+                    
+                    def pom = readMavenPom()
+                    def artifact_id = pom.artifactId
+
+                    STAGE_TEST_CMD = [
+                        get_robotframework_hosts().collect {
+                            [
+                                "robot",
+                                "--critical=Requirement",
+                                "--log NONE",
+                                "--name ${it.tokenize('/').last()}.80",
+                                "--noncritical=Informative",
+                                "--nostatusrc",
+                                "--output output-80-${it.tokenize('/').last()}.xml",
+                                "--report NONE",
+                                "--variable URL:${it}/dr-report",
+                                "src/test"
+                            ].join(" ")
+                        }.join(" && "), 
+                        get_robotframework_dmz_internal().collect {
+                            [
+                                "robot",
+                                "--critical=Requirement",
+                                "--include API",
+                                "--log NONE",
+                                "--name ${it.tokenize('/').last()}",
+                                "--noncritical=Informative",
+                                "--nostatusrc",
+                                "--output output-${it.tokenize('/').last()}.xml",
+                                "--report NONE",
+                                "--variable URL:${it}/dr-report",
+                                "src/test"
+                            ].join(" ")
+                        }.join(" && "),
+                        get_robotframework_dmz_external().collect {
+                            [
+                                "robot",
+                                "--critical=Requirement",
+                                "--include API",
+                                "--log NONE",
+                                "--name ${it.tokenize('/').last()}",
+                                "--noncritical=Informative",
+                                "--nostatusrc",
+                                "--output output-${it.tokenize('/').last()}.xml",
+                                "--report NONE",
+                                "--variable PROXY:${http_proxy}",
+                                "--variable URL:${it}/dr-report",
+                                "src/test"
+                            ].join(" ")
+                        }.join(" && "),
+                        [
+                            "rebot",
+                            "--critical=Requirement",
+                            "--name ${artifact_id}/${get_environment()}",
+                            "--noncritical=Informative",
+                            "--nostatusrc",
+                            "--output output.xml",
+                            "output-*.xml"
+                        ].join(" ")
+                    ].minus('').join(" && ")
+
+                    STAGE_TEST_STEP = [
+                        $class: "RobotPublisher",
+                        disableArchiveOutput: false,
+                        logFileName: "log.html",
+                        onlyCritical: true,
+                        otherFiles: "",
+                        outputFileName: "output.xml",
+                        outputPath: ".",
+                        passThreshold: 100,
+                        reportFileName: "report.html",
+                        unstableThreshold: 0
+                    ]
+                }
+            }
+        }
+        stage("Docker") {
+            when {
+                beforeAgent true
+                expression {
+                    get_environment()?.trim()
+                }
+            }
+            steps {
+                sh "cp /data1/ci/python/* ci/confs/"
+                script {
+                    def jenkins_uid = sh(returnStdout: true, script: "id -u").trim()
+                    def build_args = [
+                        "--build-arg http_proxy=${http_proxy}",
+                        "--build-arg https_proxy=${http_proxy}",
+                        "--build-arg no_proxy=${no_proxy}",
+                        "--build-arg JENKINS_UID=${jenkins_uid}"
+                    ].join(" ")
+                    docker.build(
+                        "ptpapp-drreport-python",
+                        "${build_args} -f ci/Dockerfile.python ci"
+                    )
+                }
+            }
+            post {
+                failure {
+                    slackSend(
+                        color: "danger",
+                        message: "${NOTIFY_SLACK_SUBJECT}\nStage ${STAGE_NAME} failure! Check <${BUILD_URL}console|console>!"
+                    )
+                }
+            }
+        }
+        stage("Test") {
+            agent {
+                docker {
+                    image "ptpapp-drreport-python"
+                    args "--network host"
+                    reuseNode true
+                }
+            }
+            when {
+                beforeAgent true
+                expression {
+                    get_environment()?.trim()
+                }
+            }
+            steps {
+                sh STAGE_TEST_CMD
+                step(STAGE_TEST_STEP)
+            }
+            post {
+                always {
+                    archiveArtifacts(
+                        allowEmptyArchive: true,
+                        artifacts: "*.html"
+                    )
+                }
+                failure {
+                    slackSend(
+                        color: "danger",
+                        message: "${NOTIFY_SLACK_SUBJECT} - Stage ${STAGE_NAME} failure!\nCheck <${BUILD_URL}console|console>!"
+                    )
+                }
+            }
+        }
+    }
+    post {
+        always {
+            deleteDir()
+        }
+        unstable {
+            slackSend(
+                color: "warning",
+                message: "${NOTIFY_SLACK_SUBJECT} - State of service is unstable!\nCheck <${BUILD_URL}console|console>!"
+            )
+        }
+    }
+}
