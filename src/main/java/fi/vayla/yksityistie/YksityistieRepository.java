@@ -42,8 +42,9 @@ public class YksityistieRepository {
 	 * @param
 	 * @return
 	 */
-	public String postTestApi(String osoite, String podi){
-		return ("Post Hello World!");
+	public String postTestApi(YksityistieFormClass podi){
+		
+		return "Hello World";
 	}
 
 	/**

@@ -5,12 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-/*import org.springframework.web.bind.annotation.PathVariable;*/
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ModelAttribute;
+/*import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;*/
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /*import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -46,12 +49,13 @@ public class YksityistieController {
 	 * @param 
 	 * @return
 	 */
-	@RequestMapping(value = "/sendmail", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/sendmail", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<String> sendmail(
-			@RequestParam(name="osoite", required=true, defaultValue="yksityistie@vayla.fi")
-			String type,
-    		@RequestBody String podi){
-		/*log.info("Emailing!");*/
-        return new ResponseEntity<>(items.postTestApi(type, podi), HttpStatus.CREATED);
+			@ModelAttribute YksityistieFormClass form){
+        return new ResponseEntity<>(items.postTestApi(form), HttpStatus.CREATED);
     }
+ 	/*@RequestMapping(value = "/sendmail", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String sendmail(@ModelAttribute YksityistieFormClass form) {
+        return "result";
+    }*/
 }

@@ -640,7 +640,7 @@
 	 });
 
 	 // Set up our request
-	 XHR.open('GET', 'testapi/');
+	 XHR.open('POST', 'sendmail/');
 
  	 //Send the proper header information along with the request
  	 //XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
