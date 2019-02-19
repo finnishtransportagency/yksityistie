@@ -26,8 +26,12 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-mail</artifactId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
+<!--		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -57,8 +61,8 @@
 				<directory>src/main/resources</directory>
 				<includes>
 					<include>application.properties</include>
-					<include>static/*.html</include>
-					<include>static/modules/*</include>
+					<include>static/*.*</include>
+					<include>static/lib/*.*</include>
 				</includes>
 			</resource>
         </resources>

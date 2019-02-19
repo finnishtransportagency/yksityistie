@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
+/*import org.springframework.web.bind.annotation.PathVariable;*/
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,7 +36,7 @@ public class YksityistieController {
 	/*@ApiOperation(value = "getTest", nickname = "getTestApi")*/
  	@RequestMapping(value = "/testapi", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<String> testapi(){
-		log.info("START! getByCoords");
+		/*log.info("START! getByCoords");*/
 		return new ResponseEntity<>(items.getTestApi(), HttpStatus.OK);
 	}
 	   
@@ -50,8 +50,8 @@ public class YksityistieController {
 	public ResponseEntity<String> sendmail(
 			@RequestParam(name="osoite", required=true, defaultValue="yksityistie@vayla.fi")
 			String type,
-    		@RequestBody BodyType podi){
-		log.info("Emailing!");
-        return new ResponseEntity<>(items.postTestApi(osoite, podi), HttpStatus.CREATED);
+    		@RequestBody String podi){
+		/*log.info("Emailing!");*/
+        return new ResponseEntity<>(items.postTestApi(type, podi), HttpStatus.CREATED);
     }
 }

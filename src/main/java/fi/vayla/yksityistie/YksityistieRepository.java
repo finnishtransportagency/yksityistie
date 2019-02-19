@@ -18,9 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.RowMapper;*/
 import org.springframework.stereotype.Repository;
-
+/*
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,18 +31,18 @@ import org.springframework.jdbc.core.RowMapperResultSetExtractor;
 public class YksityistieRepository {
 	
 	/*Somekind of mail setup procedure instance*/
-	protected MailTemplate sposti;
-	@Autowired
-	public YksityistieRepository(MailTemplate sposti) {
+	/*protected MailTemplate sposti;*/
+	/*@Autowired
+	public YksityistieRepository();/*MailTemplate sposti) {
 		this.sposti = sposti;
-	}
+	}*/
 
 	/**
 	 * This creates a response
 	 * @param
 	 * @return
 	 */
-	public String postTestApi(String osoite, BodyType podi){
+	public String postTestApi(String osoite, String podi){
 		return ("Post Hello World!");
 	}
 
@@ -52,7 +52,7 @@ public class YksityistieRepository {
 	 * @param 
 	 * @return 
 	 */
-	public FeatureCollection getTestApi() {
+	public String getTestApi() {
 		return ("Get Hello World!");
 	};
 }
