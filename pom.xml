@@ -2,21 +2,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
-	<groupId>fi.livi.digiroad</groupId>
-	<artifactId>drreport</artifactId>
-	<version>1.0.2</version>
-	<packaging>jar</packaging>
-
-	<name>DRReport2017</name>
-	<description>Dimenteq - LiVi - DR Reporter</description>
-
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.3.5.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	<groupId>fi.vayla</groupId>
+	<artifactId>yksityistie</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>yksityistie</name>
+	<description>Sitowise - Vayla - Yksityistie</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -30,9 +26,9 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jdbc</artifactId>
+			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
-		<dependency><!-- this also includes logging framework configured in application.properties -->
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
@@ -43,19 +39,9 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc14</artifactId>
-            <version>10.2.0.4.0</version>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-websocket</artifactId>
-			<version>1.3.5.RELEASE</version>
 		</dependency>
 	</dependencies>
 
@@ -65,9 +51,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-			</plugin>
 		</plugins>
 		<resources>
 			<resource>
@@ -76,15 +59,9 @@
 					<include>application.properties</include>
 					<include>static/*.html</include>
 					<include>static/modules/*</include>
-					<include>static/styles/style.css</include>
-					<include>static/js/bundle.js</include>
-					<include>static/fonts/*</include>
-					<include>static/images/logo_Digiroad_png.png</include>
-					<include>static/images/kuva_ohje_gray.png</include>
 				</includes>
 			</resource>
         </resources>
 	</build>
-
 
 </project>

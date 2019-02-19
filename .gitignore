@@ -39,6 +39,7 @@ Thumbs.db
 target
 .classpath
 .project
+.settings
 mvnw
 /.mvn/
 /target/

@@ -1,0 +1,302 @@
+<html lang="fi">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+</head>
+<body>
+
+
+  <div class="container py-5">
+
+    <!-- Tiekunnan tiedot starts here -->
+    <form class="yksityisteidenIlmoittaminen" method="post" onsubmit="formHandler(event)">
+
+      <fieldset id="tiekunnan_tiedot">
+
+        <div class="row mb-4">
+					<div class="col">
+	          <h2 class="">
+	            Tiekunnan tiedot
+	          </h2>
+					</div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col">
+            <label for="tiekunta">Tiekunta*</label>
+            <input type="text" class="form-control" id="tiekunta" name="tiekunta" required>
+          </div>
+        </div>
+
+
+        <div class="row mb-3">
+          <div class="col">
+            <label for="kunta">Kunta*</label>
+            <input type="text" class="form-control" id="kunta" name="kunta" required>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col">
+            <label for="kayttooikeustunnus">Käyttöoikeustunnus</label>
+            <input type="text" class="form-control" id="kayttooikeustunnus" name="kayttooikeustunnus">
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col">
+            <label for="ilmoittajanNimi">Ilmoittajan nimi*</label>
+            <input type="text" class="form-control" id="ilmoittajanNimi" name="ilmoittajanNimi" required>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col">
+            <label for="puhelinnumero">Puhelinnumero*</label>
+            <input type="tel" class="form-control" id="puhelinnumero" name="puhelinnumero" pattern="[0-9+]{4,}" required>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col">
+            <label for="sahkoposti">Sähköpostiosoite*</label>
+            <input type="email" class="form-control" id="sahkoposti" name="sahkoposti" required>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col text-muted">
+            <span>
+              * Yhteystiedot ovat Väyläviraston GDPR alaisia ja yhteystietoja käytetään ainoastaan ongelmatilanteiden selvitykseen tiekunnan yhteyshenkilön kanssa tai yksityistietojen lakisääteiseen ilmoitusvelvollisuuteen liittyvään viestintään.
+            </span>
+          </div>
+          <br>
+        </div>
+
+				<hr class="mb-5 mt-5">
+
+        <div class="row mb-3">
+          <div class="col-md">
+            <label for="toiminto_dropdown">Siirry ilmoittamaan tiedot valitsemalla seuraavista vaihtoehdoista:</label>
+
+            <select class="custom-select" id="toiminto_dropdown" name="toiminto_dropdown" required autocomplete="off">
+		          <option selected disabled hidden>Valitse</option>
+		          <option value="1">Tiekunnan teiden tiedot ovat oikein Digiroadissa</option>
+		          <option value="2">Ilmoita tiekunnan puuttuvat tai muuttuneet tiedot</option>
+          	</select>
+          </div>
+        </div>
+
+        <!-- Tiekunnan tiedot ends here-->
+
+				<br>
+
+        <!-- Tiekunnan tiedot ovat oikein starts here-->
+        <div id="tiedot_oikein_container" name="tiedot_oikein_container" class="" style="display: none;">
+          <div class="row mb-3">
+						<div class="col">
+            	<h3>Tiekunnan tiedot ovat oikein</h3>
+						</div>
+  				</div>
+
+          <div class="row mb-3">
+            <div class="col">
+              <label for="tiedot_oikein_tien_nimi_1">Tien nimi</label>
+              <input type="text" class="form-control" id="tiedot_oikein_tien_nimi_1" name="tiedot_oikein_tien_nimi_1">
+            </div>
+          </div>
+
+          <!-- tiedot oikein - extra roads are added here -->
+          <div class="tiedot_oikein_lisatyt_tiet mb-3"></div>
+
+          <div class="row mb-5">
+            <div class="col">
+              <!-- Tiedot oikein lisää tie button -->
+              <button type="button" class="btn btn-success btn-lg tiedot_oikein_lisaa_tie">Lisää tie</button>
+            </div>
+          </div>
+
+
+          <div class="row mb-5">
+						<div class="col">
+							<div class="custom-control custom-checkbox">
+			          <input type="checkbox" class="custom-control-input" id="tiedot_oikein_checkbox">
+			          <label class="custom-control-label" for="tiedot_oikein_checkbox">Vakuutan, että olen tarkistanut yksityistiekunnan teiden tiedot ja ne ovat Digiroadissa oikein.</label>
+			        </div>
+						</div>
+          </div>
+
+        </div>
+        <!-- tiedot_oikein_container ends here -->
+
+
+
+        <!-- ilmoita_tiedot_container starts here -->
+        <div id="ilmoita_tiedot_container" class="mb-3"  name="ilmoita_tiedot_container" style="display: none;">
+          <h3 class="mb-4">Ilmoita tiekunnan tiedot</h3>
+
+          <!--this container should get duplicated by pressing the Lisää tie button-->
+          <div id="ilmoita_tiedot_tie_container" class="card mb-3 bg-light" name="ilmoita_tiedot_tie_container">
+            <fieldset class="card-body">
+
+
+              <div class="row mb-3">
+                <div class="col">
+                  <label for="ilmoita_tiedot_tien_nimi">Tien nimi</label>
+                  <input type="text" class="form-control" id="ilmoita_tiedot_tien_nimi_1" name="ilmoita_tiedot_tien_nimi_1">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+								<div class="col">
+									<div class="custom-control custom-checkbox">
+										<input type="checkbox" onchange="hideRajoitukset()" class="custom-control-input" id="tierajoitukset_checkbox_1" >
+		                <label class="custom-control-label" for="tierajoitukset_checkbox_1">Tiellä ei ole rajoituksia tai kieltoja</label>
+									</div>
+								</div>
+              </div>
+
+              <!-- Tierajoitukset tai kiellot container starts here -->
+              <!-- extra options, hidden behind checkbox -->
+              <div id="tierajoitukset_container_1">
+                <div class="row mb-3">
+                  <div class="col">
+                    <label for="painorajoitus">Painorajoitus kg</label>
+                    <input type="number" class="form-control" id="ilmoita_tiedot_painorajoitus_1" name="ilmoita_tiedot_painorajoitus_1">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col">
+                    <label for="painorajoitus_lisakilvet">Lisäkilvet</label>
+                    <input type="text" class="form-control" id="ilmoita_tiedot_painorajoitus_lisakilvet_1" name="ilmoita_tiedot_painorajoitus_lisakilvet_1">
+                  </div>
+                </div>
+
+                 <div class="row mb-3">
+                  <div class="col">
+                    <label for="kelirikko" class="kelirikko">Kelirikko</label>
+                    <input type="text" class="form-control" id="ilmoita_tiedot_kelirikko_1" name="ilmoita_tiedot_kelirikko_1">
+                  </div>
+                </div>
+
+								<div class="row mb-3">
+									<div class="col">
+										<label for="voimassaoloAika" class="voimassaoloAika">Arvio kelirikon tilapäisestä tai toistuvasta voimassaoloajasta</label>
+
+										<div class="row" id="voimassaoloAika">
+											<div class="col">
+												<input type="text" class="form-control" placeholder="Alkaa" id="voimassaoloStart" autocomplete="off" name="ilmoita_tiedot_voimassaoloAika_start_1">
+											</div>
+											<div class="col">
+												<input type="text" class="form-control" placeholder="Päättyy" id="voimassaoloEnd" autocomplete="off" name="ilmoita_tiedot_voimassaoloAika_end_1">
+											</div>
+										</div>
+									</div>
+								</div>
+
+                 <div class="row mb-3">
+                  <div class="col">
+                    <label for="ajokielto" class="ajokielto">Ajokielto</label>
+                    <input type="text" class="form-control" id="ilmoita_tiedot_ajokielto_1" name="ilmoita_tiedot_ajokielto_1">
+                  </div>
+                </div>
+
+								<div class="row mb-3">
+                  <div class="col">
+                    <label for="ajokielto_lisakilvet">Lisäkilvet</label>
+                    <input type="text" class="form-control" id="ilmoita_tiedot_ajokielto_lisakilvet_1" name="ilmoita_tiedot_ajokielto_lisakilvet_1">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col">
+                    <label for="nopeusrajoitus">Nopeusrajoitus</label>
+                    <input type="text" class="form-control" id="ilmoita_tiedot_nopeusrajoitus_1" name="ilmoita_tiedot_nopeusrajoitus_1">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col">
+									    <label for="karttalinkit">Karttalinkit*</label>
+									    <textarea maxlength="5000" class="form-control" id="ilmoita_tiedot_karttalinkit_1" rows="3" name="ilmoita_tiedot_karttalinkit_1" placeholder="Kirjoita..."></textarea>
+									</div>
+                </div>
+
+
+
+                <div class="row mb-3">
+                  <div class="col">
+                    <label class="text-muted">
+	                    *Rajoitusten ja kieltojen sijainneista voi toimittaa myös vapaamuotoisen kartan sähköpostitse osoitteeseen info@digiroad.fi. Otsikkokenttään tulee laittaa tiekunnan nimi.
+	                  </label>
+                  </div>
+                </div>
+              </div>
+              <!-- Tierajoitukset tai kiellot container ends here -->
+
+            </fieldset>
+          </div>
+
+          <!-- ilmoita tiedot - extra roads are added here -->
+          <div class="ilmoita_tiedot_lisatyt_tiet"></div>
+
+          <!-- add extra road button -->
+          <div class="row mb-5">
+            <div class="col">
+              <button type="button" class="btn btn-success btn-lg ilmoita_tiedot_lisaa_tie">Lisää tie</button>
+            </div>
+          </div>
+
+          <div class="row mb-5">
+
+						<div class="col">
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox" class="custom-control-input" id="ilmoita_tiedot_checkbox" name="ilmoita_tiedot_checkbox">
+            		<label for="ilmoita_tiedot_checkbox" class="custom-control-label">Vakuutan, että olen ilmoittanut Digiroadiin tiekunnan teiden rajoitukset ja kaikki rajoitukset ja kiellot ovat kunnan hyväksymiä.</label>
+            	</div>
+						</div>
+          </div>
+
+        </div>
+        <!-- ilmoita_tiedot_container ends here-->
+
+
+        <!-- submit button -->
+				<div class="row mb-3 justify-content-center">
+	        <div class="col-5">
+	        	<input type="submit" class="btn btn-primary btn-lg btn-block" value="Lähetä ja lataa tositeliite">
+	        </div>
+				</div>
+
+      </fieldset>
+
+    </form>
+
+
+  </div>
+  <!-- form-container ends -->
+
+<!-- jQuery -->
+<script type="text/javascript" src="./lib/jquery-3.3.1.min.js"></script>
+
+<!-- javascript pdf -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+
+<!-- moment -->
+<script src="./lib/moment.min.js"></script>
+<script src="/lib/moment-locale-fi.js"></script>
+
+<!-- bootstrap -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+
+<!-- date picker -->
+<script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+<script src="./digiroad_form_script.js"></script>
+
+</body>
+
+</html>
