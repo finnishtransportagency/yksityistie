@@ -178,8 +178,8 @@
 
 					  var kilvetInput = document.createElement('input');
 					  kilvetInput.type = "text";
-					  kilvetInput.setAttribute("id", "ilmoita_tiedot_lisakilvet_" + ilmoitaTiedotId + "");
-						kilvetInput.setAttribute("name", "ilmoita_tiedot_lisakilvet_" + ilmoitaTiedotId + "");
+					  kilvetInput.setAttribute("id", "ilmoita_tiedot_painorajoitus_lisakilvet_" + ilmoitaTiedotId + "");
+						kilvetInput.setAttribute("name", "ilmoita_tiedot_painorajoitus_lisakilvet_" + ilmoitaTiedotId + "");
 						kilvetInput.className="form-control";
 						kilvetCol.appendChild(kilvetInput);
 
@@ -381,6 +381,7 @@
 			  var nopeusrajoitusInput = document.createElement('input');
 			  nopeusrajoitusInput.type = "text";
 			  nopeusrajoitusInput.setAttribute("id", "ilmoita_tiedot_nopeusrajoitus_" + ilmoitaTiedotId + "");
+			  
 				nopeusrajoitusInput.setAttribute("name", "ilmoita_tiedot_nopeusrajoitus_" + ilmoitaTiedotId + "");
 				nopeusrajoitusInput.className="form-control";
 
@@ -550,7 +551,7 @@
 		  deleteRoads('.ilmoita_tiedot_lisatyt_tiet');
 
 		  document.getElementById("tiedot_oikein_checkbox").required = true;
-		  document.getElementById("ilmoita_tiedot_checkbox").required = false;
+		  document.getElementById("ilmoita_checkbox").required = false;
 
 
 		} else if (this.value == 2) {
@@ -563,7 +564,7 @@
 		  deleteRoads('.tiedot_oikein_lisatyt_tiet');
 
 		  document.getElementById("tiedot_oikein_checkbox").required = false;
-		  document.getElementById("ilmoita_tiedot_checkbox").required = true;
+		  document.getElementById("ilmoita_checkbox").required = true;
 		}
 	}
 
@@ -611,14 +612,84 @@
 	}
 
 
-	// handles the form data, saves pdf and then submits the form
+	// converts the form data to Json, saves pdf and then submits the form
 	function formHandler(event) {
-	 	event.preventDefault();
-		//(document.querySelector('form')
-		var formData = new FormData(event.target);
-
-		sendData(formData, function(event) {
-			createPDF();
+		event.preventDefault();
+		console.log(event);
+		var rivilista = [];
+		var tiekunta = new Map();
+		var realindexmap = new Map();
+		var realindex =0;
+		var teidenlukumaara=0;
+		for (var i = 0; i < event.target.length; i++) {
+			//haetaan teiden tiedot
+			if(!(event.target[i].name.search("ilmoita_tiedot"))){
+				var nimi = event.target[i].name.replace(/[0-9_]/g, "").replace("ilmoitatiedot", "");
+				var indeksi = event.target[i].name.replace(/[^0-9]/g, "");
+				var arvo = event.target[i].value;
+				//luodaan normalisoitu indeksi map(teitä on lisätty ja poistettu)
+				if (!(realindexmap.has(indeksi))){
+					realindexmap.set(indeksi, realindex);
+					realindex++;
+					}
+				var normalisoituindeksi = realindexmap.get(indeksi);
+				//lasketaan teiden kokonaismäärä
+				teidenlukumaara = (normalisoituindeksi > teidenlukumaara)? normalisoituindeksi : teidenlukumaara;
+				var rivi = {nimi: nimi,
+							arvo:arvo, 
+							indeksi: normalisoituindeksi};
+				rivilista.push(rivi);
+			}
+			//muut on tiekunnan tietoja
+			else {
+				if(event.target[i].name.replace(/[0-9_]/g, "")=="toimintodropdown"){
+					tiekunta.set(event.target[i].name.replace(/[0-9_]/g, ""),event.target[i][event.target[i].value].label);
+				}
+				else{
+					tiekunta.set(event.target[i].name.replace(/[0-9_]/g, ""),event.target[i].value);
+				}
+			}
+		}
+        //luodaan lista teistä
+		var tielista = [];
+		for (var i = 0; i < teidenlukumaara+1; i++) {
+			var tie = new Map();//yhden tien tilapäinen tallennus
+			for (var j = 0; j < rivilista.length; j++) {
+				if(rivilista[j].indeksi == i){tie.set(rivilista[j].nimi,rivilista[j].arvo)}
+			}
+			//yksittäisen tien tiedot
+			var uusitie = {tiennimi: tie.get('tiennimi'),
+				painorajoitus: tie.get('painorajoitus'),
+				painorajoituslisakilvet: tie.get('painorajoituslisakilvet'),
+				kelirikko: tie.get('kelirikko'),
+				voimassaoloAikastart: tie.get('voimassaoloAikastart'),
+				voimassaoloAikaend: tie.get('voimassaoloAikaend'),
+				ajokielto: tie.get('ajokielto'),
+				ajokieltolisakilvet: tie.get('ajokieltolisakilvet'),
+				nopeusrajoitus: tie.get('nopeusrajoitus'),
+				karttalinkit: tie.get('karttalinkit')
+			};
+			var uusitieJSON = JSON.stringify(uusitie);
+			//lisätään tie tielistaan
+			tielista.push(uusitie);
+		}
+		
+		var tielistaJSON = JSON.stringify(tielista);
+		
+		//yhdistetään tieto lomakkeeseen
+		var lomake = {
+			kunta: tiekunta.get('kunta'),
+			tiekunta: tiekunta.get('tiekunta'),
+			kayttooikeustunnus: tiekunta.get('kayttooikeustunnus'),
+			ilmoittajanNimi: tiekunta.get('ilmoittajanNimi'),
+			puhelinnumero: tiekunta.get('puhelinnumero'),
+			sahkoposti: tiekunta.get('sahkoposti'),
+			toiminto_dropdown: tiekunta.get('toimintodropdown'),
+			tielista: tielista
+		};
+		var yksityistielomake = JSON.stringify(lomake);
+		sendData(yksityistielomake, function(event) {
+			//pdf luodaan backendissa ja palutetaan paluuarvona
 		});
 
 		 return false;
@@ -632,6 +703,21 @@
 	XHR.addEventListener('load', function(event) {
 		callback(event);
 		console.log('Form send success!');
+		var blob = new Blob([this.response], {type: 'image/pdf'});
+        //Create a link element, hide it, direct 
+        //it towards the blob, and then 'click' it programatically
+        let a = document.createElement("a");
+        a.style = "display: none";
+        document.body.appendChild(a);
+        //Create a DOMString representing the blob 
+        //and point the link element towards it
+        let url = window.URL.createObjectURL(blob);
+        a.href = url;
+        a.download = 'Digiroad_tosite.pdf';
+        //programatically click the link to trigger the download
+        a.click();
+        //release the reference to the file by revoking the Object URL
+        window.URL.revokeObjectURL(url);
 	});
 
 	 // Define what happens in case of error
@@ -644,7 +730,8 @@
 
  	 //Send the proper header information along with the request
  	 //XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
+	 XHR.setRequestHeader("Content-Type", "application/json");
+	 XHR.responseType = 'blob';
 	 // Send our FormData object; HTTP headers are set automatically
 	 XHR.send(formData);
 	}
@@ -684,5 +771,5 @@
 	// resets the checkboxes
 	function resetVakuutanCheckboxes() {
 	  document.getElementById("tiedot_oikein_checkbox").checked = false;
-	  document.getElementById("ilmoita_tiedot_checkbox").checked = false;
+	  document.getElementById("ilmoita_checkbox").checked = false;
 	}
