@@ -58,7 +58,7 @@ public class YksityistieRepository {
         MimeMessage message = emailSender.createMimeMessage();
         String[] to = new String[1]; 
         //to[0]=form.getSahkoposti();
-        to[0]="pasi.savolainen@sitowise.com";//info@digiroadi.fi
+        to[0]="pasi.pek.savolainen@hotmail.com";//info@digiroadi.fi
 		try {
 			ByteArrayDataSource attachment = new ByteArrayDataSource(pdf, "application/pdf");
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
