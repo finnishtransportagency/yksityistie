@@ -60,9 +60,9 @@ public class YksityistieRepository {
         //to[0]=form.getSahkoposti();
         to[0]="pasi.pek.savolainen@hotmail.com";//info@digiroadi.fi
 		try {
-			ByteArrayDataSource attachment = new ByteArrayDataSource(pdf, "application/pdf");
+			//ByteArrayDataSource attachment = new ByteArrayDataSource(pdf, "application/pdf");
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
-			helper.setTo(to); 
+			helper.setTo("pasi.savolainen@sitowise.com"); 
 			helper.setFrom("info@digiroad.fi");
 	        helper.setSubject("Tosite yksityistietietojen ilmoituksesta Digiroad-järjestelmään, " + form.getTiekunta()); 
 	        helper.setText(form.toString());
