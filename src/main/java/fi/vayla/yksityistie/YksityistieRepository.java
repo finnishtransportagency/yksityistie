@@ -63,7 +63,7 @@ public class YksityistieRepository {
 			ByteArrayDataSource attachment = new ByteArrayDataSource(pdf, "application/pdf");
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
 			helper.setTo(to); 
-			helper.setFrom("info@digiroadi.fi");
+			helper.setFrom("info@digiroad.fi");
 	        helper.setSubject("Tosite yksityistietietojen ilmoituksesta Digiroad-järjestelmään, " + form.getTiekunta()); 
 	        helper.setText(form.toString());
 	        //helper.addAttachment("Digiroad_tosite.pdf", attachment);
