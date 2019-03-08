@@ -78,10 +78,9 @@ pipeline {
                     def config = "src/main/resources/application.properties"
 
                     STAGE_BUILD_CMD = [
-                        "sed -i 's/MAIL_CRED_USR/${MAIL_CRED_USR}/g' ${config}",
-                        "sed -i 's/MAIL_CRED_PSW/${MAIL_CRED_PSW}/g' ${config}",
+                        "sed -i 's/MAIL_CRED/${MAIL_CRED}/g' ${config}",
                         "sed -i 's/MAIL_HOST/${MAIL_HOST}/g' ${config}",
-			"sed -i 's/MAIL_PORT/${MAIL_PORT}/g' ${config}",
+			            "sed -i 's/MAIL_PORT/${MAIL_PORT}/g' ${config}",
                         [
                             "mvn",
                             "versions:set",
