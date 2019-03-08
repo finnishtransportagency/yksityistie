@@ -56,17 +56,17 @@ public class YksityistieRepository {
 	 */
 	public void sendMessages(byte[] pdf, YksityistieFormClass form) {
         MimeMessage message = emailSender.createMimeMessage();
-        String[] to = new String[1]; 
-        //to[0]=form.getSahkoposti();
-        to[0]="pasi.pek.savolainen@hotmail.com";//info@digiroadi.fi
+        String[] to = new String[2]; 
+        to[0]=form.getSahkoposti();
+        to[1]="pasi.savolainen@sitowise.com";//info@digiroadi.fi
 		try {
-			//ByteArrayDataSource attachment = new ByteArrayDataSource(pdf, "application/pdf");
+		    ByteArrayDataSource attachment = new ByteArrayDataSource(pdf, "application/pdf");
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
-			helper.setTo("pasi.savolainen@sitowise.com"); 
+			helper.setTo(to); 
 			helper.setFrom("info@digiroad.fi");
 	        helper.setSubject("Tosite yksityistietietojen ilmoituksesta Digiroad-järjestelmään, " + form.getTiekunta()); 
 	        helper.setText(form.toString());
-	        //helper.addAttachment("Digiroad_tosite.pdf", attachment);
+	        helper.addAttachment("Digiroad_tosite.pdf", attachment);
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
