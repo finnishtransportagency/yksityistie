@@ -66,7 +66,7 @@ public class YksityistieRepository {
 			helper.setFrom("info@digiroadi.fi");
 	        helper.setSubject("Tosite yksityistietietojen ilmoituksesta Digiroad-järjestelmään, " + form.getTiekunta()); 
 	        helper.setText(form.toString());
-	        helper.addAttachment("Digiroad_tosite.pdf", attachment);
+	        //helper.addAttachment("Digiroad_tosite.pdf", attachment);
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
