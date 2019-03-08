@@ -68,13 +68,6 @@ pipeline {
                         choice(choices: params.action, description: "Action", name: "action")
                     ]
 
-                    STAGE_PREPARE_CMD = [
-                        "cd src/main/resources/static",
-                        "npm install",
-                        "npm run build",
-                        "sleep 30" // watchify doesn't work without this
-                    ].join(" && ")
-
                     def config = "src/main/resources/application.properties"
 
                     STAGE_BUILD_CMD = [
@@ -178,6 +171,7 @@ pipeline {
                 }
             }
         }
+        
         stage("Docker") {
             when {
                 beforeAgent true
@@ -186,7 +180,7 @@ pipeline {
                 }
             }
             steps {
-                sh "cp /data1/ci/{maven,node}/* ci/confs/"
+                sh "cp /data1/ci/maven/* ci/confs/"
                 script {
                     def jenkins_uid = sh(returnStdout: true, script: "id -u").trim()
                     def build_args = [
@@ -199,10 +193,6 @@ pipeline {
                         "ptpapp-yksityistie-maven",
                         "${build_args} -f ci/Dockerfile.maven ci"
                     )
-                    docker.build(
-                        "ptpapp-yksityistie-node",
-                        "${build_args} -f ci/Dockerfile.node ci"
-                    )
                 }
             }
             post {
@@ -214,31 +204,7 @@ pipeline {
                 }
             }
         }
-        stage("Prepare") {
-            agent {
-                docker {
-                    image "ptpapp-yksityistie-node"
-                    reuseNode true
-                }
-            }
-            when {
-                beforeAgent true
-                expression {
-                    get_environment()?.trim() && params.action.equals("service-deploy-springboot")
-                }
-            }
-            steps {
-                sh STAGE_PREPARE_CMD
-            }
-            post {
-                failure {
-                    slackSend(
-                        color: "danger",
-                        message: "${NOTIFY_SLACK_SUBJECT}\nStage ${STAGE_NAME} failure! Check <${BUILD_URL}console|console>!"
-                    )
-                }
-            }
-        }
+
         stage("Build") {
             agent {
                 docker {
