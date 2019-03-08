@@ -58,7 +58,7 @@ public class YksityistieRepository {
         MimeMessage message = emailSender.createMimeMessage();
         String[] to = new String[2]; 
         to[0]=form.getSahkoposti();
-        to[1]=""; //info@digiroadi.fi
+        to[1]="s@posti.osoite";//info@digiroadi.fi
 		try {
 			ByteArrayDataSource attachment = new ByteArrayDataSource(pdf, "application/pdf");
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -105,11 +105,12 @@ public class YksityistieRepository {
             document.add(new Paragraph("teiden rajoituksista ja kielloista on ilmoitettu Digiroad-järjestelmään."));
             document.add(new Paragraph(" "));
             document.add(new Paragraph("Kunta: " + form.getKunta()));
+            document.add(new Paragraph("Tiekunta: " + form.getTiekunta()));
             document.add(new Paragraph("Käyttöoikeustunnustus: " + form.getKayttooikeustunnus()));
             document.add(new Paragraph("Ilmoittajan nimi: " + form.getIlmoittajanNimi()));
             document.add(new Paragraph("Puhelinnumero: " + form.getPuhelinnumero()));
             document.add(new Paragraph("Sähköpostiosoite: " + form.getSahkoposti()));
-            for(int i=0; i<24;i++){
+            for(int i=0; i<23;i++){
             	document.add( Chunk.NEWLINE );
             }
             document.add(new LineSeparator(0.5f, 100, null, 0, -5));
