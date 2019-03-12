@@ -10,22 +10,36 @@
 
   <div class="container py-5">
 
+		<div class="row mb-4">
+			<div class="col-11">
+				<h2 id="municipalityInfoTitle" class="">
+					Tiekunnan tiedot
+				</h2>
+			</div>
+
+			<div class="col-1">
+				<div class="btn-group btn-group-toggle align-right" data-toggle="buttons">
+					<label class="btn btn-outline-primary active">
+						<input type="radio" name="options" id="option1" autocomplete="off" checked onchange="i18next.changeLanguage('fi')"> fi
+					</label>
+					<label class="btn btn-outline-primary">
+						<input type="radio" name="options" id="option2" autocomplete="off" onchange="i18next.changeLanguage('sv')"> sv
+					</label>
+				</div>
+			</div>
+		</div>
+
+
+
     <!-- Tiekunnan tiedot starts here -->
     <form class="yksityisteidenIlmoittaminen" method="post" onsubmit="formHandler(event)">
 
       <fieldset id="tiekunnan_tiedot">
 
-        <div class="row mb-4">
-					<div class="col">
-	          <h2 class="">
-	            Tiekunnan tiedot
-	          </h2>
-					</div>
-        </div>
-
         <div class="row mb-3">
           <div class="col">
-            <label for="tiekunta">Tiekunta*</label>
+            <label id="roadMunicipality" for="tiekunta">Tiekunta (pakollinen tieto)
+						</label>
             <input type="text" class="form-control" id="tiekunta" name="tiekunta" required>
           </div>
         </div>
@@ -33,42 +47,42 @@
 
         <div class="row mb-3">
           <div class="col">
-            <label for="kunta">Kunta*</label>
+            <label for="kunta" id="municipality">Kunta (pakollinen tieto)</label>
             <input type="text" class="form-control" id="kunta" name="kunta" required>
           </div>
         </div>
 
         <div class="row mb-3">
           <div class="col">
-            <label for="kayttooikeustunnus">Käyttöoikeustunnus</label>
+            <label for="kayttooikeustunnus" id="licenceIdentifier">Käyttöoikeustunnus</label>
             <input type="text" class="form-control" id="kayttooikeustunnus" name="kayttooikeustunnus">
           </div>
         </div>
 
         <div class="row mb-3">
           <div class="col">
-            <label for="ilmoittajanNimi">Ilmoittajan nimi*</label>
+            <label for="ilmoittajanNimi" id="informantsName">Ilmoittajan nimi (pakollinen tieto)</label>
             <input type="text" class="form-control" id="ilmoittajanNimi" name="ilmoittajanNimi" required>
           </div>
         </div>
 
         <div class="row mb-3">
           <div class="col">
-            <label for="puhelinnumero">Puhelinnumero*</label>
+            <label for="puhelinnumero" id="phoneNumber">Puhelinnumero (pakollinen tieto)</label>
             <input type="tel" class="form-control" id="puhelinnumero" name="puhelinnumero" pattern="[0-9+]{4,}" required>
           </div>
         </div>
 
         <div class="row mb-3">
           <div class="col">
-            <label for="sahkoposti">Sähköpostiosoite*</label>
+            <label for="sahkoposti" id="email">Sähköpostiosoite (pakollinen tieto)</label>
             <input type="email" class="form-control" id="sahkoposti" name="sahkoposti" required>
           </div>
         </div>
 
         <div class="row mb-3">
           <div class="col text-muted">
-            <span>
+            <span id="GDPR">
               * Yhteystiedot ovat Väyläviraston GDPR alaisia ja yhteystietoja käytetään ainoastaan ongelmatilanteiden selvitykseen tiekunnan yhteyshenkilön kanssa tai yksityistietojen lakisääteiseen ilmoitusvelvollisuuteen liittyvään viestintään.
             </span>
           </div>
@@ -79,12 +93,12 @@
 
         <div class="row mb-3">
           <div class="col-md">
-            <label for="toiminto_dropdown">Siirry ilmoittamaan tiedot valitsemalla seuraavista vaihtoehdoista:</label>
+            <label for="toiminto_dropdown" id="actionDropdownLabel">Siirry ilmoittamaan tiedot valitsemalla seuraavista vaihtoehdoista:</label>
 
             <select class="custom-select" id="toiminto_dropdown" name="toiminto_dropdown" required autocomplete="off">
-		          <option selected disabled hidden>Valitse</option>
-		          <option value="1">Tiekunnan teiden tiedot ovat oikein Digiroadissa</option>
-		          <option value="2">Ilmoita tiekunnan puuttuvat tai muuttuneet tiedot</option>
+		          <option id="actionDropdown0" selected disabled hidden>Valitse</option>
+		          <option id="actionDropdown1" value="1">Tiekunnan teiden tiedot ovat oikein Digiroadissa</option>
+		          <option id="actionDropdown2" value="2">Ilmoita tiekunnan puuttuvat tai muuttuneet tiedot</option>
           	</select>
           </div>
         </div>
@@ -97,14 +111,14 @@
         <div id="tiedot_oikein_container" name="tiedot_oikein_container" class="" style="display: none;">
           <div class="row mb-3">
 						<div class="col">
-            	<h3>Tiekunnan tiedot ovat oikein</h3>
+            	<h3 id="roadMunicipalityInfoCorrect">Tiekunnan teiden tiedot ovat oikein</h3>
 						</div>
   				</div>
 
           <div class="row mb-3">
             <div class="col">
-              <label for="tiedot_oikein_tien_nimi_1">Tien nimi</label>
-              <input type="text" class="form-control" id="tiedot_oikein_tien_nimi_1" name="tiedot_oikein_tien_nimi_1">
+              <label for="tiedot_oikein_tien_nimi_1" class="InfoOkRoadName" id="InfoOkRoadName">Tien nimi (tien osoite)</label>
+              <input type="text" class="form-control tiedot_oikein_tien_nimi" id="tiedot_oikein_tien_nimi_1" required name="tiedot_oikein_tien_nimi_1" onkeyup="validateTiedotOikeinRoadButton('tiedot_oikein_tien_nimi_1')">
             </div>
           </div>
 
@@ -112,9 +126,9 @@
           <div class="tiedot_oikein_lisatyt_tiet mb-3"></div>
 
           <div class="row mb-5">
-            <div class="col">
+            <div class="col-3">
               <!-- Tiedot oikein lisää tie button -->
-              <button type="button" class="btn btn-success btn-lg tiedot_oikein_lisaa_tie">Lisää tie</button>
+              <button type="button" id="addRoad" disabled class="btn btn-success btn-lg tiedot_oikein_lisaa_tie">Lisää tie</button>
             </div>
           </div>
 
@@ -123,7 +137,7 @@
 						<div class="col">
 							<div class="custom-control custom-checkbox">
 			          <input type="checkbox" class="custom-control-input" id="tiedot_oikein_checkbox">
-			          <label class="custom-control-label" for="tiedot_oikein_checkbox">Vakuutan, että olen tarkistanut yksityistiekunnan teiden tiedot ja ne ovat Digiroadissa oikein.</label>
+			          <label class="custom-control-label" id="infoOkAgreement" for="tiedot_oikein_checkbox">Vakuutan, että olen tarkistanut yksityistiekunnan teiden tiedot ja ne ovat Digiroadissa oikein.</label>
 			        </div>
 						</div>
           </div>
@@ -135,7 +149,7 @@
 
         <!-- ilmoita_tiedot_container starts here -->
         <div id="ilmoita_tiedot_container" class="mb-3"  name="ilmoita_tiedot_container" style="display: none;">
-          <h3 class="mb-4">Ilmoita tiekunnan tiedot</h3>
+          <h3 class="mb-4" id="notifyMunicipalityInfo">Ilmoita tiekunnan teiden tiedot</h3>
 
           <!--this container should get duplicated by pressing the Lisää tie button-->
           <div id="ilmoita_tiedot_tie_container" class="card mb-3 bg-light" name="ilmoita_tiedot_tie_container">
@@ -144,8 +158,8 @@
 
               <div class="row mb-3">
                 <div class="col">
-                  <label for="ilmoita_tiedot_tien_nimi">Tien nimi</label>
-                  <input type="text" class="form-control" id="ilmoita_tiedot_tien_nimi_1" name="ilmoita_tiedot_tien_nimi_1">
+                  <label for="ilmoita_tiedot_tien_nimi" class="notifyInfoRoadsName" id="notifyInfoRoadsName">Tien nimi (tien osoite)</label>
+                  <input type="text" class="form-control ilmoita_tiedot_tien_nimi" id="ilmoita_tiedot_tien_nimi_1" required name="ilmoita_tiedot_tien_nimi_1" onkeyup="validateIlmoitaTiedotRoadButton()">
                 </div>
               </div>
 
@@ -153,7 +167,7 @@
 								<div class="col">
 									<div class="custom-control custom-checkbox">
 										<input type="checkbox" onchange="hideRajoitukset()" class="custom-control-input" id="tierajoitukset_checkbox_1" >
-		                <label class="custom-control-label" for="tierajoitukset_checkbox_1">Tiellä ei ole rajoituksia tai kieltoja</label>
+		                <label class="custom-control-label notifyInfoRestrictions" id="notifyInfoRestrictions" for="tierajoitukset_checkbox_1">Tiellä ei ole rajoituksia tai kieltoja</label>
 									</div>
 								</div>
               </div>
@@ -163,65 +177,87 @@
               <div id="tierajoitukset_container_1">
                 <div class="row mb-3">
                   <div class="col">
-                    <label for="painorajoitus">Painorajoitus kg</label>
+                    <label for="painorajoitus" class="notifyInfoWeightRestriction" id="notifyInfoWeightRestriction">Painorajoitus kg</label>
                     <input type="number" class="form-control" id="ilmoita_tiedot_painorajoitus_1" name="ilmoita_tiedot_painorajoitus_1">
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <div class="col">
-                    <label for="painorajoitus_lisakilvet">Lisäkilvet</label>
+                    <label for="painorajoitus_lisakilvet" class="notifyInfoWeightSign" id="notifyInfoWeightSign">Painorajoituksen lisäkilvet</label>
                     <input type="text" class="form-control" id="ilmoita_tiedot_painorajoitus_lisakilvet_1" name="ilmoita_tiedot_painorajoitus_lisakilvet_1">
                   </div>
                 </div>
 
+								<hr class="mb-5 mt-5">
+
+								<div class="row mb-3">
+								 <div class="col">
+									 <div class="custom-control custom-checkbox">
+		 								<input type="checkbox" onchange="hideKelirikko()" checked class="custom-control-input" id="kelirikko_checkbox_1" name="ilmoita_tiedot_toistuva_kelirikko_1">
+		             		<label for="kelirikko_checkbox_1" class="custom-control-label notifyInfoFrequentFrostHeave" id="notifyInfoFrequentFrostHeave">Tiellä esiintyy toistuvia kelirikkoja.</label>
+		             	</div>
+								 </div>
+							 </div>
+
+							 	<div id="kelirikko_container_1" class="ilmoita_tiedot">
                  <div class="row mb-3">
-                  <div class="col">
-                    <label for="kelirikko" class="kelirikko">Kelirikko</label>
-                    <input type="text" class="form-control" id="ilmoita_tiedot_kelirikko_1" name="ilmoita_tiedot_kelirikko_1">
-                  </div>
-                </div>
+	                  <div class="col">
+	                    <label for="ilmoita_tiedot_kelirikonPainoRaja_1" class="notifyInfoFrostHeaveWeightRestriction" id="notifyInfoFrostHeaveWeightRestriction">Kelirikon aikainen painorajoitus (kg), jos asetettu</label>
+	                    <input type="number" class="form-control" id="ilmoita_tiedot_kelirikonPainoRaja_1" name="ilmoita_tiedot_kelirikonPainoRaja_1">
+	                  </div>
+	               </div>
 
 								<div class="row mb-3">
 									<div class="col">
-										<label for="voimassaoloAika" class="voimassaoloAika">Arvio kelirikon tilapäisestä tai toistuvasta voimassaoloajasta</label>
+										<label for="voimassaoloAika" class="voimassaoloAika notifyInfoFrostHeaveValidity" id="notifyInfoFrostHeaveValidity">Arvio kelirikon tilapäisestä tai toistuvasta voimassaoloajasta</label>
 
 										<div class="row" id="voimassaoloAika">
 											<div class="col">
-												<input type="text" class="form-control" placeholder="Alkaa" id="voimassaoloStart" autocomplete="off" name="ilmoita_tiedot_voimassaoloAika_start_1">
+												<input type="text" class="form-control" placeholder="Alkaa" id="voimassaoloStart" autocomplete="off" name="ilmoita_tiedot_kelirikonVoimassaoloAika_start_1">
 											</div>
 											<div class="col">
-												<input type="text" class="form-control" placeholder="Päättyy" id="voimassaoloEnd" autocomplete="off" name="ilmoita_tiedot_voimassaoloAika_end_1">
+												<input type="text" class="form-control" placeholder="Päättyy" id="voimassaoloEnd" autocomplete="off" name="ilmoita_tiedot_kelirikonVoimassaoloAika_end_1">
 											</div>
 										</div>
 									</div>
 								</div>
+							</div>
+
+							<hr class="mb-5 mt-5">
 
                  <div class="row mb-3">
                   <div class="col">
-                    <label for="ajokielto" class="ajokielto">Ajokielto</label>
+                    <label for="ajokielto" class="notifyInfoDrivingBan" id="notifyInfoDrivingBan">Ajokielto</label>
                     <input type="text" class="form-control" id="ilmoita_tiedot_ajokielto_1" name="ilmoita_tiedot_ajokielto_1">
                   </div>
                 </div>
 
 								<div class="row mb-3">
                   <div class="col">
-                    <label for="ajokielto_lisakilvet">Lisäkilvet</label>
+                    <label for="ajokielto_lisakilvet" class="notifyInfoDrivingBanSign" id="notifyInfoDrivingBanSign">Ajokiellon lisäkilvet</label>
                     <input type="text" class="form-control" id="ilmoita_tiedot_ajokielto_lisakilvet_1" name="ilmoita_tiedot_ajokielto_lisakilvet_1">
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <div class="col">
-                    <label for="nopeusrajoitus">Nopeusrajoitus</label>
+                    <label for="nopeusrajoitus" class="notifyInfoSpeedLimit" id="notifyInfoSpeedLimit">Nopeusrajoitus</label>
                     <input type="text" class="form-control" id="ilmoita_tiedot_nopeusrajoitus_1" name="ilmoita_tiedot_nopeusrajoitus_1">
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <div class="col">
-									    <label for="karttalinkit">Karttalinkit*</label>
-									    <textarea maxlength="5000" class="form-control" id="ilmoita_tiedot_karttalinkit_1" rows="3" name="ilmoita_tiedot_karttalinkit_1" placeholder="Kirjoita..."></textarea>
+									    <label for="karttalinkit" class="notifyInfoMapLinks" id="notifyInfoMapLinks">Karttalinkit*</label>
+									    <textarea maxlength="5000" class="form-control" id="ilmoita_tiedot_karttalinkit_1" rows="3" name="ilmoita_tiedot_karttalinkit_1"></textarea>
+									</div>
+                </div>
+
+								<div class="row mb-3">
+                  <div class="col">
+									    <label for="lisatiedot" class="notifyInfoAdditionalInformation" id="notifyInfoAdditionalInformation">Voit halutessasi ilmoittaa myös muut tien liikennemerkit tai antaa lisätietoja rajoituksista</label>
+									    <textarea maxlength="5000" class="form-control" id="ilmoita_tiedot_lisatiedot_1" rows="3" name="ilmoita_tiedot_lisatiedot_1"></textarea>
 									</div>
                 </div>
 
@@ -229,7 +265,7 @@
 
                 <div class="row mb-3">
                   <div class="col">
-                    <label class="text-muted">
+                    <label class="text-muted notifyInfoBottomText" id="notifyInfoBottomText">
 	                    *Rajoitusten ja kieltojen sijainneista voi toimittaa myös vapaamuotoisen kartan sähköpostitse osoitteeseen info@digiroad.fi. Otsikkokenttään tulee laittaa tiekunnan nimi.
 	                  </label>
                   </div>
@@ -246,7 +282,7 @@
           <!-- add extra road button -->
           <div class="row mb-5">
             <div class="col">
-              <button type="button" class="btn btn-success btn-lg ilmoita_tiedot_lisaa_tie">Lisää tie</button>
+              <button type="button" disabled class="btn btn-success btn-lg ilmoita_tiedot_lisaa_tie" id="notifyInfoAddRoad" >Lisää tie</button>
             </div>
           </div>
 
@@ -254,8 +290,8 @@
 
 						<div class="col">
 							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="ilmoita_checkbox" name="ilmoita_checkbox">
-            		<label for="ilmoita_checkbox" class="custom-control-label">Vakuutan, että olen ilmoittanut Digiroadiin tiekunnan teiden rajoitukset ja kaikki rajoitukset ja kiellot ovat kunnan hyväksymiä.</label>
+								<input type="checkbox" class="custom-control-input" id="vakuutan_tiedot_checkbox" name="vakuutan_tiedot_checkbox" value="vakuutan">
+            		<label for="vakuutan_tiedot_checkbox" class="custom-control-label notifyInfoAgreement" id="notifyInfoAgreement">Vakuutan, että olen ilmoittanut Digiroadiin tiekunnan teiden rajoitukset ja kaikki rajoitukset ja kiellot ovat kunnan hyväksymiä.</label>
             	</div>
 						</div>
           </div>
@@ -264,10 +300,23 @@
         <!-- ilmoita_tiedot_container ends here-->
 
 
+				<div class="row mb-5 mt-3">
+          <div class="col-md">
+            <label for="tositeliite_dropdown" id="voucherAttachment">Valitse tapa, jolla tositeliite toimitetaan teille:</label>
+
+            <select class="custom-select" id="tositeliite_dropdown" name="tositeliite_dropdown" required autocomplete="off">
+		          <option value="1" id="voucherAttachmentOption1">Sähköpostitse (tarkista antamasi sähköpostiosoite!)</option>
+		          <option value="2" id="voucherAttachmentOption2">Lataa tositeliite koneelle .pdf tiedostona</option>
+							<option value="3" id="voucherAttachmentOption3">Lataa tositeliite koneelle ja toimita kopio sähköpostiin (tarkista antamasi sähköpostiosoite!)</option>
+          	</select>
+          </div>
+        </div>
+
+
         <!-- submit button -->
 				<div class="row mb-3 justify-content-center">
 	        <div class="col-5">
-	        	<input type="submit" class="btn btn-primary btn-lg btn-block" value="Lähetä ja lataa tositeliite">
+	        	<input type="submit" class="btn btn-primary btn-lg btn-block" id="sendVoucherAttachement" value="Lähetä ja lataa tositeliite">
 	        </div>
 				</div>
 
@@ -279,23 +328,30 @@
   </div>
   <!-- form-container ends -->
 
-<!-- jQuery -->
-<script type="text/javascript" src="./lib/jquery-3.3.1.min.js"></script>
+	<!-- jQuery -->
+	<script type="text/javascript" src="./lib/jquery-3.3.1.min.js"></script>
 
-<!-- javascript pdf -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+	<!-- bootstrap -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
-<!-- moment -->
-<script src="lib/moment.min.js"></script>
-<script src="lib/moment-locale-fi.js"></script>
+	<!-- jspdf -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
 
-<!-- bootstrap -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+	<!-- i18next -->
+	<script src="https://unpkg.com/i18next/i18next.js"></script>
+	<script src="./lib/i18next.js"></script>
 
+	<!-- moment -->
+	<script src="./lib/moment-with-locales.js"></script>
 
-<!-- date picker -->
-<script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
-<script src="digiroad_form_script.js"></script>
+	<!-- date picker -->
+	<script src="./lib/pikaday.js"></script>
+
+	<!-- createPDF -->
+	<script src="./lib/createPDF.js"></script>
+
+	<!-- javascript -->
+	<script src="./lib/digiroad_form_script.js"></script>
 
 </body>
 

@@ -11,7 +11,9 @@ public class YksityistieFormClass {
     private String ilmoittajanNimi;
     private String puhelinnumero;
     private String sahkoposti;
-    private String toiminto_dropdown;
+    private String toimintodropdown;
+    private String vakuutantiedotcheckbox;
+    private String tositeliitedropdown;
     private List<YksityistieTieClass> tielista;
 
 
@@ -64,11 +66,11 @@ public class YksityistieFormClass {
 	}
 
 	public String getToiminto_dropdown() {
-		return toiminto_dropdown;
+		return toimintodropdown;
 	}
 
 	public void setToiminto_dropdown(String toiminto_dropdown) {
-		this.toiminto_dropdown = toiminto_dropdown;
+		this.toimintodropdown = toiminto_dropdown;
 	}
 
 	public List<YksityistieTieClass> getTielista() {
@@ -94,5 +96,21 @@ public class YksityistieFormClass {
 	    		    .add( "Sähköpostiosoite: " + sahkoposti + "\r\n")
 	    		    .add(tiet)
 	    			.toString();
+	}
+
+	public String getVakuutantiedotcheckbox() {
+		return vakuutantiedotcheckbox;
+	}
+
+	public void setVakuutantiedotcheckbox(String vakuutantiedotcheckbox) {
+		this.vakuutantiedotcheckbox = vakuutantiedotcheckbox;
+	}
+
+	public String getTositeliitedropdown() {
+		return tositeliitedropdown;
+	}
+
+	public void setTositeliitedropdown(String tositeliitedropdown) {
+		this.tositeliitedropdown = tositeliitedropdown;
 	}
 }
