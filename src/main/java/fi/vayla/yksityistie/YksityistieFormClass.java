@@ -7,13 +7,14 @@ public class YksityistieFormClass {
 
     private String kunta;
     private String tiekunta;
-    private String kayttooikeustunnus;
+    private String kayttooikeustunnus="";//ei pakollinen
     private String ilmoittajanNimi;
     private String puhelinnumero;
     private String sahkoposti;
     private String toimintodropdown;
     private String vakuutantiedotcheckbox;
     private String tositeliitedropdown;
+    private String grecaptcharesponse;
     private List<YksityistieTieClass> tielista;
 
 
@@ -65,12 +66,12 @@ public class YksityistieFormClass {
 		this.sahkoposti = sahkoposti;
 	}
 
-	public String getToiminto_dropdown() {
+	public String getToimintodropdown() {
 		return toimintodropdown;
 	}
 
-	public void setToiminto_dropdown(String toiminto_dropdown) {
-		this.toimintodropdown = toiminto_dropdown;
+	public void setToimintodropdown(String toimintodropdown) {	
+		this.toimintodropdown = toimintodropdown.contains("1")?"Teiden tiedot ovat oikein":"Puuttuvat tai muuttuneet tiedot";
 	}
 
 	public List<YksityistieTieClass> getTielista() {
@@ -87,9 +88,10 @@ public class YksityistieFormClass {
 		for (int i=0;i<tielista.size();i++){
 			tiet = tiet +" "+ tielista.get(i).toString();
 		}
-	    return new StringJoiner( "\r\n" , "Ilmoitustyyppi: " + getToiminto_dropdown() + "\r\n" , " \r\n" )
+	    return new StringJoiner( "\r\n" , "Ilmoitustyyppi: " + getToimintodropdown() + "\r\n" , " \r\n" )
 	    		    .add( "Kunta: " + kunta + "")
 	    		    .add( "Tiekunta: " + tiekunta + "")
+	    		    .add( "reCaptcha: " + grecaptcharesponse + "")
 	    		    .add( "Käyttöoikeustunnus: " + kayttooikeustunnus + "")
 	    		    .add( "Ilmoittajan nimi: " + ilmoittajanNimi + "")
 	    		    .add( "Puhelinnumero: " + puhelinnumero + "")
@@ -112,5 +114,13 @@ public class YksityistieFormClass {
 
 	public void setTositeliitedropdown(String tositeliitedropdown) {
 		this.tositeliitedropdown = tositeliitedropdown;
+	}
+
+	public String getGrecaptcharesponse() {
+		return grecaptcharesponse;
+	}
+
+	public void setGrecaptcharesponse(String grecaptcharesponse) {
+		this.grecaptcharesponse = grecaptcharesponse;
 	}
 }

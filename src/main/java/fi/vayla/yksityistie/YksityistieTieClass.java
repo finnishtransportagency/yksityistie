@@ -6,13 +6,15 @@ public class YksityistieTieClass {
 	private String tiennimi;
 	private String painorajoitus;
 	private String painorajoituslisakilvet;
-	private String kelirikko;
-	private String voimassaoloAikastart;
-	private String voimassaoloAikaend;
+	private String toistuvakelirikko;
+	private String kelirikonPainoRaja;
+	private String kelirikonVoimassaoloAikastart;
+	private String kelirikonVoimassaoloAikaend;
 	private String ajokielto;
 	private String ajokieltolisakilvet;
 	private String nopeusrajoitus;
 	private String karttalinkit;
+	private String lisatiedot;
 	
 	
 	public String getTiennimi() {
@@ -33,23 +35,23 @@ public class YksityistieTieClass {
 	public void setPainorajoituslisakilvet(String painorajoituslisakilvet) {
 		this.painorajoituslisakilvet = painorajoituslisakilvet;
 	}
-	public String getKelirikko() {
-		return kelirikko;
+	public String getToistuvakelirikko() {
+		return toistuvakelirikko;
 	}
-	public void setKelirikko(String kelirikko) {
-		this.kelirikko = kelirikko;
+	public void setToistuvakelirikko(String toistuvakelirikko) {
+		this.toistuvakelirikko = toistuvakelirikko;
 	}
-	public String getVoimassaoloAikastart() {
-		return voimassaoloAikastart;
+	public String getKelirikonVoimassaoloAikastart() {
+		return kelirikonVoimassaoloAikastart;
 	}
-	public void setVoimassaoloAikastart(String voimassaoloAikastart) {
-		this.voimassaoloAikastart = voimassaoloAikastart;
+	public void setKelirikonVoimassaoloAikastart(String kelirikonVoimassaoloAikastart) {
+		this.kelirikonVoimassaoloAikastart = kelirikonVoimassaoloAikastart;
 	}
-	public String getVoimassaoloAikaend() {
-		return voimassaoloAikaend;
+	public String getKelirikonVoimassaoloAikaend() {
+		return kelirikonVoimassaoloAikaend;
 	}
-	public void setVoimassaoloAikaend(String voimassaoloAikaend) {
-		this.voimassaoloAikaend = voimassaoloAikaend;
+	public void setKelirikonVoimassaoloAikaend(String kelirikonVoimassaoloAikaend) {
+		this.kelirikonVoimassaoloAikaend = kelirikonVoimassaoloAikaend;
 	}
 	public String getAjokielto() {
 		return ajokielto;
@@ -75,7 +77,19 @@ public class YksityistieTieClass {
 	public void setKarttalinkit(String karttalinkit) {
 		this.karttalinkit = karttalinkit;
 	}
-
+	public String getKelirikonPainoRaja() {
+		return kelirikonPainoRaja;
+	}
+	public void setKelirikonPainoRaja(String kelirikonPainoRaja) {
+		this.kelirikonPainoRaja = kelirikonPainoRaja;
+	}
+	public String getLisatiedot() {
+		return lisatiedot;
+	}
+	public void setLisatiedot(String lisatiedot) {
+		this.lisatiedot = lisatiedot;
+	}
+	
 	@Override
 	public String toString ()
 	{
@@ -83,13 +97,17 @@ public class YksityistieTieClass {
 	    		.add( "Tien nimi: " + tiennimi + "")
 	    		.add( "Painorajoitus kg: " + painorajoitus + "")
 	    		.add( "Painorajoitus lisakilvet: " + painorajoituslisakilvet + "")
-	    		.add( "Kelirikko: " + kelirikko + "")
-	    		.add( "Voimassaoloaika alkaa: " + voimassaoloAikastart + "")
-	    		.add( "Voimassaoloaika loppuu: " + voimassaoloAikaend + "")
+	    		.add( "Toistuva kelirikko: " + toistuvakelirikko + "")
+	    		.add( "Kelirikon painoraja: " + kelirikonPainoRaja + "")
+	    		.add( "Kelirikon voimassaoloaika alkaa: " + kelirikonVoimassaoloAikastart + "")
+	    		.add( "Kelirikon voimassaoloaika loppuu: " + kelirikonVoimassaoloAikaend + "")
 	    		.add( "Ajokielto: " + ajokielto + "")
 	    		.add( "Ajokielto lisakilvet: " + ajokieltolisakilvet + "")
 	    		.add( "Nopeusrajoitus: " + nopeusrajoitus + "")
 	    		.add( "Karttalinkit: " + karttalinkit + "")
+	    		.add( "Lisätiedot: " + lisatiedot + "")
 	    		.toString();
 	}
+
+
 }

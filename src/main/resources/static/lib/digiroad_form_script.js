@@ -727,7 +727,7 @@
 
 			 // henkilötiedot + dropdown arvot
 			 else {
-					var nimi = event.target[i].name.replace(/[0-9_]/g, "");
+					var nimi = event.target[i].name.replace(/[0-9_-]/g, "");
 					var arvo = event.target[i].value;
 					if (nimi && nimi!="" && arvo) {
 					 var kuntatieto = {
