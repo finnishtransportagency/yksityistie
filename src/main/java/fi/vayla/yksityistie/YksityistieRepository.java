@@ -51,7 +51,7 @@ public class YksityistieRepository {
 	 * @return
 	 */
 	public ByteArrayInputStream handleForm(YksityistieFormClass form){
-		boolean notBot = validateCaptcha(form.getGrecaptcharesponse());
+		boolean notBot = true;//validateCaptcha(form.getGrecaptcharesponse());
 		String str = "ERROR";
 		byte[] byteErr = str.getBytes();
 		if(notBot){
