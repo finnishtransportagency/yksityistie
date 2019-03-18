@@ -9,6 +9,7 @@ import java.io.ByteArrayInputStream;
 /*import java.io.IOException;
 import org.apache.log4j.Logger;*/
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import javax.mail.MessagingException;
@@ -16,6 +17,9 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.util.ByteArrayDataSource;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -35,7 +39,11 @@ public class YksityistieRepository {
 	@Autowired
     public JavaMailSender emailSender;
 	
-	
+	private static final String GOOGLE_RECAPTCHA_ENDPOINT = "https://www.google.com/recaptcha/api/siteverify";
+
+    @Value("${google.recaptcha.key.secret}")
+    private String recaptchaSecret;
+    
 	/**
 	 * Calls methods that create PDF document, sends it to mail receivers
 	 * and creates email body
@@ -43,9 +51,16 @@ public class YksityistieRepository {
 	 * @return
 	 */
 	public ByteArrayInputStream handleForm(YksityistieFormClass form){
-		byte[] bytes = createPdf(form);
-		sendMessages(bytes, form);
-		return new ByteArrayInputStream(bytes);
+		boolean notBot = validateCaptcha(form.getGrecaptcharesponse());
+		String str = "ERROR";
+		byte[] byteErr = str.getBytes();
+		if(notBot){
+			byte[] bytes = createPdf(form);
+			sendMessages(bytes, form);
+			return new ByteArrayInputStream(bytes);
+		} else {
+			return new ByteArrayInputStream(byteErr);
+		}
 	}
  
 	
@@ -137,5 +152,18 @@ public class YksityistieRepository {
             //Logger.getLogger(GeneratePdfReport.class.getName()).log(Level.SEVERE, null, ex);
         }
         return out.toByteArray();
+    }
+    
+    public boolean validateCaptcha(String captchaResponse){
+        RestTemplate restTemplate = new RestTemplate();
+        MultiValueMap<String, String> requestMap = new LinkedMultiValueMap<>();
+        requestMap.add("secret", recaptchaSecret);
+        requestMap.add("response", captchaResponse);
+        CaptchaResponse apiResponse = restTemplate.postForObject(GOOGLE_RECAPTCHA_ENDPOINT, requestMap, CaptchaResponse.class);
+        if(apiResponse == null){
+            return false;
+        }
+
+        return Boolean.TRUE.equals(apiResponse.getSuccess());
     }
 }
