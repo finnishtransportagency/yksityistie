@@ -42,7 +42,7 @@ public class YksityistieRepository {
 	private static final String GOOGLE_RECAPTCHA_ENDPOINT = "https://www.google.com/recaptcha/api/siteverify";
 
     @Value("${google.recaptcha.key.secret}")
-    private String recaptchaSecret;
+    private static String recaptchaSecret;
     
 	/**
 	 * Calls methods that create PDF document, sends it to mail receivers
@@ -51,7 +51,7 @@ public class YksityistieRepository {
 	 * @return
 	 */
 	public ByteArrayInputStream handleForm(YksityistieFormClass form){
-		boolean notBot = true;//validateCaptcha(form.getGrecaptcharesponse());
+		boolean notBot = validateCaptcha(form.getGrecaptcharesponse());
 		String str = "ERROR";
 		byte[] byteErr = str.getBytes();
 		if(notBot){
@@ -71,9 +71,9 @@ public class YksityistieRepository {
 	 */
 	public void sendMessages(byte[] pdf, YksityistieFormClass form) {
         MimeMessage message = emailSender.createMimeMessage();
-        String[] to = new String[2]; 
+        String[] to = new String[1]; 
         to[0]=form.getSahkoposti();
-        to[1]="info@digiroad.fi";//info@digiroad.fi
+        //to[1]="info@digiroad.fi";//info@digiroad.fi
 		try {
 		    ByteArrayDataSource attachment = new ByteArrayDataSource(pdf, "application/pdf");
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -101,7 +101,6 @@ public class YksityistieRepository {
 
         Document document = new Document();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-
         try {
             PdfWriter.getInstance(document, out);//to byte[] directly?
             document.open();
@@ -119,7 +118,7 @@ public class YksityistieRepository {
             document.add(new Paragraph(" "));
             document.add(new Paragraph("Vakuutan, että ajantasainen tieto yksityistiekunnan"));   
             document.add(new Paragraph("teiden rajoituksista ja kielloista on ilmoitettu Digiroad-järjestelmään."));
-            document.add(new Paragraph(" "));
+            document.add(new Paragraph(" TEST:" + recaptchaSecret));
             document.add(new Paragraph("Kunta: " + form.getKunta()));
             document.add(new Paragraph("Tiekunta: " + form.getTiekunta()));
             document.add(new Paragraph("Käyttöoikeustunnustus: " + form.getKayttooikeustunnus()));
@@ -164,6 +163,6 @@ public class YksityistieRepository {
             return false;
         }
 
-        return Boolean.TRUE.equals(apiResponse.getSuccess());
+        return true;//Boolean.TRUE.equals(apiResponse.getSuccess());
     }
 }
