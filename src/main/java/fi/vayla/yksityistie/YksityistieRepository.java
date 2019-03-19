@@ -42,7 +42,7 @@ public class YksityistieRepository {
 	private static final String GOOGLE_RECAPTCHA_ENDPOINT = "https://www.google.com/recaptcha/api/siteverify";
 
     @Value("${google.recaptcha.key.secret}")
-    private static String recaptchaSecret;
+    private String recaptchaSecret;
     
 	/**
 	 * Calls methods that create PDF document, sends it to mail receivers
@@ -101,6 +101,7 @@ public class YksityistieRepository {
 
         Document document = new Document();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
+
         try {
             PdfWriter.getInstance(document, out);//to byte[] directly?
             document.open();
@@ -118,7 +119,7 @@ public class YksityistieRepository {
             document.add(new Paragraph(" "));
             document.add(new Paragraph("Vakuutan, että ajantasainen tieto yksityistiekunnan"));   
             document.add(new Paragraph("teiden rajoituksista ja kielloista on ilmoitettu Digiroad-järjestelmään."));
-            document.add(new Paragraph(" TEST:" + recaptchaSecret));
+            document.add(new Paragraph(" "));
             document.add(new Paragraph("Kunta: " + form.getKunta()));
             document.add(new Paragraph("Tiekunta: " + form.getTiekunta()));
             document.add(new Paragraph("Käyttöoikeustunnustus: " + form.getKayttooikeustunnus()));
@@ -163,6 +164,6 @@ public class YksityistieRepository {
             return false;
         }
 
-        return true;//Boolean.TRUE.equals(apiResponse.getSuccess());
+        return Boolean.TRUE.equals(apiResponse.getSuccess());
     }
 }
