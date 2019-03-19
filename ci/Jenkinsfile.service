@@ -76,6 +76,7 @@ pipeline {
                         "sed -i 's/MAIL_HOST/${MAIL_HOST}/g' ${config}",
 			            "sed -i 's/MAIL_PORT/${MAIL_PORT}/g' ${config}",
 						"sed -i 's/CAPTCHA_SECRET/${CAPTCHA_SECRET}/g' ${config}",
+						"sed -i 's/HTTPS_PROXY/${HTTPS_PROXY}/g' ${config}",
                         [
                             "mvn",
                             "versions:set",

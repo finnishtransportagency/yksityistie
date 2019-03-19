@@ -2,7 +2,9 @@ package fi.vayla.yksityistie;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
+import java.net.Proxy;
 import java.net.URL;
 import java.io.ByteArrayInputStream;
 
@@ -10,6 +12,7 @@ import java.io.ByteArrayInputStream;
 import org.apache.log4j.Logger;*/
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import javax.mail.MessagingException;
@@ -39,6 +42,9 @@ public class YksityistieRepository {
 	@Autowired
     public JavaMailSender emailSender;
 	
+	@Value("${proxy.host}")
+	String host;
+
 	private static final String GOOGLE_RECAPTCHA_ENDPOINT = "https://www.google.com/recaptcha/api/siteverify";
 
     @Value("${google.recaptcha.key.secret}")
@@ -155,7 +161,13 @@ public class YksityistieRepository {
     }
     
     public boolean validateCaptcha(String captchaResponse){
-        RestTemplate restTemplate = new RestTemplate();
+    	//proxy start
+    	SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+    	InetSocketAddress address = new InetSocketAddress(host, 80);
+    	Proxy proxy = new Proxy(Proxy.Type.HTTP,address);
+    	factory.setProxy(proxy);
+    	//proxy end
+        RestTemplate restTemplate = new RestTemplate(factory);
         MultiValueMap<String, String> requestMap = new LinkedMultiValueMap<>();
         requestMap.add("secret", recaptchaSecret);
         requestMap.add("response", captchaResponse);
