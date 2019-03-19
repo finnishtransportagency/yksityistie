@@ -44,7 +44,9 @@ public class YksityistieRepository {
 	
 	@Value("${proxy.host}")
 	String host;
-
+	@Value("${proxy.port}")
+	int port;
+	
 	private static final String GOOGLE_RECAPTCHA_ENDPOINT = "https://www.google.com/recaptcha/api/siteverify";
 
     @Value("${google.recaptcha.key.secret}")
@@ -163,7 +165,7 @@ public class YksityistieRepository {
     public boolean validateCaptcha(String captchaResponse){
     	//proxy start
     	SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-    	InetSocketAddress address = new InetSocketAddress(host, 80);
+    	InetSocketAddress address = new InetSocketAddress(host, port);
     	Proxy proxy = new Proxy(Proxy.Type.HTTP,address);
     	factory.setProxy(proxy);
     	//proxy end
