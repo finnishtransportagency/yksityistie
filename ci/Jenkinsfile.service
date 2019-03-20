@@ -78,7 +78,7 @@ pipeline {
 						"sed -i 's/CAPTCHA_SECRET/${CAPTCHA_SECRET}/g' ${config}",
 						"sed -i 's/HTTPS_PROXY/${HTTPS_PROXY}/g' ${config}",
 						"sed -i 's/HTTPS_PROXY_PORT/${HTTPS_PROXY}/g' ${config}",
-						echo "$(config)",
+						"echo '$(config)'",
                         [
                             "mvn",
                             "versions:set",
