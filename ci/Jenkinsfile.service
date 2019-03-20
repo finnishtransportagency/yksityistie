@@ -72,12 +72,11 @@ pipeline {
                     def config = "src/main/resources/application.properties"
 
                     STAGE_BUILD_CMD = [
-						"proxy_ip=\"127.0.0.1\"",
                         "sed -i 's/MAIL_CRED/${MAIL_CRED}/g' ${config}",
                         "sed -i 's/MAIL_HOST/${MAIL_HOST}/g' ${config}",
 			            "sed -i 's/MAIL_PORT/${MAIL_PORT}/g' ${config}",
 						"sed -i 's/CAPTCHA_SECRET/${CAPTCHA_SECRET}/g' ${config}",
-						"sed -i 's~HTTPS_PROXY~${proxy_ip}~g' ${config}",
+						"sed -i 's~HTTPS_PROXY~${http_proxy}~g' ${config}",
 						"tail -n 100 ${config}",
                         [
                             "mvn",
