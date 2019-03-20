@@ -46,6 +46,8 @@ public class YksityistieRepository {
 	String host;
 	@Value("${proxy.port}")
 	int port;
+	@Value("${proxy}")
+	String proxy;
 	
 	private static final String GOOGLE_RECAPTCHA_ENDPOINT = "https://www.google.com/recaptcha/api/siteverify";
 
@@ -60,14 +62,28 @@ public class YksityistieRepository {
 	 */
 	public ByteArrayInputStream handleForm(YksityistieFormClass form){
 		boolean notBot = validateCaptcha(form.getGrecaptcharesponse());
-		String str = "ERROR";
-		byte[] byteErr = str.getBytes();
+		byte[] byteEmpty = new byte[0];
+		String choice = form.getTositeliitedropdown();
 		if(notBot){
 			byte[] bytes = createPdf(form);
-			sendMessages(bytes, form);
-			return new ByteArrayInputStream(bytes);
-		} else {
-			return new ByteArrayInputStream(byteErr);
+			if(choice.equals("1")){//all emails only
+				sendMessages(bytes, form);
+			} 
+			if(choice.equals("3")){//all emails and download
+				sendMessages(bytes, form);
+				return new ByteArrayInputStream(bytes);
+				}
+			if(choice.equals("2")) {//download only and email to digiroad
+				form.setSahkoposti("pasi.savolainen@sitowise.com");//test if this works
+				sendMessages(bytes, form);
+				return new ByteArrayInputStream(bytes);
+				} 
+			else {//something vent wrong
+				return new ByteArrayInputStream(byteEmpty);	
+				}
+			} 
+		else {
+			return new ByteArrayInputStream(byteEmpty);
 		}
 	}
  
@@ -79,9 +95,9 @@ public class YksityistieRepository {
 	 */
 	public void sendMessages(byte[] pdf, YksityistieFormClass form) {
         MimeMessage message = emailSender.createMimeMessage();
-        String[] to = new String[1]; 
-        to[0]=form.getSahkoposti();
-        //to[1]="info@digiroad.fi";//info@digiroad.fi
+        String[] to = new String[2]; 
+        to[0]=form.getSahkoposti();//jos useampia sposteja
+        to[1]="pasi.savolainen@sitowise.com";//info@digiroad.fi
 		try {
 		    ByteArrayDataSource attachment = new ByteArrayDataSource(pdf, "application/pdf");
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -90,11 +106,11 @@ public class YksityistieRepository {
 	        helper.setSubject("Tosite yksityistietietojen ilmoituksesta Digiroad-järjestelmään, " + form.getTiekunta()); 
 	        helper.setText(form.toString());
 	        helper.addAttachment("Digiroad_tosite.pdf", attachment);
+	        emailSender.send(message);
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}       
-        emailSender.send(message);
+		}
     }
 	
 	
@@ -162,22 +178,59 @@ public class YksityistieRepository {
         return out.toByteArray();
     }
     
-    public boolean validateCaptcha(String captchaResponse){
-    	//proxy start
+    public boolean validateCaptcha(String captchaResponse){	
+    	String hostNew = getHost();
     	SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-    	InetSocketAddress address = new InetSocketAddress(host, port);
-    	Proxy proxy = new Proxy(Proxy.Type.HTTP,address);
-    	factory.setProxy(proxy);
-    	//proxy end
+    	CaptchaResponse apiResponse = new CaptchaResponse();
+    	if(hostNew != null && !hostNew.isEmpty()){
+    		int portNew = getPort();
+    		InetSocketAddress address = new InetSocketAddress(hostNew, portNew);
+    		Proxy proxy = new Proxy(Proxy.Type.HTTP,address);
+    		factory.setProxy(proxy);
+    	}//proxy end
         RestTemplate restTemplate = new RestTemplate(factory);
         MultiValueMap<String, String> requestMap = new LinkedMultiValueMap<>();
         requestMap.add("secret", recaptchaSecret);
         requestMap.add("response", captchaResponse);
-        CaptchaResponse apiResponse = restTemplate.postForObject(GOOGLE_RECAPTCHA_ENDPOINT, requestMap, CaptchaResponse.class);
+        try {
+        apiResponse = restTemplate.postForObject(GOOGLE_RECAPTCHA_ENDPOINT, requestMap, CaptchaResponse.class);
+        } catch (Exception ex){
+        	return false;
+        	}
         if(apiResponse == null){
             return false;
         }
-
-        return Boolean.TRUE.equals(apiResponse.getSuccess());
+        boolean tosi =  Boolean.TRUE.equals(apiResponse.getSuccess());
+        return tosi;
     }
+
+
+	private int getPort() {
+		String hostPort = proxy.replace("http://", "");
+		int portti=80;
+		int startIndex = hostPort.indexOf(":");
+		if(startIndex == -1){//no port return default
+			return portti;
+		} else {
+			int pituus = hostPort.length();
+			String x = hostPort.substring(startIndex +1, pituus);
+			try {
+			portti = Integer.parseInt(x);
+			} catch (NumberFormatException e){//not a number
+				return portti;
+			}
+			return portti;
+		}
+	}
+
+
+	private String getHost() {
+		String hostPort = proxy.replace("http://", "");
+		int lastIndex = hostPort.indexOf(":");
+		if(lastIndex == -1){//no port defined
+			return hostPort;
+		} else {
+			return hostPort.substring(0, lastIndex);
+		}
+	}
 }

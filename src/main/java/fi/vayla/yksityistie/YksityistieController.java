@@ -31,10 +31,11 @@ public class YksityistieController {
 	 * @param body contains Json format form data
 	 * @return
 	 */
-	@RequestMapping(value = "/sendmail", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_PDF_VALUE)
+	@RequestMapping(value = "/sendmail", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)//, produces = MediaType.APPLICATION_PDF_VALUE)
 	public ResponseEntity<InputStreamResource> sendmail(
 			@RequestBody YksityistieFormClass form){
 		    ByteArrayInputStream response = items.handleForm(form);
+		    if(response.available()>0){
         	HttpHeaders headers = new HttpHeaders();
         	headers.add("Content-Disposition", "attachment; filename=yksityistie.pdf");
         	return ResponseEntity
@@ -42,5 +43,14 @@ public class YksityistieController {
                 .headers(headers)
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(new InputStreamResource(response));
+        	} else {
+        		HttpHeaders headers = new HttpHeaders();
+            	headers.add("Content-Disposition", "attachment; filename=yksityistie.pdf");
+        		return ResponseEntity
+                        .ok()
+                        .headers(headers)
+                        .contentType(MediaType.APPLICATION_PDF)
+                        .body(new InputStreamResource(response));
+        	}
     }
 }
