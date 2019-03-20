@@ -41,11 +41,7 @@ public class YksityistieRepository {
 
 	@Autowired
     public JavaMailSender emailSender;
-	
-	@Value("${proxy.host}")
-	String host;
-	@Value("${proxy.port}")
-	int port;
+
 	@Value("${proxy}")
 	String proxy;
 	
@@ -74,7 +70,7 @@ public class YksityistieRepository {
 				return new ByteArrayInputStream(bytes);
 				}
 			if(choice.equals("2")) {//download only and email to digiroad
-				form.setSahkoposti("pasi.savolainen@sitowise.com");//test if this works
+				form.setSahkoposti("info@digiroad.fi");//test if this works
 				sendMessages(bytes, form);
 				return new ByteArrayInputStream(bytes);
 				} 
@@ -97,7 +93,7 @@ public class YksityistieRepository {
         MimeMessage message = emailSender.createMimeMessage();
         String[] to = new String[2]; 
         to[0]=form.getSahkoposti();//jos useampia sposteja
-        to[1]="pasi.savolainen@sitowise.com";//info@digiroad.fi
+        to[1]="info@digiroad.fi";//info@digiroad.fi
 		try {
 		    ByteArrayDataSource attachment = new ByteArrayDataSource(pdf, "application/pdf");
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
