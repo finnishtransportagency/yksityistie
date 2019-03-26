@@ -58,7 +58,6 @@ public class YksityistieRepository {
 	 */
 	public ByteArrayInputStream handleForm(YksityistieFormClass form){
 		boolean notBot = validateCaptcha(form.getGrecaptcharesponse());
-		byte[] byteEmpty = new byte[0];
 		String choice = form.getTositeliitedropdown();
 		if(notBot){
 			byte[] bytes = createPdf(form);
@@ -74,12 +73,16 @@ public class YksityistieRepository {
 				sendMessages(bytes, form);
 				return new ByteArrayInputStream(bytes);
 				} 
-			else {//something vent wrong
-				return new ByteArrayInputStream(byteEmpty);	
+			else {//something went wrong
+				String errorText = "ERROR EMAIL";
+				byte[] error = errorText.getBytes();
+				return new ByteArrayInputStream(error);	
 				}
 			} 
-		else {
-			return new ByteArrayInputStream(byteEmpty);
+		else {//a bot
+			String errorText = "ERROR CAPTCHA";
+			byte[] error = errorText.getBytes();
+			return new ByteArrayInputStream(error);
 		}
 	}
  
@@ -91,9 +94,9 @@ public class YksityistieRepository {
 	 */
 	public void sendMessages(byte[] pdf, YksityistieFormClass form) {
         MimeMessage message = emailSender.createMimeMessage();
-        String[] to = new String[2]; 
+        String[] to = new String[1]; 
         to[0]=form.getSahkoposti();//jos useampia sposteja
-        to[1]="info@digiroad.fi";//info@digiroad.fi
+        //to[1]="info@digiroad.fi";//info@digiroad.fi
 		try {
 		    ByteArrayDataSource attachment = new ByteArrayDataSource(pdf, "application/pdf");
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -221,11 +224,19 @@ public class YksityistieRepository {
 
 
 	private String getHost() {
+		URL host;
+		try {//check if proxy address is valid
+			host = new URL(proxy);
+			host.toURI();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "";
+		}
 		String hostPort = proxy.replace("http://", "");
 		int lastIndex = hostPort.indexOf(":");
 		if(lastIndex == -1){//no port defined
-			return hostPort;
-		} else {
+			return hostPort;		
+		} else {		
 			return hostPort.substring(0, lastIndex);
 		}
 	}
