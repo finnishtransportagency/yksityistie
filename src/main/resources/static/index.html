@@ -2,9 +2,10 @@
 
 <head>
 	<meta charset="UTF-8">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 
@@ -29,10 +30,10 @@
 			</div>
 		</div>
 
-
+		<!-- onsubmit="formHandler(event)" -->
 
     <!-- Tiekunnan tiedot starts here -->
-    <form class="yksityisteidenIlmoittaminen" method="post" onsubmit="formHandler(event)">
+    <form class="yksityisteidenIlmoittaminen" id="yksityisteidenIlmoittaminen" method="post" onsubmit="formHandler(event)">
 
       <fieldset id="tiekunnan_tiedot">
 
@@ -92,7 +93,7 @@
 		<hr class="mb-5 mt-5">
 		<iframe src="https://kehitysjulkinen.vayla.fi/oskari/?lang=fi&uuid=a2ad3dca-5b72-4e8e-a3cf-385d4e3f7f5e" style="border: 1px solid blue; width: 100%; height: 500px"></iframe>
 		<hr class="mb-5 mt-5">
-		
+
         <div class="row mb-3">
           <div class="col-md">
             <label for="toiminto_dropdown" id="actionDropdownLabel">Siirry ilmoittamaan tiedot valitsemalla seuraavista vaihtoehdoista:</label>
@@ -244,8 +245,18 @@
 
                 <div class="row mb-3">
                   <div class="col">
-                    <label for="nopeusrajoitus" class="notifyInfoSpeedLimit" id="notifyInfoSpeedLimit">Nopeusrajoitus</label>
-                    <input type="text" class="form-control" id="ilmoita_tiedot_nopeusrajoitus_1" name="ilmoita_tiedot_nopeusrajoitus_1">
+                    <label for="nopeusrajoitus" class="notifyInfoSpeedLimit" id="notifyInfoSpeedLimit">Nopeusrajoitus km/h</label>
+										<select class="custom-select form-control" id="ilmoita_tiedot_nopeusrajoitus_1" name="ilmoita_tiedot_nopeusrajoitus_1" autocomplete="off">
+						          <option value="20" id="nopeusrajoitusValinta1">20</option>
+											<option value="30" id="nopeusrajoitusValinta2">30</option>
+						          <option value="40" id="nopeusrajoitusValinta3">40</option>
+											<option value="50" id="nopeusrajoitusValinta4">50</option>
+											<option value="60" id="nopeusrajoitusValinta5">60</option>
+											<option value="70" id="nopeusrajoitusValinta6">70</option>
+											<option value="80" id="nopeusrajoitusValinta7">80</option>
+											<option value="100" id="nopeusrajoitusValinta8">100</option>
+											<option value="120" id="nopeusrajoitusValinta9">120</option>
+				          	</select>
                   </div>
                 </div>
 
@@ -314,15 +325,20 @@
           </div>
         </div>
 
-				<div class="row mb-3 justify-content-center">
+				<div class="row mb-3 mt-5 justify-content-center">
 					<div class="col-4">
 						<div class="g-recaptcha" data-sitekey="6Ldwz5cUAAAAABUMAEMs87u7g_Gj8isEFP5L__oQ"></div>
 					</div>
 				</div>
+
         <!-- submit button -->
-				<div class="row mb-3 justify-content-center">
+				<div id="buttonDisabledHint">
+					<p id="disabledButtonHint" class="row mt-3 mt-5 font-weight-bold justify-content-center text-danger">Tarkista lomakkeen kentät ja siirry ilmoittamaan tiedot</p>
+				</div>
+
+				<div class="row mb-3 mt-1 justify-content-center">
 	        <div class="col-5">
-	        	<input type="submit" class="btn btn-primary btn-lg btn-block" id="sendVoucherAttachement" value="Lähetä ja lataa tositeliite">
+	        	<input type="submit" name="submit" class="btn btn-primary btn-lg btn-block" id="sendVoucherAttachement" value="Lähetä ja lataa tositeliite">
 	        </div>
 				</div>
 
@@ -330,15 +346,32 @@
 
     </form>
 
+		<!-- Modal -->
+		<div class="modal fade" id="digiroadModal" tabindex="-1" role="dialog" aria-labelledby="digiroadModalTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header no-border">
+		        <h5 class="modal-title" id="digiroadModalLongTitle">Modal title</h5>
+		      </div>
+		      <div class="modal-body" id="digiroadModalBody">
+		        ...
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" id="digiroadModalReDo" class="btn btn-primary"  onclick="handleRedoButton()">Täytä uudelleen</button>
+		        <button type="button" id="digiroadModalReturn" class="btn btn-success" onclick="handleBackButton()">Palaa etusivulle</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
 
   </div>
   <!-- form-container ends -->
 
-	<!-- jQuery -->
 	<script type="text/javascript" src="./lib/jquery-3.3.1.min.js"></script>
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-	<!-- bootstrap -->
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
 	<!-- jspdf -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>

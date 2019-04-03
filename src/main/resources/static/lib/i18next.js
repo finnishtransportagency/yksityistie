@@ -33,7 +33,7 @@ i18next.init({
         "ends" : "Päättyy",
         "notifyInfoDrivingBan" : "Ajokielto",
         "notifyInfoDrivingBanSign" : "Ajokiellon lisäkilvet",
-        "notifyInfoSpeedLimit" : "Nopeusrajoitus",
+        "notifyInfoSpeedLimit" : "Nopeusrajoitus km/h",
         "notifyInfoMapLinks" : "Karttalinkit*",
         "write" : "Kirjoita...",
         "notifyInfoAdditionalInformation" : "Voit halutessasi ilmoittaa myös muut tien liikennemerkit tai antaa lisätietoja rajoituksista",
@@ -44,38 +44,14 @@ i18next.init({
         "voucherAttachmentOption2" : "Lataa tositeliite koneelle .pdf tiedostona",
         "voucherAttachmentOption3" : "Lataa tositeliite koneelle ja toimita kopio sähköpostiin (tarkista antamasi sähköpostiosoite!)",
         "sendVoucherAttachement" : "Lähetä ja lataa tositeliite",
-        "emptyRoad" : "Tarkista tien nimi",
-
-
-        "previousMonth" : "Edellinen",
-        "nextMonth" : "Seuraava",
-        "months" : [
-          'tammikuu',
-          'helmikuu',
-          'maaliskuu',
-          'huhtikuu',
-          'toukokuu',
-          'kesäkuu',
-          'heinäkuu',
-          'elokuu',
-          'syyskuu',
-          'lokakuu',
-          'marraskuu',
-          'joulukuu'
-        ],
-        "weekdays" : [
-          'sunnuntai',
-          'maanantai',
-          'tiistai',
-          'keskiviikko',
-          'torstai',
-          'perjantai',
-          'lauantai'
-        ],
-        "weekdaysShort" : [
-          'su', 'ma', 'ti', 'ke', 'to', 'pe', 'la'
-        ]
-
+        "emptyRoad" : "Pakollinen tieto",
+        "ModalTitle" : "Digiroad yksityistielomakkeen lähettäminen",
+        "ModalBody" : "Tiedot toimitettu onnistuneesti, kiitos tietojen toimituksesta!",
+        "ModalWaitForInstructions" : "Odota ohjeita",
+        "ModalButtonReturn" : "Palaa etusivulle",
+        "ModalButtonReDo" : "Täytä uudelleen",
+        "ModalErrorMessage" : "Tietojen toimitus epäonnistui, täytä lomake uudelleen",
+        "disabledButtonHint" : "Tarkista lomakkeen kentät ja siirry ilmoittamaan tiedot"
 
       }
     },
@@ -110,7 +86,7 @@ i18next.init({
         "ends" : "Slutar",
         "notifyInfoDrivingBan" : "Körförbud",
         "notifyInfoDrivingBanSign" : "Tilläggsskyltar för körförbud",
-        "notifyInfoSpeedLimit" : "Hastighetsbegränsning",
+        "notifyInfoSpeedLimit" : "Hastighetsbegränsning km/h",
         "notifyInfoMapLinks" : "Kartlänkar*",
         "write" : "Skriv...",
         "notifyInfoAdditionalInformation" : "Om du vill kan du också anmäla andra vägmärken eller ange ytterligare information om begränsningar",
@@ -120,38 +96,15 @@ i18next.init({
         "voucherAttachmentOption1" : "Via e-post (Kontrollera att e-postadressen är korrekt!)",
         "voucherAttachmentOption2" : "Ladda ner bekräftelsebilagan till datorn som .pdf fil",
         "voucherAttachmentOption3" : "Ladda ner bekräftelsebilagan till datorn och skicka en kopia till e-posten (Kontrollera att e-postadressen är korrekt!)",
-        "sendVoucherAttachement" : "Skicka och ladda ner bekräftelsebilagan",
-        "emptyRoad" : "Kontrollera vägnamnet",
-
-        "previousMonth" : "Föregående",
-        "nextMonth" : "Nästa",
-        "months" : [
-          'januari',
-          'februari',
-          'mars',
-          'april',
-          'maj',
-          'juni',
-          'juli',
-          'augusti',
-          'september',
-          'oktober',
-          'november',
-          'december'
-        ],
-        "weekdays" : [
-          'söndag',
-          'måndag',
-          'tisdag',
-          'onsdag',
-          'torsdag',
-          'fredag',
-          'lördag'
-
-        ],
-        "weekdaysShort" : [
-           'sön', 'mån', 'tis', 'ons', 'tors', 'fre', 'lör'
-        ]
+        "sendVoucherAttachement" : "Skicka och ladda ner bekräftelsebilagan ",
+        "emptyRoad" : "Obligatorisk uppgift",
+        "ModalTitle" : "Skicka Digiroad-blanketten för enskilda vägar",
+        "ModalBody" : "Väglagets uppgifter har skickats framgångsrikt. Tack för att du skickade informationen.",
+        "ModalWaitForInstructions" : "Vänta på instruktioner",
+        "ModalButtonReturn" : "Återgå till framsidan",
+        "ModalButtonReDo" : "Vänligen fyll i blanketten på nytt",
+        "ModalErrorMessage" : "Sändningen misslyckades, vänligen fyll i blanketten på nytt",
+        "disabledButtonHint" : "Kontrollera att fälten är fyllt korrekt och fortsätt till att anmäla uppgifter"
 
       }
     }
@@ -295,6 +248,14 @@ function updateContent() {
   document.getElementById('voucherAttachmentOption2').innerHTML = i18next.t('voucherAttachmentOption2');
   document.getElementById('voucherAttachmentOption3').innerHTML = i18next.t('voucherAttachmentOption3');
   document.getElementById('sendVoucherAttachement').value = i18next.t('sendVoucherAttachement');
+
+  document.getElementById('digiroadModalLongTitle').innerHTML = i18next.t('ModalTitle');
+  document.getElementById('digiroadModalBody').innerHTML = i18next.t('ModalBody');
+  document.getElementById('digiroadModalReDo').innerHTML = i18next.t('ModalButtonReDo');
+  document.getElementById('digiroadModalLongTitle').innerHTML = i18next.t('ModalTitle');
+  document.getElementById('digiroadModalReturn').innerHTML = i18next.t('ModalButtonReturn');
+
+  document.getElementById('disabledButtonHint').innerHTML = i18next.t('disabledButtonHint');
 };
 
 function changeLng(lng) {

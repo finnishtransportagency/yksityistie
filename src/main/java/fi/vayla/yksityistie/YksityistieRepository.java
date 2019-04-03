@@ -63,6 +63,9 @@ public class YksityistieRepository {
 			byte[] bytes = createPdf(form);
 			if(choice.equals("1")){//all emails only
 				sendMessages(bytes, form);
+				String successText = "SUCCESS";
+				byte[] success = successText.getBytes();
+				return new ByteArrayInputStream(success);
 			} 
 			if(choice.equals("3")){//all emails and download
 				sendMessages(bytes, form);
@@ -114,7 +117,7 @@ public class YksityistieRepository {
 	
 	
 	/**
-	 * This creates the attachment PDF dokument from the form
+	 * This creates the attachment PDF document from the form
 	 * @param
 	 * @return
 	 * @throws IOException 
@@ -176,8 +179,14 @@ public class YksityistieRepository {
         }
         return out.toByteArray();
     }
-    
-    public boolean validateCaptcha(String captchaResponse){	
+ 
+	/**
+	 * This validates reCapcha in backend
+	 * @param
+	 * @return
+	 * @throws Exception if anything goes wrong and returns false
+	 */
+    public boolean validateCaptcha(String captcha){	
     	String hostNew = getHost();
     	SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
     	CaptchaResponse apiResponse = new CaptchaResponse();
@@ -190,7 +199,7 @@ public class YksityistieRepository {
         RestTemplate restTemplate = new RestTemplate(factory);
         MultiValueMap<String, String> requestMap = new LinkedMultiValueMap<>();
         requestMap.add("secret", recaptchaSecret);
-        requestMap.add("response", captchaResponse);
+        requestMap.add("response", captcha);
         try {
         apiResponse = restTemplate.postForObject(GOOGLE_RECAPTCHA_ENDPOINT, requestMap, CaptchaResponse.class);
         } catch (Exception ex){
@@ -203,7 +212,11 @@ public class YksityistieRepository {
         return tosi;
     }
 
-
+	/**
+	 * Validates proxy port
+	 * @param global proxy value
+	 * @return port number
+	 */
 	private int getPort() {
 		String hostPort = proxy.replace("http://", "");
 		int portti=80;
@@ -222,14 +235,19 @@ public class YksityistieRepository {
 		}
 	}
 
-
+	/**
+	 * Validates proxy host
+	 * @param
+	 * @return valid proxy host value, empty if no proxy
+	 * @throws Exception if URL is not valid, interpreted as no proxy
+	 */
 	private String getHost() {
 		URL host;
 		try {//check if proxy address is valid
 			host = new URL(proxy);
 			host.toURI();
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return "";
 		}
 		String hostPort = proxy.replace("http://", "");

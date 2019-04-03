@@ -447,7 +447,6 @@
 				tierajoituksetContainer.appendChild(ajokieltoKilvetRow);
 
 
-
 			  // Nopeusrajoitus
 			  var nopeusrajoitusRow = document.createElement('div');
 				nopeusrajoitusRow.className = "row mb-3";
@@ -459,11 +458,20 @@
 			  nopeusrajoitusLabel.innerHTML = i18next.t('notifyInfoSpeedLimit');
 				nopeusrajoitusLabel.setAttribute("class", "notifyInfoSpeedLimit");
 
-			  var nopeusrajoitusInput = document.createElement('input');
-			  nopeusrajoitusInput.type = "text";
+				var nopeusrajoitukset = [20, 30, 40, 50, 60, 70, 80, 100, 120]
+
+			  var nopeusrajoitusInput = document.createElement('select');
 			  nopeusrajoitusInput.setAttribute("id", "ilmoita_tiedot_nopeusrajoitus_" + ilmoitaTiedotId + "");
 				nopeusrajoitusInput.setAttribute("name", "ilmoita_tiedot_nopeusrajoitus_" + ilmoitaTiedotId + "");
-				nopeusrajoitusInput.className = "form-control";
+				nopeusrajoitusInput.className += "form-control";
+				nopeusrajoitusInput.className += " custom-select";
+
+				for (var i = 0; i < nopeusrajoitukset.length; i++) {
+					var option = document.createElement("option");
+					option.value = nopeusrajoitukset[i];
+					option.text = nopeusrajoitukset[i];
+					nopeusrajoitusInput.appendChild(option);
+				}
 
 				nopeusrajoitusCol.appendChild(nopeusrajoitusLabel);
 				nopeusrajoitusCol.appendChild(nopeusrajoitusInput);
@@ -571,7 +579,6 @@
 
 	// moment locale to FI
 	moment.locale('fi');
-
 	var i18nDate = {
 								previousMonth: i18next.t('previousMonth'),
 								nextMonth: i18next.t('nextMonth'),
@@ -676,6 +683,22 @@
 		document.getElementById('notifyInfoAddRoad').disabled = isEmpty;
 	}
 
+	// TODO: replace URL with URL to the form
+	function handleRedoButton() {
+		window.location.replace('http://localhost:9003/yksityistie');
+	}
+
+	// TODO: replace the URL with the URL to the main page
+	function handleBackButton() {
+		window.location.replace('http://localhost:9003/yksityistie');
+	}
+
+	//$('document').ready(function(e) {
+	//  $('#sendVoucherAttachement').click(function() {
+	//		$("#digiroadModal").modal({backdrop: "static"});
+	//	  $('#digiroadModal').modal('show');
+	// });
+	//});
 
  // converts the form data to Json, saves pdf and then submits the form
  function formHandler(event) {
@@ -702,7 +725,6 @@
 	 	 //haetaan teiden tiedot haaran perusteella
 		 for (var i = 0; i < event.target.length; i++) {
 			 if(event.target[i].name.search(listprefix)>=0){
-				 console.log("listprefix: " + listprefix);
 				 var nimi = event.target[i].name.replace(/[0-9_]/g, "").replace(listprefix.replace(/[0-9_]/g, ""), "");
 				 var indeksi = event.target[i].name.replace(/[^0-9]/g, "");
 				 var arvo = event.target[i].value;
@@ -769,16 +791,13 @@
 
 	 var yksityistielomake = JSON.stringify(lomake);
 
-	 console.log('lomake');
-	 console.log(lomake);
-	 console.log('yksityistielomake');
-	 console.log(yksityistielomake);
+	 console.log("yksityistielomake", yksityistielomake);
 
 	 sendData(yksityistielomake, function(event) {
 	 //pdf luodaan backendissa ja palutetaan paluuarvona
 	 });
 
-		return false;
+		//return yksityistielomake;
 }
 
 
@@ -790,22 +809,44 @@ function sendData(formData, callback) {
  // Define what happens on successful data submission
 XHR.addEventListener('load', function(event) {
 	callback(event);
-	console.log('Form send success!');
 	var blob = new Blob([this.response], {type: 'image/pdf'});
-			//Create a link element, hide it, direct
-			//it towards the blob, and then 'click' it programatically
-			let a = document.createElement("a");
-			a.style = "display: none";
-			document.body.appendChild(a);
-			//Create a DOMString representing the blob
-			//and point the link element towards it
-			let url = window.URL.createObjectURL(blob);
-			a.href = url;
-			a.download = 'Digiroad_tosite.pdf';
-			//programatically click the link to trigger the download
-			a.click();
-			//release the reference to the file by revoking the Object URL
-			window.URL.revokeObjectURL(url);
+	let url = window.URL.createObjectURL(blob);
+	var errorStatus=new XMLHttpRequest();
+	errorStatus.open('GET', url,false);
+	errorStatus.send();
+	switch(errorStatus.responseText){
+	case "SUCCESS":
+		console.log("Sposti lähetetty onnistuneesti!");
+		window.URL.revokeObjectURL(url);
+		document.getElementById('digiroadModalBody').innerHTML = i18next.t('ModalBody');
+		break;
+	case "ERROR EMAIL":
+		console.log("Spostin lähetys epäonnistui!");
+		window.URL.revokeObjectURL(url);
+		document.getElementById('digiroadModalBody').innerHTML = i18next.t('ModalErrorMessage');
+		break;
+	case "ERROR CAPTCHA":
+		console.log("Captcha epäonnistu, resetoi se!");
+		window.URL.revokeObjectURL(url);
+		document.getElementById('digiroadModalBody').innerHTML = i18next.t('ModalErrorMessage');
+		break;
+	default:
+		{//attachment present!
+		let a = document.createElement("a");
+		a.style = "display: none";
+		document.body.appendChild(a);	
+		a.href = url;
+		a.download = 'Digiroad_tosite.pdf';
+		//programatically click the link to trigger the download
+		a.click();
+		//release the reference to the file by revoking the Object URL
+		window.URL.revokeObjectURL(url);
+		document.getElementById('digiroadModalBody').innerHTML = i18next.t('ModalBody');
+		}	
+	}
+	$("#digiroadModal").modal({backdrop: "static"});
+	$('#digiroadModal').modal('show');
+	
 });
 
  // Define what happens in case of error
@@ -835,6 +876,7 @@ XHR.addEventListener('load', function(event) {
 
 		if (this.value == 1) {
 			resetVakuutanCheckboxes();
+			document.getElementById('buttonDisabledHint').style.display = 'none';
 			document.getElementById('sendVoucherAttachement').disabled = false;
 			document.getElementById('notifyInfoAddRoad').disabled = true;
 		  document.getElementById('tiedot_oikein_container').style.display = 'block';
@@ -860,6 +902,7 @@ XHR.addEventListener('load', function(event) {
 			showIlmoitaTiedotRajoitukset();
 			resetVakuutanCheckboxes();
 
+			document.getElementById('buttonDisabledHint').style.display = 'none';
 			document.getElementById('sendVoucherAttachement').disabled = false;
 			document.getElementById('addRoad').disabled = true;
 		  document.getElementById('ilmoita_tiedot_container').style.display = 'block';
@@ -925,4 +968,4 @@ XHR.addEventListener('load', function(event) {
 	function resetVakuutanCheckboxes() {
 	  document.getElementById("tiedot_oikein_checkbox").checked = false;
 	  document.getElementById("vakuutan_tiedot_checkbox").checked = false;
-	}
+}
