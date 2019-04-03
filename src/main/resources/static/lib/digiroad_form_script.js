@@ -685,12 +685,12 @@
 
 	// TODO: replace URL with URL to the form
 	function handleRedoButton() {
-		window.location.replace('http://localhost:9003/yksityistie');
+		window.location.replace('/yksityistie');
 	}
 
 	// TODO: replace the URL with the URL to the main page
 	function handleBackButton() {
-		window.location.replace('http://localhost:9003/yksityistie');
+		window.location.replace('https://vayla.fi/avoindata/digiroad/yksityistietietojen-lisaaminen-digiroadiin#.XKSNDKRS9aQ');
 	}
 
 	//$('document').ready(function(e) {
