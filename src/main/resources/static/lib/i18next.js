@@ -51,7 +51,9 @@ i18next.init({
         "ModalButtonReturn" : "Palaa etusivulle",
         "ModalButtonReDo" : "Täytä uudelleen",
         "ModalErrorMessage" : "Tietojen toimitus epäonnistui, täytä lomake uudelleen",
-        "disabledButtonHint" : "Tarkista lomakkeen kentät ja siirry ilmoittamaan tiedot"
+        "disabledButtonHint" : "Tarkista lomakkeen kentät ja siirry ilmoittamaan tiedot",
+        "captchaFailed" : "Tarkista captcha!",
+        "emailFailed" : "Tositeliitteen toimittaminen sähköpostina epäonnistui"
 
       }
     },
@@ -104,7 +106,9 @@ i18next.init({
         "ModalButtonReturn" : "Återgå till framsidan",
         "ModalButtonReDo" : "Vänligen fyll i blanketten på nytt",
         "ModalErrorMessage" : "Sändningen misslyckades, vänligen fyll i blanketten på nytt",
-        "disabledButtonHint" : "Kontrollera att fälten är fyllt korrekt och fortsätt till att anmäla uppgifter"
+        "disabledButtonHint" : "Kontrollera att fälten är korrekt ifylda och fortsätt till att anmäla uppgifterna",
+        "captchaFailed" : "Granska captchan!",
+        "emailFailed" : "Sändningen av bekräftelsebilagan misslyckades!"
 
       }
     }
@@ -256,6 +260,8 @@ function updateContent() {
   document.getElementById('digiroadModalReturn').innerHTML = i18next.t('ModalButtonReturn');
 
   document.getElementById('disabledButtonHint').innerHTML = i18next.t('disabledButtonHint');
+  document.getElementById('successButtonHint').innerHTML = i18next.t('ModalBody');
+
 };
 
 function changeLng(lng) {
