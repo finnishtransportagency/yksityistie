@@ -458,7 +458,7 @@
 			  nopeusrajoitusLabel.innerHTML = i18next.t('notifyInfoSpeedLimit');
 				nopeusrajoitusLabel.setAttribute("class", "notifyInfoSpeedLimit");
 
-				var nopeusrajoitukset = [20, 30, 40, 50, 60, 70, 80, 100, 120]
+				var nopeusrajoitukset = ["-", 20, 30, 40, 50, 60, 70, 80, 100, 120]
 
 			  var nopeusrajoitusInput = document.createElement('select');
 			  nopeusrajoitusInput.setAttribute("id", "ilmoita_tiedot_nopeusrajoitus_" + ilmoitaTiedotId + "");
@@ -683,22 +683,13 @@
 		document.getElementById('notifyInfoAddRoad').disabled = isEmpty;
 	}
 
-	// TODO: replace URL with URL to the form
 	function handleRedoButton() {
 		window.location.replace('/yksityistie');
 	}
 
-	// TODO: replace the URL with the URL to the main page
 	function handleBackButton() {
 		window.location.replace('https://vayla.fi/avoindata/digiroad/yksityistietietojen-lisaaminen-digiroadiin#.XKSNDKRS9aQ');
 	}
-
-	//$('document').ready(function(e) {
-	//  $('#sendVoucherAttachement').click(function() {
-	//		$("#digiroadModal").modal({backdrop: "static"});
-	//	  $('#digiroadModal').modal('show');
-	// });
-	//});
 
  // converts the form data to Json, saves pdf and then submits the form
  function formHandler(event) {
@@ -763,10 +754,6 @@
 		 }
 	 }
 
-	 //debugging
-	 //window.rivilista = rivilista;
-	 //window.kuntatiedot = kuntatiedot;
-
 	 //luodaan lista teistä
 	 var tielista = [];
 	 for (var i = 0; i < teidenlukumaara+1; i++) {
@@ -788,88 +775,110 @@
 	 	 lomake[kuntatiedot[j].nimi] = kuntatiedot[j].arvo;
 	 }
 	 lomake.tielista = tielista;
-
 	 var yksityistielomake = JSON.stringify(lomake);
 
-	 console.log("yksityistielomake", yksityistielomake);
-
+	 document.getElementById('sendVoucherAttachement').disabled = true;
 	 sendData(yksityistielomake, function(event) {
 	 //pdf luodaan backendissa ja palutetaan paluuarvona
-	 });
-
-		//return yksityistielomake;
+ 	 });
 }
 
-
-
- //send data to backend
-function sendData(formData, callback) {
- var XHR = new XMLHttpRequest();
-
- // Define what happens on successful data submission
-XHR.addEventListener('load', function(event) {
-	callback(event);
-	var blob = new Blob([this.response], {type: 'image/pdf'});
-	let url = window.URL.createObjectURL(blob);
-	var errorStatus=new XMLHttpRequest();
-	errorStatus.open('GET', url,false);
-	errorStatus.send();
-	switch(errorStatus.responseText){
-	case "SUCCESS":
-		console.log("Sposti lähetetty onnistuneesti!");
-		window.URL.revokeObjectURL(url);
-		document.getElementById('digiroadModalBody').innerHTML = i18next.t('ModalBody');
-		break;
-	case "ERROR EMAIL":
-		console.log("Spostin lähetys epäonnistui!");
-		window.URL.revokeObjectURL(url);
-		document.getElementById('digiroadModalBody').innerHTML = i18next.t('ModalErrorMessage');
-		break;
-	case "ERROR CAPTCHA":
-		console.log("Captcha epäonnistu, resetoi se!");
-		window.URL.revokeObjectURL(url);
-		document.getElementById('digiroadModalBody').innerHTML = i18next.t('ModalErrorMessage');
-		break;
-	default:
-		{//attachment present!
-		let a = document.createElement("a");
-		a.style = "display: none";
-		document.body.appendChild(a);	
-		a.href = url;
-		a.download = 'Digiroad_tosite.pdf';
-		//programatically click the link to trigger the download
-		a.click();
-		//release the reference to the file by revoking the Object URL
-		window.URL.revokeObjectURL(url);
-		document.getElementById('digiroadModalBody').innerHTML = i18next.t('ModalBody');
-		}	
+	function showModal() {
+		$("#digiroadModal").modal({backdrop: "static"});
+		$('#digiroadModal').modal('show');
 	}
-	$("#digiroadModal").modal({backdrop: "static"});
-	$('#digiroadModal').modal('show');
-	
-});
 
- // Define what happens in case of error
- XHR.addEventListener('error', function(event) {
-	 console.log('Oops! Something went wrong.');
- });
+	function handleSuccess() {
+		console.log("Sposti lähetetty onnistuneesti!");
+		document.getElementById('digiroadModalBody').innerHTML = i18next.t('ModalBody');
+		document.getElementById('formSentSuccessHint').style.display = "block";
+	}
 
- // Set up our request
- XHR.open('POST', 'sendmail/');
- //XHR.open('POST', '/');
+	function handleEmailError() {
+		console.log("Spostin lähetys epäonnistui!");
+		document.getElementById('digiroadModalBody').innerHTML = i18next.t('emailFailed');
+		document.getElementById('disabledButtonHint').innerHTML = i18next.t('emailFailed');
+		document.getElementById('buttonDisabledHint').style.display = "block";
+		document.getElementById('sendVoucherAttachement').disabled = false;
+	}
 
- //Send the proper header information along with the request
- //XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
- XHR.setRequestHeader("Content-Type", "application/json");
- XHR.responseType = 'blob';
- // Send our FormData object; HTTP headers are set automatically
- XHR.send(formData);
-}
+	function handleCaptchaError() {
+		console.log("Captcha epäonnistu, resetoi se!");
+		document.getElementById('digiroadModalBody').innerHTML = i18next.t('captchaFailed');
+		document.getElementById('disabledButtonHint').innerHTML = i18next.t('captchaFailed');
+		document.getElementById('buttonDisabledHint').style.display = "block";
+		document.getElementById('sendVoucherAttachement').disabled = false;
+	}
 
+	//send data to backend
+	function sendData(formData, callback) {
+	var XHR = new XMLHttpRequest();
+
+	// Define what happens on successful data submission
+	XHR.addEventListener('load', function(event) {
+	 callback(event);
+	 var blob = new Blob([this.response], {type: 'image/pdf'});
+	 let url = window.URL.createObjectURL(blob);
+	 var errorStatus=new XMLHttpRequest();
+	 errorStatus.open('GET', url,false);
+	 errorStatus.send();
+	 switch(errorStatus.responseText){
+	 case "SUCCESS":
+		 window.URL.revokeObjectURL(url);
+		 handleSuccess();
+		 break;
+	 case "ERROR EMAIL":
+		 window.URL.revokeObjectURL(url);
+		 handleEmailError();
+		 break;
+	 case "ERROR CAPTCHA":
+		 window.URL.revokeObjectURL(url);
+		 handleCaptchaError();
+		 break;
+	 default:
+		 {//attachment present!
+		 let a = document.createElement("a");
+		 a.style = "display: none";
+		 document.body.appendChild(a);
+		 a.href = url;
+		 a.download = 'Digiroad_tosite.pdf';
+		 //programatically click the link to trigger the download
+		 a.click();
+		 //release the reference to the file by revoking the Object URL
+		 window.URL.revokeObjectURL(url);
+		 document.getElementById('digiroadModalBody').innerHTML = i18next.t('ModalBody');
+		 }
+	 }
+	 showModal();
+
+	});
+
+	// Define what happens in case of error
+	XHR.addEventListener('error', function(event) {
+		console.log('Oops! Something went wrong.');
+	});
+
+	// Set up our request
+	XHR.open('POST', 'sendmail/');
+	//XHR.open('POST', '/');
+
+	//Send the proper header information along with the request
+	//XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	XHR.setRequestHeader("Content-Type", "application/json");
+	XHR.responseType = 'blob';
+	// Send our FormData object; HTTP headers are set automatically
+	XHR.send(formData);
+	}
+
+	//disables submitting form with enter key
+	$(document).on("keypress", ":input:not(textarea)", function(event) {
+    return event.keyCode != 13;
+	});
 
 	// depending on the value of toiminto-dropdown, the user sees 1 of the 2 different divs
 	// tiedot_oikein_container or ilmoita_tiedot_container
 	function dropdownUpdate() {
+		document.getElementById('formSentSuccessHint').style.display = 'none';
 		document.getElementById('ilmoita_tiedot_container').style.display = 'none';
 		document.getElementById('tiedot_oikein_container').style.display = 'none';
 		document.getElementById('sendVoucherAttachement').disabled = true;
@@ -931,7 +940,6 @@ XHR.addEventListener('load', function(event) {
 			resetDates();
 		}
 	};
-
 
 	// resets all input & textarea fields of container
 	function resetFields(container) {

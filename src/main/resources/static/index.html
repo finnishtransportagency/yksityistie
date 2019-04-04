@@ -151,7 +151,7 @@
 
 
         <!-- ilmoita_tiedot_container starts here -->
-        <div id="ilmoita_tiedot_container" class="mb-3"  name="ilmoita_tiedot_container" style="display: none;">
+        <div id="ilmoita_tiedot_container" class="mb-3"  name="ilmoita_tiedot_container" style="display: none">
           <h3 class="mb-4" id="notifyMunicipalityInfo">Ilmoita tiekunnan teiden tiedot</h3>
 
           <!--this container should get duplicated by pressing the Lisää tie button-->
@@ -247,6 +247,7 @@
                   <div class="col">
                     <label for="nopeusrajoitus" class="notifyInfoSpeedLimit" id="notifyInfoSpeedLimit">Nopeusrajoitus km/h</label>
 										<select class="custom-select form-control" id="ilmoita_tiedot_nopeusrajoitus_1" name="ilmoita_tiedot_nopeusrajoitus_1" autocomplete="off">
+											<option value="-" id="nopeusrajoitusValinta1">-</option>
 						          <option value="20" id="nopeusrajoitusValinta1">20</option>
 											<option value="30" id="nopeusrajoitusValinta2">30</option>
 						          <option value="40" id="nopeusrajoitusValinta3">40</option>
@@ -336,6 +337,10 @@
 					<p id="disabledButtonHint" class="row mt-3 mt-5 font-weight-bold justify-content-center text-danger">Tarkista lomakkeen kentät ja siirry ilmoittamaan tiedot</p>
 				</div>
 
+				<div id="formSentSuccessHint">
+					<p id="successButtonHint" class="row mt-3 mt-5 font-weight-bold justify-content-center text-success">Tiedot toimitettu onnistuneesti, kiitos tietojen toimituksesta!</p>
+				</div>
+
 				<div class="row mb-3 mt-1 justify-content-center">
 	        <div class="col-5">
 	        	<input type="submit" name="submit" class="btn btn-primary btn-lg btn-block" id="sendVoucherAttachement" value="Lähetä ja lataa tositeliite">
@@ -352,6 +357,9 @@
 		    <div class="modal-content">
 		      <div class="modal-header no-border">
 		        <h5 class="modal-title" id="digiroadModalLongTitle">Modal title</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+					  </button>
 		      </div>
 		      <div class="modal-body" id="digiroadModalBody">
 		        ...
@@ -372,10 +380,6 @@
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-
-	<!-- jspdf -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
-
 	<!-- i18next -->
 	<script src="https://unpkg.com/i18next/i18next.js"></script>
 	<script src="./lib/i18next.js"></script>
@@ -385,9 +389,6 @@
 
 	<!-- date picker -->
 	<script src="./lib/pikaday.js"></script>
-
-	<!-- createPDF -->
-	<script src="./lib/createPDF.js"></script>
 
 	<!-- javascript -->
 	<script src="./lib/digiroad_form_script.js"></script>

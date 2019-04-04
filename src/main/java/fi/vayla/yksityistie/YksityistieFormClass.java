@@ -91,7 +91,6 @@ public class YksityistieFormClass {
 	    return new StringJoiner( "\r\n" , "Ilmoitustyyppi: " + getToimintodropdown() + "\r\n" , " \r\n" )
 	    		    .add( "Kunta: " + kunta + "")
 	    		    .add( "Tiekunta: " + tiekunta + "")
-	    		    .add( "reCaptcha: " + grecaptcharesponse + "")
 	    		    .add( "Käyttöoikeustunnus: " + kayttooikeustunnus + "")
 	    		    .add( "Ilmoittajan nimi: " + ilmoittajanNimi + "")
 	    		    .add( "Puhelinnumero: " + puhelinnumero + "")
