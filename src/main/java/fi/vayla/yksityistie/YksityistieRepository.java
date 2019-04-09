@@ -97,9 +97,9 @@ public class YksityistieRepository {
 	 */
 	public void sendMessages(byte[] pdf, YksityistieFormClass form) {
         MimeMessage message = emailSender.createMimeMessage();
-        String[] to = new String[2]; 
+        String[] to = new String[1]; 
         to[0]=form.getSahkoposti();
-        to[1]="info@digiroad.fi";//info@digiroad.fi
+        //to[1]="info@digiroad.fi";//info@digiroad.fi
 		try {
 		    ByteArrayDataSource attachment = new ByteArrayDataSource(pdf, "application/pdf");
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
