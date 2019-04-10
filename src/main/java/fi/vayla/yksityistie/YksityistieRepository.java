@@ -159,19 +159,19 @@ public class YksityistieRepository {
             Chunk glue = new Chunk(new VerticalPositionMark());
             Paragraph p1 = new Paragraph("vayla.fi/digiroad");
             p1.add(new Chunk(glue));
-            p1.add("Tämä tositeliite on ladattu Väylän yksityistietietojen ilmoitus-    ");
+            p1.add("Tämä tositeliite on ladattu Väylän yksityistietietojen ilmoitusportaalista");
             document.add(p1);
             Paragraph p2 = new Paragraph("info@digiroad.fi");
             p2.add(new Chunk(glue));
-            p2.add("portaalista ja tulee liittää osaksi yksityistien avustushakemusta.              ");
+            p2.add("ja tulee liittää osaksi yksityistien avustushakemusta.                            ");
             document.add(p2);
             Paragraph p3 = new Paragraph("040 507 2301");
             p3.add(new Chunk(glue));
-            p3.add("ELY-keskuksen tai kunnan työntekijät voivat tarkistaa tiedot tarvittaessa");
+            p3.add("ELY-keskuksen tai kunnan työntekijät voivat tarkistaa tiedot                ");
             document.add(p3);
             Paragraph p4 = new Paragraph(" ");
             p4.add(new Chunk(glue));
-            p4.add("Digiroad-operaattorilta.                                                                              ");
+            p4.add("tarvittaessa Digiroad-operaattorilta.                                                       ");
             document.add(p4);
             document.close();          
         } catch (Exception ex) {       
