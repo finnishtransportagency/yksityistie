@@ -88,7 +88,8 @@ public class YksityistieFormClass {
 		for (int i=0;i<tielista.size();i++){
 			tiet = tiet +" "+ tielista.get(i).toString();
 		}
-	    return new StringJoiner( "\r\n" , "Ilmoitustyyppi: " + getToimintodropdown() + "\r\n" , " \r\n" )
+	    return new StringJoiner( "\r\n" , YksityistieSimpleEmailBodyClass.body + "\r\n" , " \r\n" )
+	    			.add( "Ilmoitustyyppi: " + getToimintodropdown() + "")
 	    		    .add( "Kunta: " + kunta + "")
 	    		    .add( "Tiekunta: " + tiekunta + "")
 	    		    .add( "Käyttöoikeustunnus: " + kayttooikeustunnus + "")
