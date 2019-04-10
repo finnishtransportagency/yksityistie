@@ -157,9 +157,9 @@ public class YksityistieRepository {
             }
             document.add(new LineSeparator(0.5f, 100, null, 0, -5));
             Chunk glue = new Chunk(new VerticalPositionMark());
-            Paragraph p1 = new Paragraph("liikennevirasto.fi/digiroad");
+            Paragraph p1 = new Paragraph("vayla.fi/digiroad");
             p1.add(new Chunk(glue));
-            p1.add("Tämä tositeliite on ladattu Liikenneviraston yksityistietietojen ilmoitus-    ");
+            p1.add("Tämä tositeliite on ladattu Väylän yksityistietietojen ilmoitus-    ");
             document.add(p1);
             Paragraph p2 = new Paragraph("info@digiroad.fi");
             p2.add(new Chunk(glue));
