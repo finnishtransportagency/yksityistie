@@ -103,7 +103,7 @@ public class YksityistieTieClass {
 				tienTiedot.add( "Kelirikon painoraja: " + kelirikonPainoRaja + "")
 				.add( "Kelirikon voimassaoloaika alkaa: " + kelirikonVoimassaoloAikastart + "")
 				.add( "Kelirikon voimassaoloaika loppuu: " + kelirikonVoimassaoloAikaend + "");
-			}
+			} else {tienTiedot.add( "Tiellä ei ole kelirikkoja");}
 			tienTiedot.add( "Ajokielto: " + ajokielto + "")
 			.add( "Ajokielto lisakilvet: " + ajokieltolisakilvet + "")
 			.add( "Nopeusrajoitus: " + nopeusrajoitus + "")
