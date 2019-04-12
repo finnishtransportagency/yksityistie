@@ -109,6 +109,8 @@ public class YksityistieTieClass {
 			.add( "Nopeusrajoitus: " + nopeusrajoitus + "")
 			.add( "Karttalinkit: " + karttalinkit + "")
 			.add( "Lisätiedot: " + lisatiedot + "");
+		} else {
+			tienTiedot.add( "Tiellä ei ole rajoituksia tai kieltoja");
 		}
 		return tienTiedot.toString();
 	}
