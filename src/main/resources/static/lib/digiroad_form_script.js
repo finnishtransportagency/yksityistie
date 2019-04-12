@@ -126,12 +126,13 @@
 						var rajoituksetLabel = document.createElement('label');
 					  rajoituksetLabel.innerHTML = i18next.t('notifyInfoRestrictions');
 					  rajoituksetLabel.className = "custom-control-label notifyInfoRestrictions";
-						rajoituksetLabel.setAttribute("for", "tierajoitukset_checkbox_" + ilmoitaTiedotId);
+						rajoituksetLabel.setAttribute("for", "ilmoita_tiedot_tierajoitukset_checkbox_" + ilmoitaTiedotId);
 
 						var rajoituksetCheckbox = document.createElement('input');
 					  rajoituksetCheckbox.type = 'checkbox';
 					  rajoituksetCheckbox.className = "custom-control-input";
-						rajoituksetCheckbox.setAttribute("id", "tierajoitukset_checkbox_" + ilmoitaTiedotId);
+						rajoituksetCheckbox.setAttribute("id", "ilmoita_tiedot_tierajoitukset_checkbox_" + ilmoitaTiedotId);
+						rajoituksetCheckbox.setAttribute("name", "ilmoita_tiedot_tierajoitukset_checkbox_" + ilmoitaTiedotId + "");
 						rajoituksetCheckbox.onclick = function() {
 							tierajoituksetContainer.hidden = rajoituksetCheckbox.checked;
 							if (tierajoituksetContainer.hidden) {
@@ -221,15 +222,14 @@
 							var kelirikkoCheckboxLabel = document.createElement('label');
 							kelirikkoCheckboxLabel.innerHTML = i18next.t('notifyInfoFrequentFrostHeave');
 							kelirikkoCheckboxLabel.className = "custom-control-label notifyInfoFrequentFrostHeave";
-							kelirikkoCheckboxLabel.setAttribute("for", "kelirikko_checkbox_" + ilmoitaTiedotId);
-
+							kelirikkoCheckboxLabel.setAttribute("for", "ilmoita_tiedot_kelirikko_checkbox_" + ilmoitaTiedotId);
 							var kelirikkoCheckbox = document.createElement('input');
 							kelirikkoCheckbox.type = "checkbox";
 							kelirikkoCheckbox.className = "custom-control-input";
 							kelirikkoCheckbox.setAttribute("checked", "true");
 							kelirikkoCheckbox.default = kelirikkoCheckbox.checked;
-							kelirikkoCheckbox.setAttribute("id", "kelirikko_checkbox_" + ilmoitaTiedotId);
-
+							kelirikkoCheckbox.setAttribute("id", "ilmoita_tiedot_kelirikko_checkbox_" + ilmoitaTiedotId);
+							kelirikkoCheckbox.setAttribute("name", "ilmoita_tiedot_toistuva_kelirikko_" + ilmoitaTiedotId + "");
 							kelirikkoCheckboxContainer.appendChild(kelirikkoCheckbox);
 							kelirikkoCheckboxContainer.appendChild(kelirikkoCheckboxLabel);
 
@@ -719,6 +719,9 @@
 				 var nimi = event.target[i].name.replace(/[0-9_]/g, "").replace(listprefix.replace(/[0-9_]/g, ""), "");
 				 var indeksi = event.target[i].name.replace(/[^0-9]/g, "");
 				 var arvo = event.target[i].value;
+				 if(event.target[i].type=="checkbox"){
+					 arvo=event.target[i].checked;
+				 }
 				 //luodaan normalisoitu indeksi map(teitä on lisätty ja poistettu)
 				 if (!(realindexmap.has(indeksi))){
 					 realindexmap.set(indeksi, realindex);
@@ -902,7 +905,7 @@
 		  document.getElementById("tiedot_oikein_checkbox").required = true;
 		  document.getElementById("vakuutan_tiedot_checkbox").required = false;
 
-			document.getElementById('kelirikko_checkbox_1').checked = true;
+			document.getElementById('ilmoita_tiedot_kelirikko_checkbox_1').checked = true;
 			document.getElementById('kelirikko_container_1').hidden = false;
 
 			resetDates();
@@ -933,7 +936,7 @@
 	// hides kelirikko container & resets the values
 	function hideKelirikko() {
 		let container = document.getElementById('kelirikko_container_1');
-		let checkbox = document.getElementById('kelirikko_checkbox_1');
+		let checkbox = document.getElementById('ilmoita_tiedot_kelirikko_checkbox_1');
 		container.hidden = !checkbox.checked;
 		if (container.hidden) {
 			resetFields(container);
@@ -957,14 +960,14 @@
 
 	// shows tierajoitukset container
 	function showIlmoitaTiedotRajoitukset() {
-		$(".tierajoitukset_checkbox").prop("checked", false);
+		$(".ilmoita_tiedot_tierajoitukset_checkbox").prop("checked", false);
 	  $('.tierajoitukset_container').show();
 	}
 
 	// hides tierajoitukset container
 	function hideRajoitukset() {
 		let tierajoitukset_container = document.getElementById('tierajoitukset_container_1');
-		let checkbox = document.getElementById('tierajoitukset_checkbox_1');
+		let checkbox = document.getElementById('ilmoita_tiedot_tierajoitukset_checkbox_1');
 		tierajoitukset_container.hidden = checkbox.checked;
 		if (tierajoitukset_container.hidden) {
 			resetFields(tierajoitukset_container);

@@ -3,10 +3,10 @@ package fi.vayla.yksityistie;
 import java.util.StringJoiner;
 
 public class YksityistieTieClass {
-	private String tiennimi;
+	private String tiennimi;	
 	private String painorajoitus;
 	private String painorajoituslisakilvet;
-	private String toistuvakelirikko;
+	private String toistuvakelirikko="";
 	private String kelirikonPainoRaja;
 	private String kelirikonVoimassaoloAikastart;
 	private String kelirikonVoimassaoloAikaend;
@@ -15,6 +15,7 @@ public class YksityistieTieClass {
 	private String nopeusrajoitus;
 	private String karttalinkit;
 	private String lisatiedot;
+	private String tierajoituksetcheckbox="";
 	
 	
 	public String getTiennimi() {
@@ -93,20 +94,29 @@ public class YksityistieTieClass {
 	@Override
 	public String toString ()
 	{
-	    return new StringJoiner( "\r\n" , getTiennimi() + "\r\n[\r\n " , " \r\n]\r\n" )
-	    		.add( "Tien nimi: " + tiennimi + "")
-	    		.add( "Painorajoitus kg: " + painorajoitus + "")
-	    		.add( "Painorajoitus lisakilvet: " + painorajoituslisakilvet + "")
-	    		.add( "Toistuva kelirikko: " + toistuvakelirikko + "")
-	    		.add( "Kelirikon painoraja: " + kelirikonPainoRaja + "")
-	    		.add( "Kelirikon voimassaoloaika alkaa: " + kelirikonVoimassaoloAikastart + "")
-	    		.add( "Kelirikon voimassaoloaika loppuu: " + kelirikonVoimassaoloAikaend + "")
-	    		.add( "Ajokielto: " + ajokielto + "")
-	    		.add( "Ajokielto lisakilvet: " + ajokieltolisakilvet + "")
-	    		.add( "Nopeusrajoitus: " + nopeusrajoitus + "")
-	    		.add( "Karttalinkit: " + karttalinkit + "")
-	    		.add( "Lisätiedot: " + lisatiedot + "")
-	    		.toString();
+		StringJoiner tienTiedot = new StringJoiner("\r\n" , "\r\n[\r\n " , " \r\n]\r\n"); 
+		tienTiedot.add( "Tien nimi: " + tiennimi + "");
+		if(tierajoituksetcheckbox.equals("false")){
+			tienTiedot.add( "Painorajoitus kg: " + painorajoitus + "");
+			tienTiedot.add( "Painorajoitus lisakilvet: " + painorajoituslisakilvet + "");
+			if(toistuvakelirikko.equals("true")){
+				tienTiedot.add( "Kelirikon painoraja: " + kelirikonPainoRaja + "")
+				.add( "Kelirikon voimassaoloaika alkaa: " + kelirikonVoimassaoloAikastart + "")
+				.add( "Kelirikon voimassaoloaika loppuu: " + kelirikonVoimassaoloAikaend + "");
+			}
+			tienTiedot.add( "Ajokielto: " + ajokielto + "")
+			.add( "Ajokielto lisakilvet: " + ajokieltolisakilvet + "")
+			.add( "Nopeusrajoitus: " + nopeusrajoitus + "")
+			.add( "Karttalinkit: " + karttalinkit + "")
+			.add( "Lisätiedot: " + lisatiedot + "");
+		}
+		return tienTiedot.toString();
+	}
+	public String getTierajoituksetcheckbox() {
+		return tierajoituksetcheckbox;
+	}
+	public void setTierajoituksetcheckbox(String tierajoituksetcheckbox) {
+		this.tierajoituksetcheckbox = tierajoituksetcheckbox;
 	}
 
 
