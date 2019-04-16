@@ -787,7 +787,6 @@
 }
 
 	function showModal() {
-		$("#digiroadModal").modal({backdrop: "static"});
 		$('#digiroadModal').modal('show');
 	}
 
