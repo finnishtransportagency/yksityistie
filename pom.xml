@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>fi.vayla</groupId>
 	<artifactId>yksityistie</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>yksityistie</name>
 	<description>Sitowise - Vayla - Yksityistie</description>
 
