@@ -1,12 +1,13 @@
 package fi.vayla.yksityistie;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
+@SpringBootTest
+class YksityistieApplicationTests {
 
-public class YksityistieApplicationTests {
-
-	@Test
-	public void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 
 }
