@@ -1,7 +1,7 @@
 {
   "name": "App",
-  "start_url": "./yksityistie/",
-  "scope": "./yksityistie/",
+  "start_url": ".",
+  "scope": ".",
   "icons": [
     {
       "src": "\/android-icon-36x36.png",
