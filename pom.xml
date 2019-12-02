@@ -103,6 +103,12 @@
 				<includes>
 					<include>application.properties</include>
 					<include>static/*.*</include>
+					<include>static/static/*.*</include>
+					<include>static/static/js/*.*</include>
+					<include>static/static/css/*.*</include>
+					<include>static/static/media/*.*</include>
+					<include>images/vayla_logo.jpg</include>
+
 				</includes>
 			</resource>
         	</resources>
