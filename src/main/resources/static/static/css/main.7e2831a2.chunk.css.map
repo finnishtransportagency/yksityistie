@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.css"],"names":[],"mappings":"AAAA,KACE,4CACF,CAEA,KACE,uEACF","file":"main.7e2831a2.chunk.css","sourcesContent":["body {\n  font-family: Tahoma, Geneva, Verdana, sans-serif\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;\n}\n"]}
