@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "loging.file",
+      "type": "java.lang.String",
+      "description": "Description for loging.file."
+  }
+] }
