@@ -4,5 +4,10 @@
       "name": "loging.file",
       "type": "java.lang.String",
       "description": "Description for loging.file."
-  }
-] }
+    },
+    {
+      "name": "recaptcha.secret",
+      "type": "java.lang.String",
+      "description": "Description for recaptcha.secret."
+    }
+  ] }
