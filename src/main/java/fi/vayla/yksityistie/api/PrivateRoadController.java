@@ -5,7 +5,6 @@ import fi.vayla.yksityistie.service.EmailNotificationService;
 import fi.vayla.yksityistie.service.PDFService;
 import fi.vayla.yksityistie.service.ReCAPTCHAService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.*;
 import org.springframework.mail.MailException;
@@ -19,13 +18,12 @@ import java.io.ByteArrayInputStream;
 @RestController
 public class PrivateRoadController {
     private final PDFService pdfServise = new PDFService();
-    private final ReCAPTCHAService reCAPTCHAService = new ReCAPTCHAService();
 
     @Autowired
     private EmailNotificationService emailNotificationService;
 
-    @Value("${recaptcha.secret}")
-    private String secret;
+    @Autowired
+    private ReCAPTCHAService reCAPTCHAService;
 
 
     @PostMapping
@@ -34,7 +32,7 @@ public class PrivateRoadController {
             @RequestHeader("g-recaptcha-response") String response
             ){
 
-        boolean isSuccess = reCAPTCHAService.validateOnGoogleAPI(secret ,response);
+        boolean isSuccess = reCAPTCHAService.validateOnGoogleAPI(response);
 
         if(!isSuccess){
             String message = "message: reCAPTCHA Validation failure";
