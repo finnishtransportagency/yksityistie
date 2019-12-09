@@ -25,6 +25,14 @@ public class PrivateRoadController {
     @Autowired
     private ReCAPTCHAService reCAPTCHAService;
 
+    @GetMapping
+    public ResponseEntity<InputStreamResource> getTest(){
+        reCAPTCHAService.testEnvironment();
+        String message = "message: reCAPTCHA Valid";
+        InputStreamResource body = new InputStreamResource(new ByteArrayInputStream(message.getBytes()));
+        return new ResponseEntity<>(body,HttpStatus.OK);
+    }
+
 
     @PostMapping
     public ResponseEntity<InputStreamResource> addPrivateRoad(
