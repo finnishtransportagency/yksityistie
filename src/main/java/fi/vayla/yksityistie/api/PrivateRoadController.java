@@ -50,8 +50,7 @@ public class PrivateRoadController {
           //exeption
             e.printStackTrace();
             System.out.println("PDF ERROR");
-            System.out.println(exeption);
-            System.out.println(exeption.getMessage());
+          
         }
 
         System.out.println("PDF DONE");
