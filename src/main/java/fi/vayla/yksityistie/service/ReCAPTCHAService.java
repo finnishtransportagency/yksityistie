@@ -18,6 +18,8 @@ public class ReCAPTCHAService {
     public ReCAPTCHAService( @Value("${recaptcha.secret}") String secret, @Value("${recaptcha.proxy}") String proxy) {
         this.secret = secret;
         this.proxy = proxy;
+        System.out.println(proxy);
+        System.out.println(secret);
     }
 
     public boolean validateOnGoogleAPI(String response)  {

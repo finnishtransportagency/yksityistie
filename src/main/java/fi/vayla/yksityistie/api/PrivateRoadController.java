@@ -44,6 +44,7 @@ public class PrivateRoadController {
             pdf = pdfServise.createPdf(maintenanceAssociation);
         } catch (Exception exception) {
           //exeption
+            System.out.println(exception);
         }
 
         HttpHeaders headers = new HttpHeaders();
