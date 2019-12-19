@@ -48,7 +48,7 @@ public class PrivateRoadController {
             pdf = pdfServise.createPdf(maintenanceAssociation);
         } catch (Exception e) {
           //exeption
-            IOException exeption = new IOException(e);
+            e.printStackTrace();
             System.out.println("PDF ERROR");
             System.out.println(exeption);
             System.out.println(exeption.getMessage());
