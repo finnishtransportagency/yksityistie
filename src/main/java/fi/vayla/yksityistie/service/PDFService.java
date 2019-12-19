@@ -1,6 +1,6 @@
 package fi.vayla.yksityistie.service;
 
-import com.itextpdf.io.IOException;
+
 import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
@@ -17,6 +17,7 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
 import fi.vayla.yksityistie.model.MaintenanceAssociation;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.IntStream;

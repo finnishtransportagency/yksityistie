@@ -1,6 +1,6 @@
 package fi.vayla.yksityistie.api;
 
-import com.itextpdf.io.IOException;
+
 import fi.vayla.yksityistie.model.MaintenanceAssociation;
 import fi.vayla.yksityistie.service.EmailNotificationService;
 import fi.vayla.yksityistie.service.PDFService;
@@ -12,6 +12,7 @@ import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 
 
 @CrossOrigin(origins = {"http://localhost:3001","http://localhost:3000", "https://kehitysjulkinen.vayla.fi"}, maxAge = 3600)
