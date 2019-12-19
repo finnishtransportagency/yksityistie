@@ -45,11 +45,12 @@ public class PrivateRoadController {
         System.out.println("BEGINIGN OF PDF CREATION");
         try {
             pdf = pdfServise.createPdf(maintenanceAssociation);
-        } catch (IOException e) {
+        } catch (Exception e) {
           //exeption
+            IOException exeption = new IOException(e);
             System.out.println("PDF ERROR");
-            System.out.println(e);
-            System.out.println(e.getMessage());
+            System.out.println(exeption);
+            System.out.println(exeption.getMessage());
         }
 
         System.out.println("PDF DONE");
