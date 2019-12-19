@@ -1,5 +1,6 @@
 package fi.vayla.yksityistie.api;
 
+import com.itextpdf.io.IOException;
 import fi.vayla.yksityistie.model.MaintenanceAssociation;
 import fi.vayla.yksityistie.service.EmailNotificationService;
 import fi.vayla.yksityistie.service.PDFService;
@@ -44,10 +45,11 @@ public class PrivateRoadController {
         System.out.println("BEGINIGN OF PDF CREATION");
         try {
             pdf = pdfServise.createPdf(maintenanceAssociation);
-        } catch (Exception exception) {
+        } catch (IOException e) {
           //exeption
             System.out.println("PDF ERROR");
-            System.out.println(exception.getMessage());
+            System.out.println(e);
+            System.out.println(e.getMessage());
         }
 
         System.out.println("PDF DONE");
