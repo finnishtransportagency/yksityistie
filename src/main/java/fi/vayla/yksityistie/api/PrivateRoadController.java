@@ -47,7 +47,7 @@ public class PrivateRoadController {
         } catch (Exception exception) {
           //exeption
             System.out.println("PDF ERROR");
-            System.out.println(exception);
+            System.out.println(exception.getMessage());
         }
 
         System.out.println("PDF DONE");
