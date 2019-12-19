@@ -7,9 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 
-import java.net.InetSocketAddress;
-import java.net.Proxy;
-import java.net.URI;
+import java.net.*;
 
 @Service
 public class ReCAPTCHAService {
@@ -17,24 +15,19 @@ public class ReCAPTCHAService {
     private String secret;
     private String proxy;
 
-    public ReCAPTCHAService( @Value("${recaptcha.secret}") String secret, @Value("${recaptcha.proxy}") String proxy)  {
+    public ReCAPTCHAService( @Value("${recaptcha.secret}") String secret, @Value("${recaptcha.proxy}") String proxy) {
         this.secret = secret;
         this.proxy = proxy;
     }
 
-    public boolean validateOnGoogleAPI(String response){
+    public boolean validateOnGoogleAPI(String response)  {
         URI verifyUri = URI.create(String.format(
                 "https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s",
                 secret, response));
 
         // Setting up a proxy for connecting to third party services from Väylä's servers
-        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
-        InetSocketAddress address = new InetSocketAddress(proxy, 80);
-        Proxy proxy_service = new Proxy(Proxy.Type.HTTP,address);
-        requestFactory.setProxy(proxy_service);
 
-        // Actuall http-client
-        RestTemplate restTemplate = new RestTemplate(requestFactory);
+        RestTemplate restTemplate = createRestTemplate();
 
         GoogleResponse googleResponse = restTemplate.getForObject(verifyUri, GoogleResponse.class);
 
@@ -42,8 +35,27 @@ public class ReCAPTCHAService {
         return googleResponse.isSuccess();
     }
 
-    public void testEnvironment(){
-        System.out.println("reCAPTCHA: { secret: " + secret + ", proxy: " + proxy + " }");
+    private RestTemplate createRestTemplate() {
+        SimpleClientHttpRequestFactory clientHttpReq = new SimpleClientHttpRequestFactory();
+
+        if (!proxy.equals("NO_PROXY")) {
+
+            URL url = null;
+            try {
+                url = new URL(proxy);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            // Current jenkins CI/CD inserts proxy as a string hence error handling and port defaults to 80;
+            assert url != null;
+            int port = url.getPort() != -1 ? url.getPort() : 80;
+
+            Proxy proxy_setter = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(url.getHost(), port));
+            clientHttpReq.setProxy(proxy_setter);
+
+        }
+        return new RestTemplate(clientHttpReq);
     }
 
 }
