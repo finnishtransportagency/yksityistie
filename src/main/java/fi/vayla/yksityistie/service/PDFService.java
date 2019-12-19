@@ -117,6 +117,7 @@ public class PDFService {
 
         // all done
         document.close();
+        System.out.println("I TEXT IS WORKIN PROPERLY");
 
         return fileOutputStream.toByteArray();
     }

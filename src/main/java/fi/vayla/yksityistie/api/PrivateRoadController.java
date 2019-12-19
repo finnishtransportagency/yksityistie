@@ -33,6 +33,7 @@ public class PrivateRoadController {
 
         boolean isSuccess = reCAPTCHAService.validateOnGoogleAPI(response);
 
+
         if(!isSuccess){
             String message = "message: reCAPTCHA Validation failure";
             InputStreamResource body = new InputStreamResource(new ByteArrayInputStream(message.getBytes()));
@@ -44,7 +45,6 @@ public class PrivateRoadController {
             pdf = pdfServise.createPdf(maintenanceAssociation);
         } catch (Exception exception) {
           //exeption
-            System.out.println(exception);
         }
 
         HttpHeaders headers = new HttpHeaders();

@@ -77,13 +77,13 @@
 		<dependency>
 			<groupId>com.itextpdf</groupId>
 			<artifactId>kernel</artifactId>
-			<version>7.1.7</version>
+			<version>7.1.9</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.itextpdf</groupId>
 			<artifactId>layout</artifactId>
-			<version>7.1.7</version>
+			<version>7.1.9</version>
 		</dependency>
 
 	</dependencies>
