@@ -2,7 +2,6 @@ package fi.vayla.yksityistie.service;
 
 import fi.vayla.yksityistie.model.MaintenanceAssociation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -25,7 +24,7 @@ public class EmailNotificationService {
     public void sendEmailNotificationToOperator(MaintenanceAssociation maintenanceAssociation) throws MailException {
 
         SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setTo("tommi.lehtisaari@sitowise.com");
+        mail.setTo("info@digiroad.fi");
         mail.setFrom("info@digiroad.fi");
 
         mail.setSubject("Uusi yksitystielomake: " + maintenanceAssociation.getTiekunta());
