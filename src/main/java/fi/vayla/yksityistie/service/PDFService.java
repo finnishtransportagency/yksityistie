@@ -16,8 +16,10 @@ import com.itextpdf.layout.element.LineSeparator;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
 import fi.vayla.yksityistie.model.MaintenanceAssociation;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.IntStream;
@@ -36,7 +38,8 @@ public class PDFService {
         // PdfFont helvetica = PdfFontFactory.createFont(StandardFonts.HELVETICA);
 
         // Add image to document
-        ImageData data = ImageDataFactory.create("./src/main/resources/images/vayla_logo.jpg");
+
+        ImageData data = ImageDataFactory.create(new URL("classpath:images/vayla_logo.jpg"));
         Image image = new Image(data);
 
         image.scaleToFit(260,60);
