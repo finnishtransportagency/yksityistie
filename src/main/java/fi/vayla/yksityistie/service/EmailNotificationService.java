@@ -25,18 +25,15 @@ public class EmailNotificationService {
     }
 
     public void sendEmailNotificationToOperator(MaintenanceAssociation maintenanceAssociation) throws MailException {
-        try {
-            SimpleMailMessage mail = new SimpleMailMessage();
-            mail.setTo(operatorEmail);
-            mail.setFrom("info@digiroad.fi");
 
-            mail.setSubject("Uusi yksitystielomake: " + maintenanceAssociation.getTiekunta());
-            mail.setText(maintenanceAssociation.toString());
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(operatorEmail);
+        mail.setFrom("info@digiroad.fi");
 
-            javaMailSender.send(mail);
-        } catch (Exception exeception){
-            exeception.printStackTrace();
-        }
+        mail.setSubject("Uusi yksitystielomake: " + maintenanceAssociation.getTiekunta());
+        mail.setText(maintenanceAssociation.toString());
+
+        javaMailSender.send(mail);
     }
 
     public void sendVerificationEmailToSubmitter(byte[] pdf, MaintenanceAssociation maintenanceAssociation)  {
