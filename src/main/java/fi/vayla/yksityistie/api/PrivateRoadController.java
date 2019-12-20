@@ -27,7 +27,6 @@ public class PrivateRoadController {
     @Autowired
     private ReCAPTCHAService reCAPTCHAService;
 
-
     @PostMapping
     public ResponseEntity<InputStreamResource> addPrivateRoad(
             @RequestBody MaintenanceAssociation maintenanceAssociation,
