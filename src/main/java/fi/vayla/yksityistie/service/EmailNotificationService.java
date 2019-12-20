@@ -16,18 +16,16 @@ import javax.mail.util.ByteArrayDataSource;
 public class EmailNotificationService {
 
     private JavaMailSender javaMailSender;
-    private String operatorEmail;
 
     @Autowired
-    public EmailNotificationService(JavaMailSender javaMailSender, @Value("${operator.email}") String operatorEmail) {
+    public EmailNotificationService(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
-        this.operatorEmail = operatorEmail;
     }
 
     public void sendEmailNotificationToOperator(MaintenanceAssociation maintenanceAssociation) throws MailException {
 
         SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setTo(operatorEmail);
+        mail.setTo("tommi.lehtisaari@sitowise.com");
         mail.setFrom("info@digiroad.fi");
 
         mail.setSubject("Uusi yksitystielomake: " + maintenanceAssociation.getTiekunta());
