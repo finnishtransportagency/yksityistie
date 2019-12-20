@@ -43,17 +43,13 @@ public class PrivateRoadController {
         }
 
         byte[] pdf = new byte[0];
-        System.out.println("BEGINIGN OF PDF CREATION");
+
         try {
             pdf = pdfServise.createPdf(maintenanceAssociation);
         } catch (Exception e) {
           //exeption
             e.printStackTrace();
-            System.out.println("PDF ERROR");
-
         }
-
-        System.out.println("PDF DONE");
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
