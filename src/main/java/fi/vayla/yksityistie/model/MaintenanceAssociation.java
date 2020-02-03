@@ -70,22 +70,21 @@ public class MaintenanceAssociation {
     public String getToimitusTapa() { return toimitusTapa; }
 
     private String roadsToString() {
-
         String result = roads.stream().map(e ->  "\n" + e.toString()).reduce("", String::concat);
-
         return result;
     }
 
     @Override
     public String toString() {
-        return
-                "Tiekunta/Väglagets namn: " + tiekunta + "\n" +
-                "Kunta/Kommun: " + kunta + "\n" +
-                "Käyttöoikeustunnus/Beteckning för nyttjanderättsenhet: " + kayttooikeusyksikkotunnus + "\n" +
-                "Ilmoittajan nimi/ Anmälares namn: " + ilmoittaja + "\n" +
-                "Puhelinnumero/telefonnummer: " + puhelinnumero + "\n" +
-                "Sähköposti/E-post: " + email + "\n" +
-                "ilmoittajan suhde tiehen/Annonsörens relation till vägen: " + ilmoittajanSuhde + "\n" +
-                roadsToString();
+        String output = "Tiekunta/Väglagets namn: " + tiekunta + "\n" +
+                        "Kunta/Kommun: " + kunta + "\n";
+        output += kayttooikeusyksikkotunnus != null ? "Käyttöoikeustunnus/Beteckning för nyttjanderättsenhet: " + kayttooikeusyksikkotunnus + "\n" : "";
+        output +=   "Ilmoittajan nimi/ Anmälares namn: " + ilmoittaja + "\n" +
+                    "Puhelinnumero/telefonnummer: " + puhelinnumero + "\n" +
+                    "Sähköposti/E-post: " + email + "\n";
+        output += ilmoittajanSuhde != null ? "ilmoittajan suhde tiehen/Annonsörens relation till vägen: " + ilmoittajanSuhde + "\n" : "";
+        output += roadsToString();
+
+        return output;
     }
 }

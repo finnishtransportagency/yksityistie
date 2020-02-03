@@ -27,6 +27,38 @@ public class PrivateRoadController {
     @Autowired
     private ReCAPTCHAService reCAPTCHAService;
 
+//    @PostMapping
+//    public ResponseEntity<InputStreamResource> addPrivateRoad(
+//            @RequestBody MaintenanceAssociation maintenanceAssociation
+//    ){
+//
+//        System.out.println(maintenanceAssociation.toString());
+//        byte[] pdf = new byte[0];
+//
+//        try {
+//            pdf = pdfServise.createPdf(maintenanceAssociation);
+//        } catch (Exception e) {
+//            //exeption
+//            e.printStackTrace();
+//        }
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_PDF);
+//
+//
+//        ContentDisposition contentDisposition = ContentDisposition.builder("inline")
+//                .filename("Digiroad_tosite.pdf")
+//                .build();
+//
+//        headers.setContentDisposition(contentDisposition);
+//        headers.getAccessControlExposeHeaders();
+//
+//
+//
+//        return new ResponseEntity<>(new InputStreamResource(new ByteArrayInputStream(pdf)), headers, HttpStatus.OK);
+//    }
+
+
     @PostMapping
     public ResponseEntity<InputStreamResource> addPrivateRoad(
             @RequestBody MaintenanceAssociation maintenanceAssociation,
