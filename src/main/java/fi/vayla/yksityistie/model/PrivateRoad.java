@@ -96,7 +96,11 @@ public class PrivateRoad {
                       "\t" + "Painorajoituksen lisäkilvet: " + (painorjaoitusLisakilvet != null ? painorjaoitusLisakilvet : "") + "\n");
          }
 
-         if (kelirikkoToistuva != null && kelirikkoToistuva){
+         if (
+                 kelirikkoToistuva != null && kelirikkoToistuva
+                 && kelirikkoAlkuAika != null && kelirikkoLoppuAika != null
+                 && kelirikkoAlkuKuukausi != null && kelirikkoLoppuKuukausi != null
+         ){
              output = (output + "\t" + "Tiellä on toistuva kelirikko: " + "\n" +
                      "\t\t" + "Kelirikon painorajoitus: " + kelirikkoPainorajoitus + "\n" +
                      "\t\t" + "Kelirikon kesto: "  + kelirikkoAlkuKuukausi + " " + kelirikkoAlkuAika + " - "
