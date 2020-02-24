@@ -27,7 +27,7 @@ public class EmailNotificationService {
         mail.setTo("info@digiroad.fi");
         mail.setFrom("info@digiroad.fi");
 
-        mail.setSubject("Uusi yksitystielomake: " + maintenanceAssociation.getTiekunta());
+        mail.setSubject("Uusi yksityistielomake: " + maintenanceAssociation.getTiekunta());
         mail.setText(maintenanceAssociation.toString());
 
         javaMailSender.send(mail);
