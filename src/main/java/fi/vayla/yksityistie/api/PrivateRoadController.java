@@ -15,7 +15,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 
-@CrossOrigin(origins = {"http://localhost:3001","http://localhost:3000", "https://kehitysjulkinen.vayla.fi"}, maxAge = 3600)
+@CrossOrigin(origins = {"http://localhost:3001","http://localhost:3000", "https://kehitysjulkinen.vayla.fi","https://julkinen.vayla.fi"}, maxAge = 3600)
 @RequestMapping(value = "api/v1/privateroad", consumes = "application/json", produces="application/json")
 @RestController
 public class PrivateRoadController {
