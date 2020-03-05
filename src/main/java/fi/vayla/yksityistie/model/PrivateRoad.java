@@ -13,18 +13,19 @@ public class PrivateRoad {
     private String painorajoitusMassa;
     @JsonProperty("painorajoitus_lisakilvet")
     private String painorjaoitusLisakilvet;
-    @JsonProperty("kelirikkoToistuva")
-    private Boolean kelirikkoToistuva;
-    @JsonProperty("kelirikkoPainorajoitus")
-    private String kelirikkoPainorajoitus;
-    @JsonProperty("kelirikkoAlkuAika")
-    private String kelirikkoAlkuAika;
-    @JsonProperty("kelirkkoAlkuKuukausi")
-    private String kelirikkoAlkuKuukausi;
-    @JsonProperty("kelirikkoLoppuAika")
-    private String kelirikkoLoppuAika;
-    @JsonProperty("kelirikkoLoppuKuukausi")
-    private String kelirikkoLoppuKuukausi;
+//    @JsonProperty("kelirikkoToistuva")
+//    private Boolean kelirikkoToistuva;
+//    @JsonProperty("kelirikkoPainorajoitus")
+//    private String kelirikkoPainorajoitus;
+//    @JsonProperty("kelirikkoAlkuAika")
+//    private String kelirikkoAlkuAika;
+//    @JsonProperty("kelirkkoAlkuKuukausi")
+//    private String kelirikkoAlkuKuukausi;
+//    @JsonProperty("kelirikkoLoppuAika")
+//    private String kelirikkoLoppuAika;
+//    @JsonProperty("kelirikkoLoppuKuukausi")
+//    private String kelirikkoLoppuKuukausi;
+    private RoadThaw roadThaw;
     @JsonProperty("ajokielto")
     private String ajokielto;
     @JsonProperty("ajokieltoLisakilver")
@@ -46,12 +47,13 @@ public class PrivateRoad {
             Boolean onIlmoitettu,
             String painorajoitusMassa,
             String painorjaoitusLisakilvet,
-            Boolean kelirikkoToistuva,
-            String kelirikkoPainorajoitus,
-            String kelirikkoAlkuAika,
-            String kelirikkoAlkuKuukausi,
-            String kelirikkoLoppuAika,
-            String kelirikkoLoppuKuukausi,
+//            Boolean kelirikkoToistuva,
+//            String kelirikkoPainorajoitus,
+//            String kelirikkoAlkuAika,
+//            String kelirikkoAlkuKuukausi,
+//            String kelirikkoLoppuAika,
+//            String kelirikkoLoppuKuukausi,
+            RoadThaw roadThaw,
             String ajokielto,
             String ajokieltoLisakilvet,
             Boolean ajoesteTiella,
@@ -65,12 +67,7 @@ public class PrivateRoad {
         this.onIlmoitettu = onIlmoitettu;
         this.painorajoitusMassa = painorajoitusMassa;
         this.painorjaoitusLisakilvet = painorjaoitusLisakilvet;
-        this.kelirikkoToistuva = kelirikkoToistuva;
-        this.kelirikkoPainorajoitus = kelirikkoPainorajoitus;
-        this.kelirikkoAlkuAika = kelirikkoAlkuAika;
-        this.kelirikkoAlkuKuukausi = kelirikkoAlkuKuukausi;
-        this.kelirikkoLoppuAika = kelirikkoLoppuAika;
-        this.kelirikkoLoppuKuukausi = kelirikkoLoppuKuukausi;
+        this.roadThaw = roadThaw;
         this.ajokielto = ajokielto;
         this.ajokieltoLisakilvet = ajokieltoLisakilvet;
         this.ajoesteTiella = ajoesteTiella;
@@ -86,6 +83,8 @@ public class PrivateRoad {
         String output;
 
         output = "Tien nimi: " + tienNimi + "\n";
+        
+        output = output + this.roadThaw.toString();
 
         if(eiRajoituksia != null && eiRajoituksia || onIlmoitettu != null && onIlmoitettu){
             return output;
@@ -95,17 +94,8 @@ public class PrivateRoad {
             output = (output + "\t" + "Painorajotuksen suurin sallittu massa: " + painorajoitusMassa + "\n" +
                       "\t" + "Painorajoituksen lisäkilvet: " + (painorjaoitusLisakilvet != null ? painorjaoitusLisakilvet : "") + "\n");
          }
-
-         if (
-                 kelirikkoToistuva != null && kelirikkoToistuva
-                 && kelirikkoAlkuAika != null && kelirikkoLoppuAika != null
-                 && kelirikkoAlkuKuukausi != null && kelirikkoLoppuKuukausi != null
-         ){
-             output = (output + "\t" + "Tiellä on toistuva kelirikko: " + "\n" +
-                     "\t\t" + "Kelirikon painorajoitus: " + kelirikkoPainorajoitus + "\n" +
-                     "\t\t" + "Kelirikon kesto: "  + kelirikkoAlkuKuukausi + " " + kelirikkoAlkuAika + " - "
-                        + kelirikkoLoppuKuukausi + " " + kelirikkoLoppuAika + "\n");
-         }
+        
+        
 
         if(ajokielto != null && !ajokielto.isEmpty()){
             output =  (output + "\t" + "Ajokielto: " + ajokielto + "\n" +
