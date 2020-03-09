@@ -3,114 +3,82 @@ package fi.vayla.yksityistie.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PrivateRoad {
-    @JsonProperty("tiekunnanTienNimi")
-    private String tienNimi;
-    @JsonProperty("eiRajoituksia")
-    private Boolean eiRajoituksia;
-    @JsonProperty("onIlmoitettu")
-    private Boolean onIlmoitettu;
-    @JsonProperty("painorajoitus_suurin_massa")
-    private String painorajoitusMassa;
-    @JsonProperty("painorajoitus_lisakilvet")
-    private String painorjaoitusLisakilvet;
-//    @JsonProperty("kelirikkoToistuva")
-//    private Boolean kelirikkoToistuva;
-//    @JsonProperty("kelirikkoPainorajoitus")
-//    private String kelirikkoPainorajoitus;
-//    @JsonProperty("kelirikkoAlkuAika")
-//    private String kelirikkoAlkuAika;
-//    @JsonProperty("kelirkkoAlkuKuukausi")
-//    private String kelirikkoAlkuKuukausi;
-//    @JsonProperty("kelirikkoLoppuAika")
-//    private String kelirikkoLoppuAika;
-//    @JsonProperty("kelirikkoLoppuKuukausi")
-//    private String kelirikkoLoppuKuukausi;
-    private RoadThaw roadThaw;
-    @JsonProperty("ajokielto")
-    private String ajokielto;
-    @JsonProperty("ajokieltoLisakilver")
-    private String ajokieltoLisakilvet;
-    @JsonProperty("ajoesteTiella")
-    private Boolean ajoesteTiella;
-    @JsonProperty("ajoesteenTyyppi")
-    private String ajoesteenTyyppi;
-    @JsonProperty("nopeusRajoitus")
-    private String nopeusRajoitus;
-    @JsonProperty("karttalinkit")
-    private String karttalinkit;
-    @JsonProperty("muutTiedot")
-    private String muutTiedot;
+	
+    private final String roadName;
+    private final Boolean hasRestrictions;
+    private final Boolean alreadyCorrectInDigiroad;
+    private final WeightLimit weightLimit;
+    private final RoadThaw roadThaw;
+    private final VehicleRestriction vehicleRestriction;
+    private final RoadBarrier roadBarrier; 
+    private final SpeedLimit speedLimit;
+    
+    private final String mapURL;
+    private final String otherInfo;
 
     public PrivateRoad(
-            String tienNimi,
-            Boolean eiRajoituksia,
-            Boolean onIlmoitettu,
-            String painorajoitusMassa,
-            String painorjaoitusLisakilvet,
-//            Boolean kelirikkoToistuva,
-//            String kelirikkoPainorajoitus,
-//            String kelirikkoAlkuAika,
-//            String kelirikkoAlkuKuukausi,
-//            String kelirikkoLoppuAika,
-//            String kelirikkoLoppuKuukausi,
+            String roadName,
+            Boolean hasRestrictions,
+            Boolean alreadyCorrectInDigiroad,
+            WeightLimit weightLimit,
             RoadThaw roadThaw,
-            String ajokielto,
-            String ajokieltoLisakilvet,
-            Boolean ajoesteTiella,
-            String ajoesteenTyyppi,
-            String nopeusRajoitus,
-            String karttalinkit,
-            String muutTiedot
+            VehicleRestriction vehicleRestriction,
+            RoadBarrier roadBarrier,
+            SpeedLimit speedLimit,
+            String mapURL,
+            String otherInfo
     ) {
-        this.tienNimi = tienNimi;
-        this.eiRajoituksia = eiRajoituksia;
-        this.onIlmoitettu = onIlmoitettu;
-        this.painorajoitusMassa = painorajoitusMassa;
-        this.painorjaoitusLisakilvet = painorjaoitusLisakilvet;
+        this.roadName = roadName;
+        this.hasRestrictions = hasRestrictions;
+        this.alreadyCorrectInDigiroad = alreadyCorrectInDigiroad;
+        this.weightLimit = weightLimit;
         this.roadThaw = roadThaw;
-        this.ajokielto = ajokielto;
-        this.ajokieltoLisakilvet = ajokieltoLisakilvet;
-        this.ajoesteTiella = ajoesteTiella;
-        this.ajoesteenTyyppi = ajoesteenTyyppi;
-        this.nopeusRajoitus = nopeusRajoitus;
-        this.karttalinkit = karttalinkit;
-        this.muutTiedot = muutTiedot;
+        this.vehicleRestriction = vehicleRestriction;
+        this.roadBarrier = roadBarrier;
+        this.speedLimit = speedLimit;
+        this.mapURL = mapURL;
+        this.otherInfo = otherInfo;
     }
 
     @Override
     public String toString() {
-
-        String output;
-
-        output = "Tien nimi: " + tienNimi + "\n";
-        
-        output = output + this.roadThaw.toString();
-
-        if(eiRajoituksia != null && eiRajoituksia || onIlmoitettu != null && onIlmoitettu){
-            return output;
-        }
-
-         if (painorajoitusMassa != null && !painorajoitusMassa.isEmpty()){
-            output = (output + "\t" + "Painorajotuksen suurin sallittu massa: " + painorajoitusMassa + "\n" +
-                      "\t" + "Painorajoituksen lisäkilvet: " + (painorjaoitusLisakilvet != null ? painorjaoitusLisakilvet : "") + "\n");
-         }
-        
-        
-
-        if(ajokielto != null && !ajokielto.isEmpty()){
-            output =  (output + "\t" + "Ajokielto: " + ajokielto + "\n" +
-                       "\t\t" + "Ajokiellon lisäkilvet: " + ajokieltoLisakilvet + "\n");
-        }
-
-        if(ajoesteTiella != null && ajoesteTiella){
-            output = (output + "\t" + "Tiellä on ajoeste: " + ajoesteTiella + "\n" +
-                      "\t\t" + "Ajoesteen tyyppi: " + ajoesteenTyyppi + "\n");
-        }
-
-        output = (ajokielto != null && !ajokielto.isEmpty()) ? output + ( "\t" + "Nopeusrajoitus: " + nopeusRajoitus + "\n") : output ;
-        output = (karttalinkit != null && !karttalinkit.isEmpty()) ? output + ( "\t" + "Karttalinkit: " + karttalinkit + "\n") : output ;
-        output = (muutTiedot != null && !muutTiedot.isEmpty()) ? output + ( "\t" + "Muut tiedot: " + muutTiedot + "\n") : output ;
-
-        return output;
+    	if(!hasRestrictions || alreadyCorrectInDigiroad) {
+    		return String.format("Tien nimi: %s \n", roadName);
+    	} else {
+    		return String.format(
+            		"Tien nimi: %s \n" + // roadName(String)
+            		"%s" 	+ 	// SpeedLimit(enum)
+            		"%s" 	+ 	// WeightLimit(class)
+            		"%s" 	+	// RoadThaw(class)
+            		"%s" 	+  	// VehicleRestriction(class)
+            		"%s"	+	// RoadBarrier(enum)
+            		"%s"	+	// mapURL(String)
+            		"%s",		// otherInfo(String)
+            		roadName, 
+            		speedLimit != null ? speedLimit : "",
+            		weightLimit != null ? weightLimit.toString() : "",
+            		roadThaw != null ? roadThaw.toString() : "",
+    				vehicleRestriction != null ? vehicleRestriction.toString() : "",
+    				roadBarrier != null ? roadBarrier.toString() : "",
+    				formatMapURL(),
+    				formatOtherInfo());
+    	}
     }
+    
+    private String formatMapURL() {
+    	if (mapURL != null && !mapURL.isEmpty()) {
+    		return "  Karttalinkit: " + mapURL + "\n";
+    	} else {
+    		return "";
+    	}
+    }
+    
+    private String formatOtherInfo() {
+    	if (otherInfo != null && !otherInfo.isEmpty()) {
+    		return "  Muut tiedot: " + otherInfo + " \n";
+    	} else {
+    		return "";
+    	}
+    }
+    
 }

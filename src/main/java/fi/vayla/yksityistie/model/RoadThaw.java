@@ -30,7 +30,7 @@ public class RoadThaw {
 		if (isRecurrent) {
 		return String.format(
 				"  Tiellä on toistuva kelirikko: \n" +
-				"    ajankohta: %s %s - %s %s \n" + 
+				"    Ajankohta: %s %s - %s %s \n" + 
 				"    kelirikon aikainen painorajoitus: %s \n", 
 				startMonth, startTiming, endMonth, endTiming, weightLimit);
 		} else {

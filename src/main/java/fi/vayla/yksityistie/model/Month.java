@@ -1,64 +1,28 @@
 package fi.vayla.yksityistie.model;
 
 public enum Month {
-	JAN {
-		public String toString() {
-			return "Tammikuu";
-		}
-	},
-	FEB {
-		public String toString() {
-			return "Helmikuu";
-		}
-	},
-	MAR {
-		public String toString() {
-			return "";
-		}
-	},
-	APR {
-		public String toString() {
-			return "alku";
-		}
-	},
-	MAY {
-		public String toString() {
-			return "alku";
-		}
-	},
-	JUN {
-		public String toString() {
-			return "alku";
-		}
-	},
-	JUL {
-		public String toString() {
-			return "alku";
-		}
-	},
-	AUG {
-		public String toString() {
-			return "alku";
-		}
-	},
-	SEP {
-		public String toString() {
-			return "alku";
-		}
-	},
-	OCT {
-		public String toString() {
-			return "alku";
-		}
-	},
-	NOV {
-		public String toString() {
-			return "alku";
-		}
-	},
-	DEC {
-		public String toString() {
-			return "alku";
-		}
+	JAN("Tammikuu"), 
+	FEB("Helmikuu"), 
+	MAR("Maaliskuu"), 
+	APR("Huhtikuu"),
+	MAY("Toukokuu"),
+	JUN("Kesäkuu"),
+	JUL("Heinäkuu"), 
+	AUG("Elokuu"), 
+	SEP("Syyskuu"),
+	OCT("Lokakuu"),
+	NOV("Marraskuu"),
+	DEC("Joulukuu");
+	
+	private final String monthInFinnish;
+	
+	private Month(String monthInFinnish) {
+		this.monthInFinnish = monthInFinnish;
 	}
+	
+	@Override
+	public String toString() {
+		return monthInFinnish;
+	}
+
 }
