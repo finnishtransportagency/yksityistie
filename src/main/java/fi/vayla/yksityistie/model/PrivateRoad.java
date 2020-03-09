@@ -1,7 +1,5 @@
 package fi.vayla.yksityistie.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class PrivateRoad {
 	
     private final String roadName;
