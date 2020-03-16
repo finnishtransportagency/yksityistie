@@ -1,23 +1,19 @@
 package fi.vayla.yksityistie.model;
 
 public class PrivateRoad {
-	
     private final String roadName;
-    private final Boolean hasRestrictions;
-    private final Boolean alreadyCorrectInDigiroad;
+    private final ReportType reportType;
     private final WeightLimit weightLimit;
     private final RoadThaw roadThaw;
     private final VehicleRestriction vehicleRestriction;
     private final RoadBarrier roadBarrier; 
-    private final SpeedLimit speedLimit;
-    
+    private final SpeedLimit speedLimit;   
     private final String mapURL;
     private final String otherInfo;
 
     public PrivateRoad(
             String roadName,
-            Boolean hasRestrictions,
-            Boolean alreadyCorrectInDigiroad,
+            ReportType reportType,
             WeightLimit weightLimit,
             RoadThaw roadThaw,
             VehicleRestriction vehicleRestriction,
@@ -27,8 +23,7 @@ public class PrivateRoad {
             String otherInfo
     ) {
         this.roadName = roadName;
-        this.hasRestrictions = hasRestrictions;
-        this.alreadyCorrectInDigiroad = alreadyCorrectInDigiroad;
+        this.reportType = reportType;
         this.weightLimit = weightLimit;
         this.roadThaw = roadThaw;
         this.vehicleRestriction = vehicleRestriction;
@@ -40,9 +35,7 @@ public class PrivateRoad {
 
     @Override
     public String toString() {
-    	if(!hasRestrictions || alreadyCorrectInDigiroad) {
-    		return String.format("Tien nimi: %s \n", roadName);
-    	} else {
+    	if (reportType == ReportType.REPORT_CHANGES){
     		return String.format(
             		"Tien nimi: %s \n" + // roadName(String)
             		"%s" 	+ 	// SpeedLimit(enum)
@@ -60,6 +53,8 @@ public class PrivateRoad {
     				roadBarrier != null ? roadBarrier.toString() : "",
     				formatMapURL(),
     				formatOtherInfo());
+    	} else {
+    		return String.format("Tien nimi: %s \n", roadName);
     	}
     }
     

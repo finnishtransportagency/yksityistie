@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
+import javax.validation.Valid;
+
 
 @CrossOrigin(origins = {"http://localhost:3001","http://localhost:3000", "https://kehitysjulkinen.vayla.fi","https://julkinen.vayla.fi"}, maxAge = 3600)
 @RequestMapping(value = "api/v1/privateroad", consumes = "application/json", produces="application/json")
@@ -29,10 +31,10 @@ public class PrivateRoadController {
 
     @PostMapping
     public ResponseEntity<InputStreamResource> addPrivateRoad(
-            @RequestBody MaintenanceAssociation maintenanceAssociation
+            @Valid @RequestBody MaintenanceAssociation maintenanceAssociation
     ){
 
-        System.out.println(maintenanceAssociation.toString());
+        System.out.println(maintenanceAssociation.toString() + maintenanceAssociation.roadsToString());
         byte[] pdf = new byte[0];
 
         try {

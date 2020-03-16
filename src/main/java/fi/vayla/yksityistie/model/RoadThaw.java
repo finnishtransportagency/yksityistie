@@ -11,14 +11,14 @@ public class RoadThaw {
 	
 	public RoadThaw(
             Boolean isRecurrent,
-            String kelirikkoPainorajoitus,
+            String weightLimit,
             TimingOfMonth startTiming,
             Month startMonth,
             TimingOfMonth endTiming,
             Month endMonth
 			) {
         this.isRecurrent = isRecurrent;
-        this.weightLimit = kelirikkoPainorajoitus;
+        this.weightLimit = weightLimit;
         this.startTiming = startTiming;
         this.startMonth = startMonth;
         this.endTiming = endTiming;

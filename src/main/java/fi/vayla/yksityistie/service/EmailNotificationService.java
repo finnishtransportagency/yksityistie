@@ -27,8 +27,8 @@ public class EmailNotificationService {
         mail.setTo("info@digiroad.fi");
         mail.setFrom("info@digiroad.fi");
 
-        mail.setSubject("Uusi yksityistielomake: " + maintenanceAssociation.getTiekunta());
-        mail.setText(maintenanceAssociation.toString());
+        mail.setSubject("Uusi yksityistielomake: " + maintenanceAssociation.getAssociationName());
+        mail.setText(maintenanceAssociation.toString() + maintenanceAssociation.roadsToString());
 
         javaMailSender.send(mail);
     }
@@ -54,7 +54,7 @@ public class EmailNotificationService {
             MimeMessageHelper helper = new MimeMessageHelper(mail, true);
             helper.setTo(maintenanceAssociation.getEmail());
             helper.setFrom("info@digiroad.fi");
-            helper.setSubject("Tosite yksityistietietojen ilmoituksesta Digiroad-järjestelmään, " + maintenanceAssociation.getTiekunta());
+            helper.setSubject("Tosite yksityistietietojen ilmoituksesta Digiroad-järjestelmään, " + maintenanceAssociation.getAssociationName());
             helper.setText(messageBody + maintenanceAssociation.toString());
 
             // adding pdf attachment

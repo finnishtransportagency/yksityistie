@@ -1,6 +1,7 @@
 package fi.vayla.yksityistie.model;
 
 public enum RoadBarrier {
+	NO_BARRIER("Ei ajoesteitä"),
 	OPEN_CONNECTION("Avattava puomi"),
 	CLOSED_CONNECTION("Suljettu yhteys");
 	
@@ -12,10 +13,14 @@ public enum RoadBarrier {
 	
 	@Override
 	public String toString() {
+		if (connectionInFinnish.equals("Ei ajoesteitä")) {
+			return "";
+		} else {
 		return String.format(
 				"  Tiellä on ajoeste: \n"+
 				"    Ajoesteen tyyppi: %s \n", 
 				connectionInFinnish);
+		}
 	}
 
 }

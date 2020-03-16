@@ -2,89 +2,106 @@ package fi.vayla.yksityistie.model;
 
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
+
 public class MaintenanceAssociation {
-    private String tiekunta;
-    private String kunta;
-    private String kayttooikeusyksikkotunnus;
-    private String ilmoittaja;
-    private String puhelinnumero;
+	@NotEmpty
+    private String associationName;
+	
+	@NotEmpty
+    private String municipality;
+    
+	// MMLIDCode = "käyttöoikeusyksikkötunnus" which is used in National Land Survey of Finland's systems.
+    private String MMLIDCode;
+    
+    @NotEmpty
+    private String reporter;
+    
+    @NotEmpty
+    private String phone;
+    
     private String email;
-    private String ilmoittajanSuhde;
+    
+    private String relationToAssociation;
+    
+    @NotEmpty(message = "Maintenance Association must have at least one road.")
     private List<PrivateRoad> roads;
-    private String toimitusTapa;
+    
+    private VoucherDeliveryMethod voucherDeliveryMethod;
 
     public MaintenanceAssociation(
-            String tiekunta,
-            String kunta,
-            String kayttooikeusyksikkotunnus,
-            String ilmoittaja,
-            String puhelinnumero,
+            String associationName,
+            String municipality,
+            String MMLIDCode,
+            String reporter,
+            String phone,
             String email,
-            String ilmoittajanSuhde,
+            String relationToAssociation,
             List<PrivateRoad> roads,
-            String toimitusTapa
+            VoucherDeliveryMethod voucherDeliveryMethod
     ) {
-        this.tiekunta = tiekunta;
-        this.kunta = kunta;
-        this.kayttooikeusyksikkotunnus = kayttooikeusyksikkotunnus;
-        this.ilmoittaja = ilmoittaja;
-        this.puhelinnumero = puhelinnumero;
+        this.associationName = associationName;
+        this.municipality = municipality;
+        this.MMLIDCode = MMLIDCode;
+        this.reporter = reporter;
+        this.phone = phone;
         this.email = email;
-        this.ilmoittajanSuhde = ilmoittajanSuhde;
+        this.relationToAssociation = relationToAssociation;
         this.roads = roads;
-        this.toimitusTapa = toimitusTapa;
+        this.voucherDeliveryMethod = voucherDeliveryMethod;
     }
 
-    public String getTiekunta() {
-        return tiekunta;
+    public String getAssociationName() {
+        return String.format("Tiekunta/Väglagets namn: %s \n", associationName);
     }
 
-    public String getKunta() {
-        return kunta;
+    public String getMunicipality() {
+        return String.format("Kunta/Kommun: %s \n", municipality);
     }
 
-    public String getKayttooikeusyksikkotunnus() {
-        return kayttooikeusyksikkotunnus;
+    public String getMMLIDCode() {
+        return String.format(
+        		"Käyttöoikeustunnus/Beteckning för nyttjanderättsenhet: %s \n", 
+        		MMLIDCode != null ? MMLIDCode : "");
     }
 
-    public String getIlmoittaja() {
-        return ilmoittaja;
+    public String getReporter() {
+        return String.format("Ilmoittajan nimi/ Anmälares namn: %s \n", reporter);
     }
 
-    public String getPuhelinnumero() {
-        return puhelinnumero;
+    public String getPhone() {
+        return String.format("Puhelinnumero/telefonnummer: %s \n", phone);
     }
 
     public String getEmail() {
-        return email;
+        return String.format("Sähköposti/E-post: %s \n", 
+        		email != null ? email : "");
     }
 
     public String getIlmoittajanSuhde() {
-        return ilmoittajanSuhde;
+        return String.format("ilmoittajan suhde tiehen/Annonsörens relation till vägen: %s \n", 
+        		relationToAssociation != null ? relationToAssociation : "");
     }
 
     public List<PrivateRoad> getRoads() {
         return roads;
     }
 
-    public String getToimitusTapa() { return toimitusTapa; }
+    public String getToimitusTapa() { return voucherDeliveryMethod.toString(); }
 
-    private String roadsToString() {
+    public String roadsToString() {
         String result = roads.stream().map(e ->  "\n" + e.toString()).reduce("", String::concat);
         return result;
     }
 
     @Override
     public String toString() {
-        String output = "Tiekunta/Väglagets namn: " + tiekunta + "\n" +
-                        "Kunta/Kommun: " + kunta + "\n";
-        output += kayttooikeusyksikkotunnus != null ? "Käyttöoikeustunnus/Beteckning för nyttjanderättsenhet: " + kayttooikeusyksikkotunnus + "\n" : "";
-        output +=   "Ilmoittajan nimi/ Anmälares namn: " + ilmoittaja + "\n" +
-                    "Puhelinnumero/telefonnummer: " + puhelinnumero + "\n" +
-                    "Sähköposti/E-post: " + email + "\n";
-        output += ilmoittajanSuhde != null ? "ilmoittajan suhde tiehen/Annonsörens relation till vägen: " + ilmoittajanSuhde + "\n" : "";
-        output += roadsToString();
-
-        return output;
+    	return 	getAssociationName() + 
+    			getMunicipality() + 
+    			getMMLIDCode() +
+    			getReporter() +
+    			getPhone() +
+    			getEmail() +
+    			getIlmoittajanSuhde();
     }
 }

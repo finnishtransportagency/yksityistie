@@ -75,23 +75,13 @@ public class PDFService {
 
         // General info
         Paragraph info = new Paragraph();
-        info.add(new Text("Kunta/Kommun: "));
-        info.add(new Text(userInfo.getKunta() + "\n"));
-
-        info.add(new Text("Tiekunta/Väglagets namn: "));
-        info.add(new Text(userInfo.getTiekunta() + "\n"));
-
-        info.add(new Text("Käyttöoikeustunnus/Beteckning för nyttjanderättsenhet:"));
-        info.add(new Text(userInfo.getKayttooikeusyksikkotunnus() + "\n"));
-
-        info.add(new Text("Ilmoittajan nimi/ Anmälares namn: "));
-        info.add(new Text(userInfo.getIlmoittaja() + "\n"));
-
-        info.add(new Text("Puhelinnumero/telefonnummer: "));
-        info.add(new Text(userInfo.getPuhelinnumero() + "\n"));
-
-        info.add(new Text("Sähköposti/E-post: "));
-        info.add(new Text(userInfo.getEmail() + "\n"));
+    
+        info.add(new Text(userInfo.getMunicipality()));
+        info.add(new Text(userInfo.getAssociationName()));
+        info.add(new Text(userInfo.getMMLIDCode()));
+        info.add(new Text(userInfo.getReporter()));
+        info.add(new Text(userInfo.getPhone()));
+        info.add(new Text(userInfo.getEmail()));
 
         document.add(info);
 
