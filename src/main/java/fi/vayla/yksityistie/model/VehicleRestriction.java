@@ -11,11 +11,15 @@ public class VehicleRestriction {
 	
 	@Override
 	public String toString() {
+		if(restrictionType.isEmpty()) {
+			return "";
+		} else {
 		return String.format(
 				"  Tiellä on ajokeilto: \n" +
 				"    Ajokiellon tyyppi: %s \n" +
 				"    Ajokiellon lisäkilvet: %s \n", 
 				restrictionType, 
 				extraRoadSigns != null ? extraRoadSigns : "");
+		}
 	}
 }

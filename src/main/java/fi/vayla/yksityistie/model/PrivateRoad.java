@@ -6,7 +6,7 @@ public class PrivateRoad {
     private final WeightLimit weightLimit;
     private final RoadThaw roadThaw;
     private final VehicleRestriction vehicleRestriction;
-    private final RoadBarrier roadBarrier; 
+    private final RoadBarrier roadBarrier;
     private final SpeedLimit speedLimit;   
     private final String mapURL;
     private final String otherInfo;

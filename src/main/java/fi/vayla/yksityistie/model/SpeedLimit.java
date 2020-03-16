@@ -1,6 +1,7 @@
 package fi.vayla.yksityistie.model;
 
 public enum SpeedLimit {
+	NONE(0),
 	TWENTY(20),
 	THIRTY(30),
 	FORTY(40),
@@ -17,6 +18,11 @@ public enum SpeedLimit {
 	
 	@Override
 	public String toString() {
+		if (speed == 0) {
+			return "";
+		}
+		else {
 		return String.format("  Nopeusrajoitus: %s Km/h \n", speed);
+		}
 	}
 }

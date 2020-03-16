@@ -11,11 +11,15 @@ public class WeightLimit {
 	
 	@Override
 	public String toString() {
+		if (maxVehicleMass.isEmpty()) {
+			return "";
+		} else {
 		return String.format(
 				"  Tiellä on painorajoitus: \n" +
 				"    Suurin sallittu massa: %s \n" +
 				"    Painorajoituksen lisäkilvet: %s \n", 
 				maxVehicleMass, extraRoadSigns);
+		}
 	}
 
 }
