@@ -101,14 +101,12 @@
 				<directory>src/main/resources</directory>
 				<includes>
 					<include>application.properties</include>
+					<include>**/*.png</include>
 					<include>static/*.*</include>
 					<include>static/static/*.*</include>
 					<include>static/static/js/*.*</include>
 					<include>static/static/css/*.*</include>
 					<include>static/static/media/*.*</include>
-					<include>static/static/media</include>
-					<include>static/static/media/*</include>
-					<include>static/static/media/YT_banneri.*</include>
 					<include>images/vayla_logo.jpg</include>
 
 				</includes>
