@@ -29,18 +29,29 @@ public class PrivateRoadController {
     @Autowired
     private ReCAPTCHAService reCAPTCHAService;
 
+
     @PostMapping
     public ResponseEntity<InputStreamResource> addPrivateRoad(
-            @Valid @RequestBody MaintenanceAssociation maintenanceAssociation
-    ){
+            @RequestBody MaintenanceAssociation maintenanceAssociation
+//            @RequestHeader("g-recaptcha-response") String response
+            ){
 
-        System.out.println(maintenanceAssociation.toString() + maintenanceAssociation.roadsToString());
+//        boolean isSuccess = reCAPTCHAService.validateOnGoogleAPI(response);
+//   
+//
+//
+//        if(!isSuccess){
+//            String message = "message: reCAPTCHA Validation failure";
+//            InputStreamResource body = new InputStreamResource(new ByteArrayInputStream(message.getBytes()));
+//            return new ResponseEntity<>(body,HttpStatus.BAD_REQUEST);
+//        }
+
         byte[] pdf = new byte[0];
 
         try {
             pdf = pdfServise.createPdf(maintenanceAssociation);
         } catch (Exception e) {
-            //exeption
+          //exeption
             e.printStackTrace();
         }
 
@@ -56,67 +67,25 @@ public class PrivateRoadController {
         headers.getAccessControlExposeHeaders();
 
 
+        try {
+            emailNotificationService.sendEmailNotificationToOperator(maintenanceAssociation);
+        } catch (MailException e){
+        	 e.printStackTrace();
+        }
 
-        return new ResponseEntity<>(new InputStreamResource(new ByteArrayInputStream(pdf)), headers, HttpStatus.OK);
+        switch (maintenanceAssociation.getVoucherDeliveryMethod()){
+            case EMAIL_AND_PDF:
+                emailNotificationService.sendVerificationEmailToSubmitter(pdf, maintenanceAssociation);
+                return new ResponseEntity<>(new InputStreamResource(new ByteArrayInputStream(pdf)), headers, HttpStatus.OK);
+            case EMAIL:
+                emailNotificationService.sendVerificationEmailToSubmitter(pdf, maintenanceAssociation);
+                return new ResponseEntity<>(HttpStatus.OK);
+            case PDF:
+                return new ResponseEntity<>(new InputStreamResource(new ByteArrayInputStream(pdf)), headers, HttpStatus.OK);
+            default:
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
     }
-
-//
-//    @PostMapping
-//    public ResponseEntity<InputStreamResource> addPrivateRoad(
-//            @RequestBody MaintenanceAssociation maintenanceAssociation,
-//            @RequestHeader("g-recaptcha-response") String response
-//            ){
-//
-//        boolean isSuccess = reCAPTCHAService.validateOnGoogleAPI(response);
-//   
-//
-//
-//        if(!isSuccess){
-//            String message = "message: reCAPTCHA Validation failure";
-//            InputStreamResource body = new InputStreamResource(new ByteArrayInputStream(message.getBytes()));
-//            return new ResponseEntity<>(body,HttpStatus.BAD_REQUEST);
-//        }
-//
-//        byte[] pdf = new byte[0];
-//
-//        try {
-//            pdf = pdfServise.createPdf(maintenanceAssociation);
-//        } catch (Exception e) {
-//          //exeption
-//            e.printStackTrace();
-//        }
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_PDF);
-//
-//
-//        ContentDisposition contentDisposition = ContentDisposition.builder("inline")
-//                .filename("Digiroad_tosite.pdf")
-//                .build();
-//
-//        headers.setContentDisposition(contentDisposition);
-//        headers.getAccessControlExposeHeaders();
-//
-//
-//        try {
-//            emailNotificationService.sendEmailNotificationToOperator(maintenanceAssociation);
-//        } catch (MailException e){
-//        	 e.printStackTrace();
-//        }
-//
-//        switch (maintenanceAssociation.getToimitusTapa()){
-//            case "emailAndDownload":
-//                emailNotificationService.sendVerificationEmailToSubmitter(pdf, maintenanceAssociation);
-//                return new ResponseEntity<>(new InputStreamResource(new ByteArrayInputStream(pdf)), headers, HttpStatus.OK);
-//            case "email":
-//                emailNotificationService.sendVerificationEmailToSubmitter(pdf, maintenanceAssociation);
-//                return new ResponseEntity<>(HttpStatus.OK);
-//            case "download":
-//                return new ResponseEntity<>(new InputStreamResource(new ByteArrayInputStream(pdf)), headers, HttpStatus.OK);
-//            default:
-//                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
-//
-//    }
 
 }

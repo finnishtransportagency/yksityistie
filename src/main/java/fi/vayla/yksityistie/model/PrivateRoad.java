@@ -35,7 +35,8 @@ public class PrivateRoad {
 
     @Override
     public String toString() {
-    	if (reportType == ReportType.REPORT_CHANGES){
+    	switch (reportType) {
+    	case REPORT_CHANGES:
     		return String.format(
             		"Tien nimi: %s \n" + // roadName(String)
             		"%s" 	+ 	// SpeedLimit(enum)
@@ -53,7 +54,18 @@ public class PrivateRoad {
     				roadBarrier != null ? roadBarrier.toString() : "",
     				formatMapURL(),
     				formatOtherInfo());
-    	} else {
+    	case CORRECT:
+    		return String.format(
+    				"Tien nimi: %s \n" +
+    				"  - Tiekunnan tiedot on jo ilmoitettu Digiroadiin ja \n" +
+    				"    ne eivät ole muuttuneet edellisen ilmoituksen jälkeen. \n", 
+    				roadName);
+    	case NO_RESTRICTIONS:
+    		return String.format(
+    				"Tien nimi: %s \n" +
+    				"  - Tiellä ei ole rajoituksia tai kieltoja \n", 
+    				roadName);
+    	default:
     		return String.format("Tien nimi: %s \n", roadName);
     	}
     }

@@ -78,7 +78,7 @@ public class MaintenanceAssociation {
         		email != null ? email : "");
     }
 
-    public String getIlmoittajanSuhde() {
+    public String getRelationToAssociation() {
         return String.format("ilmoittajan suhde tiehen/Annonsörens relation till vägen: %s \n", 
         		relationToAssociation != null ? relationToAssociation : "");
     }
@@ -87,7 +87,12 @@ public class MaintenanceAssociation {
         return roads;
     }
 
+    // legacy can be deleted later
     public String getToimitusTapa() { return voucherDeliveryMethod.toString(); }
+    
+    public VoucherDeliveryMethod getVoucherDeliveryMethod() {
+    	return voucherDeliveryMethod;
+    }
 
     public String roadsToString() {
         String result = roads.stream().map(e ->  "\n" + e.toString()).reduce("", String::concat);
@@ -102,6 +107,6 @@ public class MaintenanceAssociation {
     			getReporter() +
     			getPhone() +
     			getEmail() +
-    			getIlmoittajanSuhde();
+    			getRelationToAssociation();
     }
 }
