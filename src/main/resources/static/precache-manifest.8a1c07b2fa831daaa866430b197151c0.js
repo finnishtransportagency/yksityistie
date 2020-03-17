@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "cce364a9baa012d028c937107a694690",
+    "revision": "dcbbddcb0e758040aefdd44cb8e51bd3",
     "url": "./index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "./static/css/2.b6e0e1ff.chunk.css"
   },
   {
-    "revision": "3298b85cadee50659812",
+    "revision": "ae3790f648acad79c104",
     "url": "./static/css/main.d28c7c06.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "./static/js/2.af3315b5.chunk.js"
   },
   {
-    "revision": "3298b85cadee50659812",
-    "url": "./static/js/main.d61e7d8b.chunk.js"
+    "revision": "ae3790f648acad79c104",
+    "url": "./static/js/main.b6eb3ee0.chunk.js"
   },
   {
     "revision": "08b6406a0af222019104",
@@ -25,7 +25,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   },
   {
     "revision": "7645fd6e08e828c4617a3c342fe553e2",
-    "url": "./static/media/YT_banneri.7645fd6e.png"
+    "url": "./static/media/YT_banneri.7645fd6e.PNG"
   },
   {
     "revision": "13db00b7a34fee4d819ab7f9838cc428",
