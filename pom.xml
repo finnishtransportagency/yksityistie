@@ -107,14 +107,8 @@
 					<include>static/static/js/*.*</include>
 					<include>static/static/css/*.*</include>
 					<include>static/static/media/*.*</include>
-					<include>static/static/media/*.png</include>
+					<include>static/static/media/YT_banneri.7645fd6e.png</include>
 					<include>images/vayla_logo.jpg</include>
-				</includes>
-			</resource>
-			<resource>
-				<directory>src/main/resources/static</directory>
-				<includes>
-					<include>media/*.png</include>
 				</includes>
 			</resource>
         	</resources>
