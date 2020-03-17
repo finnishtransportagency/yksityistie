@@ -106,6 +106,9 @@
 					<include>static/static/js/*.*</include>
 					<include>static/static/css/*.*</include>
 					<include>static/static/media/*.*</include>
+					<include>static/static/media</include>
+					<include>static/static/media/*</include>
+					<include>static/static/media/YT_banneri.*</include>
 					<include>images/vayla_logo.jpg</include>
 
 				</includes>
