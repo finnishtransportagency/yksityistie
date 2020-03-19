@@ -77,6 +77,11 @@ public class MaintenanceAssociation {
         return String.format("Sähköposti/E-post: %s \n", 
         		email != null ? email : "");
     }
+    
+    // This is a quick fix
+    public String getEmailForSender() {
+    	return email;
+    }
 
     public String getRelationToAssociation() {
         return String.format("ilmoittajan suhde tiehen/Annonsörens relation till vägen: %s \n", 

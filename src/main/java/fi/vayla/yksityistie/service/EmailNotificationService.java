@@ -52,9 +52,9 @@ public class EmailNotificationService {
         try {
 
             MimeMessageHelper helper = new MimeMessageHelper(mail, true);
-            helper.setTo(maintenanceAssociation.getEmail());
+            helper.setTo(maintenanceAssociation.getEmailForSender());
             helper.setFrom("info@digiroad.fi");
-            helper.setSubject("Tosite yksityistietietojen ilmoituksesta Digiroad-järjestelmään, " + maintenanceAssociation.getAssociationName());
+            helper.setSubject("Tosite yksityistietietojen ilmoituksesta Digiroad-järjestelmään");
             helper.setText(messageBody + maintenanceAssociation.toString());
 
             // adding pdf attachment
@@ -65,6 +65,7 @@ public class EmailNotificationService {
 
         } catch (Exception exeption){
             //
+        	System.out.println(exeption);
         }
 
     }
