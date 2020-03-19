@@ -17,7 +17,7 @@ import java.io.IOException;
 import javax.validation.Valid;
 
 
-@CrossOrigin(origins = {"http://localhost:3001","http://localhost:3000", "https://kehitysjulkinen.vayla.fi","https:Kjulkinen.vayla.fi"}, maxAge = 3600)
+@CrossOrigin(origins = {"http://localhost:3001","http://localhost:3000", "https://kehitysjulkinen.vayla.fi","https://julkinen.vayla.fi"}, maxAge = 3600)
 @RequestMapping(value = "api/v1/privateroad", consumes = "application/json", produces="application/json")
 @RestController
 public class PrivateRoadController {
@@ -32,19 +32,19 @@ public class PrivateRoadController {
 
     @PostMapping
     public ResponseEntity<InputStreamResource> addPrivateRoad(
-            @RequestBody MaintenanceAssociation maintenanceAssociation
-//            @RequestHeader("g-recaptcha-response") String response
+            @RequestBody MaintenanceAssociation maintenanceAssociation,
+            @RequestHeader("g-recaptcha-response") String response
             ){
 
-//          boolean isSuccess = reCAPTCHAService.validateOnGoogleAPI(response);
-//   
-//
-//
-//        if(!isSuccess){
-//            String message = "message: reCAPTCHA Validation failure";
-//            InputStreamResource body = new InputStreamResource(new ByteArrayInputStream(message.getBytes()));
-//            return new ResponseEntity<>(body,HttpStatus.BAD_REQUEST);
-//        }
+          boolean isSuccess = reCAPTCHAService.validateOnGoogleAPI(response);
+   
+
+
+        if(!isSuccess){
+            String message = "message: reCAPTCHA Validation failure";
+            InputStreamResource body = new InputStreamResource(new ByteArrayInputStream(message.getBytes()));
+            return new ResponseEntity<>(body,HttpStatus.BAD_REQUEST);
+        }
 
         byte[] pdf = new byte[0];
 
