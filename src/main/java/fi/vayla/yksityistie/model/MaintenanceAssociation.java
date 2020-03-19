@@ -54,6 +54,11 @@ public class MaintenanceAssociation {
     public String getAssociationName() {
         return String.format("Tiekunta/Väglagets namn: %s \n", associationName);
     }
+    
+    // quick fix this can be changed later
+    public String getAssociationNameForMailer() {
+    	return associationName;
+    }
 
     public String getMunicipality() {
         return String.format("Kunta/Kommun: %s \n", municipality);

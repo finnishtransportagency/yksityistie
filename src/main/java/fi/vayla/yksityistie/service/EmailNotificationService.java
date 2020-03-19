@@ -21,16 +21,29 @@ public class EmailNotificationService {
         this.javaMailSender = javaMailSender;
     }
 
-    public void sendEmailNotificationToOperator(MaintenanceAssociation maintenanceAssociation) throws MailException {
+    public void sendEmailNotificationToOperator(byte[] pdf, MaintenanceAssociation maintenanceAssociation) throws MailException {
+        MimeMessage mail = javaMailSender.createMimeMessage();
+        
+        try {
+        	MimeMessageHelper helper = new MimeMessageHelper(mail, true);
 
-        SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setTo("info@digiroad.fi");
-        mail.setFrom("info@digiroad.fi");
+        	helper.setTo("info@digiroad.fi");
+        	helper.setFrom("info@digiroad.fi");
 
-        mail.setSubject("Uusi yksityistielomake: " + maintenanceAssociation.getAssociationName());
-        mail.setText(maintenanceAssociation.toString() + maintenanceAssociation.roadsToString());
+        	helper.setSubject("Uusi yksityistielomake: " + maintenanceAssociation.getAssociationNameForMailer());
+        	helper.setText(maintenanceAssociation.toString() + maintenanceAssociation.roadsToString());
+        
+        	// adding pdf attachment
+        	ByteArrayDataSource attachment = new ByteArrayDataSource(pdf, "application/pdf");
+        	helper.addAttachment("Digiroad_tosite.pdf", attachment);
 
-        javaMailSender.send(mail);
+        	javaMailSender.send(mail);
+        	
+        	
+        } catch (Exception exeption){
+            //
+        	exeption.printStackTrace();
+        }
     }
 
     public void sendVerificationEmailToSubmitter(byte[] pdf, MaintenanceAssociation maintenanceAssociation)  {
