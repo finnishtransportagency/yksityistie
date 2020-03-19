@@ -32,19 +32,19 @@ public class PrivateRoadController {
 
     @PostMapping
     public ResponseEntity<InputStreamResource> addPrivateRoad(
-            @RequestBody MaintenanceAssociation maintenanceAssociation,
-            @RequestHeader("g-recaptcha-response") String response
+            @RequestBody MaintenanceAssociation maintenanceAssociation
+//            @RequestHeader("g-recaptcha-response") String response
             ){
 
-          boolean isSuccess = reCAPTCHAService.validateOnGoogleAPI(response);
-   
-
-
-        if(!isSuccess){
-            String message = "message: reCAPTCHA Validation failure";
-            InputStreamResource body = new InputStreamResource(new ByteArrayInputStream(message.getBytes()));
-            return new ResponseEntity<>(body,HttpStatus.BAD_REQUEST);
-        }
+//          boolean isSuccess = reCAPTCHAService.validateOnGoogleAPI(response);
+//   
+//
+//
+//        if(!isSuccess){
+//            String message = "message: reCAPTCHA Validation failure";
+//            InputStreamResource body = new InputStreamResource(new ByteArrayInputStream(message.getBytes()));
+//            return new ResponseEntity<>(body,HttpStatus.BAD_REQUEST);
+//        }
 
         byte[] pdf = new byte[0];
 
