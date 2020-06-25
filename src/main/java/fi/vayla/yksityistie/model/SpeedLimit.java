@@ -22,10 +22,7 @@ public enum SpeedLimit {
 			return "";
 		}
 		else {
-		return String.format(
-				"  Tiellä on nopeusrajoitus: \n" +
-				"    Nopeusrajoitus: %s Km/h \n", 
-				speed);
+			return speed + " Km/h";
 		}
 	}
 }

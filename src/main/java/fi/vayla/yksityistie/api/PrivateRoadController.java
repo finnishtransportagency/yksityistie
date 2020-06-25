@@ -1,6 +1,5 @@
 package fi.vayla.yksityistie.api;
 
-
 import fi.vayla.yksityistie.model.MaintenanceAssociation;
 import fi.vayla.yksityistie.service.EmailNotificationService;
 import fi.vayla.yksityistie.service.PDFService;
@@ -13,18 +12,45 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayInputStream;
 
-@CrossOrigin(origins = {"http://localhost:3001","http://localhost:3000", "https://kehitysjulkinen.vayla.fi","https://julkinen.vayla.fi"}, maxAge = 3600)
-@RequestMapping(value = "api/v1/privateroad", consumes = "application/json", produces="application/json")
+@CrossOrigin(origins = { "http://localhost:3001", "http://localhost:3000", "https://kehitysjulkinen.vayla.fi",
+		"https://julkinen.vayla.fi" }, maxAge = 3600)
+@RequestMapping(value = "api/v1/privateroad", consumes = "application/json", produces = "application/json")
 @RestController
 public class PrivateRoadController {
-    private final PDFService pdfServise = new PDFService();
+	private final PDFService pdfServise = new PDFService();
 
-    @Autowired
-    private EmailNotificationService emailNotificationService;
+	@Autowired
+	private EmailNotificationService emailNotificationService;
 
-    @Autowired
-    private ReCAPTCHAService reCAPTCHAService;
+	@Autowired
+	private ReCAPTCHAService reCAPTCHAService;
 
+//	@PostMapping
+//	public ResponseEntity<InputStreamResource> addPrivateRoad(
+//			@RequestBody MaintenanceAssociation maintenanceAssociation) {
+//
+//		byte[] pdf = new byte[0];
+//
+//		try {
+//			pdf = pdfServise.createPdf(maintenanceAssociation);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//		HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_PDF);
+//
+//
+//        ContentDisposition contentDisposition = ContentDisposition.builder("inline")
+//                .filename("Digiroad_tosite.pdf")
+//				.build();
+//
+//        headers.setContentDisposition(contentDisposition);
+//        headers.getAccessControlExposeHeaders();
+//
+//		emailNotificationService.sendEmailNotificationToOperator(pdf, maintenanceAssociation);
+//		return new ResponseEntity<>(new InputStreamResource(new ByteArrayInputStream(pdf)), headers, HttpStatus.OK);
+//	}
 
     @PostMapping
     public ResponseEntity<InputStreamResource> addPrivateRoad(
@@ -33,7 +59,7 @@ public class PrivateRoadController {
             ){
 
           boolean isSuccess = reCAPTCHAService.validateOnGoogleAPI(response);
-   
+
 
 
         if(!isSuccess){

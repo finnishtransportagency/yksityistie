@@ -35,7 +35,6 @@ public class PDFService {
         // Initialize document and fonts
         Document document = new Document(pdf);
         PdfFont helveticaBold = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD);
-        // PdfFont helvetica = PdfFontFactory.createFont(StandardFonts.HELVETICA);
 
         // Add image to document
 
@@ -76,12 +75,16 @@ public class PDFService {
         // General info
         Paragraph info = new Paragraph();
     
-        info.add(new Text(userInfo.getMunicipality()));
-        info.add(new Text(userInfo.getAssociationName()));
-        info.add(new Text(userInfo.getMMLIDCode()));
-        info.add(new Text(userInfo.getReporter()));
-        info.add(new Text(userInfo.getPhone()));
-        info.add(new Text(userInfo.getEmail()));
+        info.add(new Text(String.format("Kunta/Kommun: %s \n", userInfo.getMunicipality())));
+        info.add(new Text(String.format("Tiekunta/Väglagets namn: %s \n", userInfo.getAssociationName())));
+        info.add(String.format("Käyttöoikeustunnus/Beteckning för nyttjanderättsenhet: %s \n",
+                userInfo.getMmlidcode() != null ? userInfo.getMmlidcode() : "")
+        );
+        info.add(new Text(String.format("Ilmoittajan nimi/ Anmälares namn: %s \n", userInfo.getReporter())));
+        info.add(new Text(String.format("Puhelinnumero/telefonnummer: %s \n", userInfo.getPhone())));
+        info.add(new Text(String.format("Sähköposti/E-post: %s \n",
+                userInfo.getEmail() != null ? userInfo.getEmail() : ""))
+        );
 
         document.add(info);
 

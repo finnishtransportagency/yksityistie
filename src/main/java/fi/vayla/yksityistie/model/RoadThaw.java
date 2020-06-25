@@ -8,7 +8,6 @@ public class RoadThaw {
     private TimingOfMonth endTiming;
     private Month endMonth;
 	
-	
 	public RoadThaw(
             Boolean isRecurrent,
             String weightLimit,
@@ -24,15 +23,27 @@ public class RoadThaw {
         this.endTiming = endTiming;
         this.endMonth = endMonth;
 	}
-	
+
+	public String getDuration(){
+		if (isRecurrent) {
+			return String.format("%s %s - %s %s", startMonth, startTiming, endMonth, endTiming);
+		} else {
+			return "";
+		}
+	}
+
+	public Boolean getRecurrent() {
+		return isRecurrent;
+	}
+
+	public String getWeightLimit() {
+		return weightLimit;
+	}
+
 	@Override
 	public String toString() {
 		if (isRecurrent) {
-		return String.format(
-				"  Tiellä on toistuva kelirikko: \n" +
-				"    Ajankohta: %s %s - %s %s \n" + 
-				"    kelirikon aikainen painorajoitus: %s \n", 
-				startMonth, startTiming, endMonth, endTiming, weightLimit);
+		return String.format("%s %s - %s %s", startMonth, startTiming, endMonth, endTiming);
 		} else {
 			return "";
 		}

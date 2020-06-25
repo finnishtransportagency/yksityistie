@@ -1,0 +1,64 @@
+<table
+  style="
+    padding: 3px;
+    margin: 5px;
+    border: solid #e6e6e6 0.3px;
+    background-color: #f0f0f0;
+  "
+  align="center"
+  cellpadding="0"
+  cellspacing="0"
+  width="600"
+>
+  <tr>
+    <td
+      align="center"
+      style="border-radius: 50%; background-color: #3e9df9; padding: 3px;"
+      width="50px"
+      height="50px"
+      rowspan="2"
+    >
+      <svg
+        id="phone"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        x="0px"
+        y="0px"
+        viewbox="0 0 384 384"
+        style="width: 35px; enable-background: new 0 0 384 384;"
+        xml:space="preserve"
+      >
+        <g fill="#fff">
+          <path
+            d="M353.188,252.052c-23.51,0-46.594-3.677-68.469-10.906c-10.719-3.656-23.896-0.302-30.438,6.417l-43.177,32.594        c-50.073-26.729-80.917-57.563-107.281-107.26l31.635-42.052c8.219-8.208,11.167-20.198,7.635-31.448        c-7.26-21.99-10.948-45.063-10.948-68.583C132.146,13.823,118.323,0,101.333,0H30.813C13.823,0,0,13.823,0,30.813        C0,225.563,158.438,384,353.188,384c16.99,0,30.813-13.823,30.813-30.813v-70.323C384,265.875,370.177,252.052,353.188,252.052z"
+          ></path>
+        </g>
+      </svg>
+    </td>
+    <td
+      class="item-header"
+      style="
+        font-family: Arial, Helvetica, sans-serif;
+        padding-left: 10px;
+        font-weight: bold;
+        color: #3e9df9;
+      "
+      colspan="5"
+    >
+      Puhelinnumero
+    </td>
+  </tr>
+  <tr>
+    <td
+      class="item-title"
+      style="
+        font-family: Arial, Helvetica, sans-serif;
+        padding-left: 20px;
+        color: #2d2d1d;
+      "
+      colspan="5"
+      th:text="${phone}"
+    ></td>
+  </tr>
+</table>

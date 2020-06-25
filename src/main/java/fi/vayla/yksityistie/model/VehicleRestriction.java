@@ -8,7 +8,15 @@ public class VehicleRestriction {
 		this.restrictionType = restrictionType;
 		this.extraRoadSigns = extraRoadSigns;
 	}
-	
+
+	public String getRestrictionType() {
+		return restrictionType;
+	}
+
+	public String getExtraRoadSigns() {
+		return extraRoadSigns;
+	}
+
 	@Override
 	public String toString() {
 		if(restrictionType.isEmpty()) {
