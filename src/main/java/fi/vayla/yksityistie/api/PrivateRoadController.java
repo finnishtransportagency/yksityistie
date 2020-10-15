@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayInputStream;
 
-@CrossOrigin(origins = {"http://localhost:3001","http://localhost:3000", "https://kehitysjulkinen.vayla.fi","https://julkinen.vayla.fi"}, maxAge = 3600)
+@CrossOrigin(origins = {"http://localhost:3001","http://localhost:3000", "https://kehitysjulkinen.vayla.fi", "https://testijulkinen.vayla.fi", "https://julkinen.vayla.fi"}, maxAge = 3600)
 @RequestMapping(value = "api/v1/privateroad", consumes = "application/json", produces="application/json")
 @RestController
 public class PrivateRoadController {
@@ -33,7 +33,7 @@ public class PrivateRoadController {
             ){
 
           boolean isSuccess = reCAPTCHAService.validateOnGoogleAPI(response);
-   
+
 
 
         if(!isSuccess){
