@@ -23,7 +23,7 @@ public class EmailNotificationService {
 
     public void sendEmailNotificationToOperator(byte[] pdf, MaintenanceAssociation maintenanceAssociation) throws MailException {
         MimeMessage mail = javaMailSender.createMimeMessage();
-        
+
         try {
         	MimeMessageHelper helper = new MimeMessageHelper(mail, true);
 
@@ -32,14 +32,14 @@ public class EmailNotificationService {
 
         	helper.setSubject("Uusi yksityistielomake: " + maintenanceAssociation.getAssociationNameForMailer());
         	helper.setText(maintenanceAssociation.toString() + maintenanceAssociation.roadsToString());
-        
+
         	// adding pdf attachment
         	ByteArrayDataSource attachment = new ByteArrayDataSource(pdf, "application/pdf");
         	helper.addAttachment("Digiroad_tosite.pdf", attachment);
 
         	javaMailSender.send(mail);
-        	
-        	
+
+
         } catch (Exception exeption){
             //
         	exeption.printStackTrace();
@@ -68,7 +68,7 @@ public class EmailNotificationService {
             helper.setTo(maintenanceAssociation.getEmailForSender());
             helper.setFrom("info@digiroad.fi");
             helper.setSubject("Tosite yksityistietietojen ilmoituksesta Digiroad-järjestelmään");
-            helper.setText(messageBody + maintenanceAssociation.toString());
+            helper.setText(messageBody + maintenanceAssociation.toString() + maintenanceAssociation.roadsToString());
 
             // adding pdf attachment
             ByteArrayDataSource attachment = new ByteArrayDataSource(pdf, "application/pdf");
@@ -84,4 +84,3 @@ public class EmailNotificationService {
     }
 
 }
-
