@@ -2,31 +2,22 @@ package fi.vayla.yksityistie.model;
 
 public class RoadThaw {
 	private Boolean isRecurrent;
-    private String weightLimit;
-    private TimingOfMonth startTiming;
-    private Month startMonth;
-    private TimingOfMonth endTiming;
-    private Month endMonth;
+	private String weightLimit;
+	private String dateRange;
 	
 	public RoadThaw(
             Boolean isRecurrent,
-            String weightLimit,
-            TimingOfMonth startTiming,
-            Month startMonth,
-            TimingOfMonth endTiming,
-            Month endMonth
+			String weightLimit,
+			String dateRange
 			) {
         this.isRecurrent = isRecurrent;
-        this.weightLimit = weightLimit;
-        this.startTiming = startTiming;
-        this.startMonth = startMonth;
-        this.endTiming = endTiming;
-        this.endMonth = endMonth;
+		this.weightLimit = weightLimit;
+		this.dateRange = dateRange;
 	}
 
 	public String getDuration(){
 		if (isRecurrent) {
-			return String.format("%s %s - %s %s", startMonth, startTiming, endMonth, endTiming);
+			return this.dateRange;
 		} else {
 			return "";
 		}
@@ -43,7 +34,7 @@ public class RoadThaw {
 	@Override
 	public String toString() {
 		if (isRecurrent) {
-		return String.format("%s %s - %s %s", startMonth, startTiming, endMonth, endTiming);
+			return this.dateRange;
 		} else {
 			return "";
 		}

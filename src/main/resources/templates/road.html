@@ -669,7 +669,7 @@
                             "
                             colspan="5"
                           >
-                            Keliron ajankohta
+                            Kelirikon ajankohta
                           </td>
                         </tr>
                         <tr>
@@ -967,7 +967,7 @@
 
               <!-- RoadBarrier -->
 
-              <th:block th:if="${road.roadBarrier != null}">
+              <th:block th:if="${road.roadBarrier != ''}">
                 <table
                   style="
                     padding: 3px;
@@ -1164,7 +1164,6 @@
                           margin-bottom: 10px;
                         "
                         width="550"
-                        height="225"
                         th:each="image : ${road.screenshots}"
                         th:src="${image}"
                       />

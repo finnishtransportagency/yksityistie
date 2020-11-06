@@ -1,31 +1,31 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9ecf498f0e69093a782d45f485a6e9de",
+    "revision": "1bc9dcef60e03c9514a26e11bd16367d",
     "url": "./index.html"
   },
   {
-    "revision": "932a1aead4b0d5aca251",
-    "url": "./static/css/2.b6e0e1ff.chunk.css"
+    "revision": "2541964f72baf1b7da70",
+    "url": "./static/css/2.4688aa61.chunk.css"
   },
   {
-    "revision": "1863436e0dd84dcc1d5e",
-    "url": "./static/css/main.19cc1de0.chunk.css"
+    "revision": "e790e18afb149cfbabfc",
+    "url": "./static/css/main.7aa93837.chunk.css"
   },
   {
-    "revision": "932a1aead4b0d5aca251",
-    "url": "./static/js/2.89c2d03d.chunk.js"
+    "revision": "2541964f72baf1b7da70",
+    "url": "./static/js/2.ed435702.chunk.js"
   },
   {
-    "revision": "1863436e0dd84dcc1d5e",
-    "url": "./static/js/main.02fe64f4.chunk.js"
+    "revision": "e790e18afb149cfbabfc",
+    "url": "./static/js/main.573dce2c.chunk.js"
   },
   {
-    "revision": "08b6406a0af222019104",
-    "url": "./static/js/runtime-main.e6a5d320.js"
+    "revision": "0600896284e253221a29",
+    "url": "./static/js/runtime-main.6c27103f.js"
   },
   {
-    "revision": "7645fd6e08e828c4617a3c342fe553e2",
-    "url": "./static/media/YT_banneri.7645fd6e.PNG"
+    "revision": "0a1b23f3c43a797dc52c23f8c442dea2",
+    "url": "./static/media/YT_banneri.0a1b23f3.PNG"
   },
   {
     "revision": "13db00b7a34fee4d819ab7f9838cc428",

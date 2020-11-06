@@ -1,9 +1,9 @@
 package fi.vayla.yksityistie.model;
 
 public enum ReportType {
-	REPORT_CHANGES("Ilmoitan muuttuneet tai puuttuvat tiedot"),
+	REPORT_CHANGES("Ilmoita muuttuneet tai puuttuvat tiedot"),
 	CORRECT("Tien tiedot ovat jo oikein Digiroadissa"),
-	NO_RESTRICTIONS("Tiellä ei ole rajoituksia");
+	NO_RESTRICTIONS("Tiellä ei ole rajoituksia tai kieltoja");
 
 	private final String description;
 
