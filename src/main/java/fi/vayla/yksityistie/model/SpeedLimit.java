@@ -22,7 +22,7 @@ public enum SpeedLimit {
 			return "";
 		}
 		else {
-			return speed + " Km/h";
+			return speed + " km/h";
 		}
 	}
 }
