@@ -32,12 +32,12 @@
         <td style="font-weight: bold; padding-right: 10px;">Painorajoitus</td>
       </tr>
       <tr>
-        <td style="padding-left: 10px;">Suurin sallittu massa</td>
+        <td style="padding-left: 10px; padding-right: 10px;">Suurin sallittu massa</td>
         <td th:text="${road.weightLimit.maxVehicleMass}"></td>
       </tr>
       <th:block th:if="${road.weightLimit.extraRoadSigns != ''}">
         <tr>
-          <td style="padding-left: 10px;">Painorajoituksen lisäkilvet</td>
+          <td style="padding-left: 10px; padding-right: 10px;">Painorajoituksen lisäkilvet</td>
           <td th:text="${road.weightLimit.extraRoadSigns}"></td>
         </tr>
       </th:block>
@@ -55,13 +55,13 @@
       </tr>
       <th:block th:if="${road.roadThaw.duration != ''}">
         <tr>
-          <td style="padding-left: 10px;">Kelirikkon ajankohta</td>
+          <td style="padding-left: 10px; padding-right: 10px;">Kelirikkon ajankohta</td>
           <td th:text="${road.roadThaw.duration}"></td>
         </tr>
       </th:block>
       <th:block th:if="${road.roadThaw.weightLimit != ''}">
         <tr>
-          <td style="padding-left: 10px;">Kelirikon aikainen painorajoitus</td>
+          <td style="padding-left: 10px; padding-right: 10px;">Kelirikon aikainen painorajoitus</td>
           <td th:text="${road.roadThaw.weightLimit}"></td>
         </tr>
       </th:block>
@@ -75,12 +75,12 @@
         <td style="font-weight: bold; padding-right: 10px;">Ajokielto</td>
       </tr>
       <tr>
-        <td style="padding-left: 10px;">Ajokiellon tyyppi</td>
+        <td style="padding-left: 10px; padding-right: 10px;">Ajokiellon tyyppi</td>
         <td th:text="${road.vehicleRestriction.restrictionType}"></td>
       </tr>
       <th:block th:if="${road.vehicleRestriction.extraRoadSigns != ''}">
         <tr>
-          <td style="padding-left: 10px;">Ajokiellon lisäkilvet</td>
+          <td style="padding-left: 10px; padding-right: 10px;">Ajokiellon lisäkilvet</td>
           <td th:text="${road.vehicleRestriction.extraRoadSigns}"></td>
         </tr>
       </th:block>
