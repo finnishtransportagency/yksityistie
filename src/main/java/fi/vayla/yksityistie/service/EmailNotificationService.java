@@ -1,6 +1,7 @@
 package fi.vayla.yksityistie.service;
 
 import fi.vayla.yksityistie.model.MaintenanceAssociation;
+import fi.vayla.yksityistie.model.PrivateRoad;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -12,7 +13,9 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Map;
+import java.util.Base64;
 
 import javax.mail.internet.MimeMessage;
 import javax.mail.util.ByteArrayDataSource;
@@ -65,6 +68,18 @@ public class EmailNotificationService {
             // adding pdf attachment
             ByteArrayDataSource attachment = new ByteArrayDataSource(pdf, "application/pdf");
             helper.addAttachment("Digiroad_tosite.pdf", attachment);
+
+            // add screenshots
+            List<PrivateRoad> roads = maintenanceAssociation.getRoads();
+            for (int i = 0; i < roads.size(); i++) {
+                List<String> screenshots = roads.get(i).getScreenshots();
+                if (screenshots == null) continue; 
+                for (int j = 0; j < screenshots.size(); j++) {
+                    String imgStr = screenshots.get(j).split(",")[1];
+                    byte[] img = Base64.getDecoder().decode(imgStr.getBytes("UTF-8"));
+                    helper.addAttachment(String.format("screenshot_%d_%d.png", i+1, j+1), new ByteArrayDataSource(img, "image/png"));
+                }
+            }
 
             javaMailSender.send(mail);
 

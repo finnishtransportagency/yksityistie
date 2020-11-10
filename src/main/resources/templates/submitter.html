@@ -3,22 +3,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style>
-      body { 
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif, Geneva, sans-serif, Arial;
-        font-size: 14px;
-      }
-      table {
-        border: 1px solid darkgray;
-        padding: 5px;
-      }
-      th, td {
-        padding-right: 10px;
-      }
-    </style>
     <title>Document</title>
   </head>
-  <body>
+  <body 
+    style="
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif, Geneva, sans-serif, Arial;
+      font-size: 14px;
+    ">
     <h2>Kiitos yksityistieilmoituksesta</h2>
     <p>Kiitos yksityistien tietojen toimittamisesta Väylän Digiroad-järjestelmään. Olemme vastaanottaneet ilmoituksen.</p>
     <p>Tarkistathan tämän viestin lopusta, että ilmoittamasi tiedot ovat oikein. Jos havaitset virheitä ilmoituksessa, voit lähettää korjauksen vastaamalla tähän sähköpostiviestiin tai täyttämällä ilmoituslomakkeen uudelleen osoiteessa <a href='http://www.vayla.fi/yksityistiet'>vayla.fi/yksityistiet</a>.</p>
@@ -26,7 +17,7 @@
     <p style="padding-top: 20px;">Oikein hyvää jatkoa!</p>
     <p><b>Ystävällisin terveisin,</b><br>Digiroad-operaattori</p>
     <p>040 507 2301<br><a href='mailto:info@digiroad.fi'>info@digiroad.fi</a><br><a href='http://www.vayla.fi/digiroad'>vayla.fi/digiroad</a></p>
-    <img src="https://vayla.fi/documents/35644980/36542466/vayla_alla_fi_sv_rgb.jpg/0b424e8e-d000-d961-88f5-d0d0ebfdb723" width="150px">
+    <th th:replace="logo"></th>
     <hr>
     <th th:replace="association"></th>
     <th th:replace="road"></th>

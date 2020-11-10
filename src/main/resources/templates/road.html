@@ -2,15 +2,15 @@
   
   <h3 th:text="'Tien tiedot (' + ${iter.index + 1} + '/' + ${iter.size} + '):'"></h3>
 
-  <table>
+  <table style="border: 1px solid darkgray; padding: 5px;">
 
     <tr>
-      <td style="font-weight: bold">Tien nimi</td>
+      <td style="font-weight: bold; padding-right: 10px;">Tien nimi</td>
       <td th:text="${road.roadName}"></td>
     </tr>
 
     <tr>
-      <td style="font-weight: bold">Ilmoituksen tyyppi</td>
+      <td style="font-weight: bold; padding-right: 10px;">Ilmoituksen tyyppi</td>
       <td th:text="${road.reportType}"></td>
     </tr>
 
@@ -19,7 +19,7 @@
         <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
       </tr>
       <tr>
-        <td style="font-weight: bold">Nopeusrajoitus</td>
+        <td style="font-weight: bold; padding-right: 10px;">Nopeusrajoitus</td>
         <td th:text="${road.speedLimit}"></td>
       </tr>
     </th:block>
@@ -29,7 +29,7 @@
         <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
       </tr>
       <tr>
-        <td style="font-weight: bold">Painorajoitus</td>
+        <td style="font-weight: bold; padding-right: 10px;">Painorajoitus</td>
       </tr>
       <tr>
         <td style="padding-left: 10px;">Suurin sallittu massa</td>
@@ -48,7 +48,7 @@
         <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
       </tr>
       <tr>
-        <td style="font-weight: bold">Kelirikko</td>
+        <td style="font-weight: bold; padding-right: 10px;">Kelirikko</td>
         <th:block th:if="${road.roadThaw.recurrent && road.roadThaw.duration == '' && road.roadThaw.weightLimit == ''}">
           <td>Kyllä, ilman ajankohtaa tai painorajoituksia.</td>
         </th:block>
@@ -72,7 +72,7 @@
         <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
       </tr>
       <tr>
-        <td style="font-weight: bold">Ajokielto</td>
+        <td style="font-weight: bold; padding-right: 10px;">Ajokielto</td>
       </tr>
       <tr>
         <td style="padding-left: 10px;">Ajokiellon tyyppi</td>
@@ -91,7 +91,7 @@
         <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
       </tr>
       <tr>
-        <td style="font-weight: bold">Ajoeste</td>
+        <td style="font-weight: bold; padding-right: 10px;">Ajoeste</td>
         <td th:text="${road.roadBarrier}"></td>
       </tr>
     </th:block>  
@@ -101,7 +101,7 @@
         <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
       </tr>
       <tr>
-        <td style="font-weight: bold">Muut tiedot</td>
+        <td style="font-weight: bold; padding-right: 10px;">Muut tiedot</td>
         <td th:text="${road.otherInfo}"></td>
       </tr>
     </th:block>
@@ -111,15 +111,8 @@
         <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
       </tr>
       <tr>
-        <td style="font-weight: bold">Karttakuvat</td>
-      </tr>
-      <tr th:each="image : ${road.screenshots}">
-        <td colspan="100%">
-          <img
-            style="margin-bottom: 5px;"
-            width="550px"
-            th:src="${image}">
-        </td>
+        <td style="font-weight: bold; padding-right: 10px;">Karttakuvat liitteenä</td>
+        <td><li th:each="image, im_iter : ${road.screenshots}" th:text="'screenshot_' + ${iter.index + 1} + '_' + ${im_iter.index + 1} + '.png'"></li></td>
       </tr>
     </th:block>
   </table>
