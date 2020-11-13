@@ -2,6 +2,7 @@ package fi.vayla.yksityistie.service;
 
 import fi.vayla.yksityistie.model.MaintenanceAssociation;
 import fi.vayla.yksityistie.model.PrivateRoad;
+import fi.vayla.yksityistie.model.Screenshot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -72,10 +73,10 @@ public class EmailNotificationService {
             // add screenshots
             List<PrivateRoad> roads = maintenanceAssociation.getRoads();
             for (int i = 0; i < roads.size(); i++) {
-                List<String> screenshots = roads.get(i).getScreenshots();
+                List<Screenshot> screenshots = roads.get(i).getScreenshots();
                 if (screenshots == null) continue; 
                 for (int j = 0; j < screenshots.size(); j++) {
-                    String imgStr = screenshots.get(j).split(",")[1];
+                    String imgStr = screenshots.get(j).getImage().split(",")[1];
                     byte[] img = Base64.getDecoder().decode(imgStr.getBytes("UTF-8"));
                     helper.addAttachment(String.format("screenshot_%d_%d.png", i+1, j+1), new ByteArrayDataSource(img, "image/png"));
                 }

@@ -112,7 +112,7 @@
       </tr>
       <tr>
         <td style="font-weight: bold; padding-right: 10px;">Karttakuvat liitteenä</td>
-        <td><li th:each="image, im_iter : ${road.screenshots}" th:text="'screenshot_' + ${iter.index + 1} + '_' + ${im_iter.index + 1} + '.png'"></li></td>
+        <td><li th:each="image, im_iter : ${road.screenshots}" th:text="${image.description} + ' : screenshot_' + ${iter.index + 1} + '_' + ${im_iter.index + 1} + '.png'"></li></td>
       </tr>
     </th:block>
   </table>
