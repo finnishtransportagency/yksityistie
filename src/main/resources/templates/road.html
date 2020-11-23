@@ -116,7 +116,7 @@
       </tr>
     </th:block>
 
-    <th:block th:if="${road.screenshots != null}">
+    <th:block th:if="${road.screenshots != null && road.screenshots.size() != 0}">
       <tr>
         <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
       </tr>
@@ -126,4 +126,6 @@
       </tr>
     </th:block>
   </table>
+
+  <br>
 </th>
