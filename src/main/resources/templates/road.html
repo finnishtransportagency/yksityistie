@@ -1,0 +1,131 @@
+<th th:each="road, iter : ${roads}">
+  
+  <h3 th:text="'Tien tiedot (' + ${iter.index + 1} + '/' + ${iter.size} + '):'"></h3>
+
+  <table style="border: 1px solid darkgray; padding: 5px;">
+
+    <tr>
+      <td style="font-weight: bold; padding-right: 10px;">Tien nimi</td>
+      <td th:text="${road.roadName}"></td>
+    </tr>
+
+    <tr>
+      <td style="font-weight: bold; padding-right: 10px;">Ilmoituksen tyyppi</td>
+      <td th:text="${road.reportType}"></td>
+    </tr>
+
+    <th:block th:if="${road.speedLimit != '' && road.speedLimit != null}">
+      <tr>
+        <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; padding-right: 10px;">Nopeusrajoitus</td>
+        <td th:text="${road.speedLimit}"></td>
+      </tr>
+    </th:block>
+
+    <th:block th:if="${road.weightLimit != '' && road.weightLimit != null}">
+      <tr>
+        <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; padding-right: 10px;">Painorajoitus</td>
+      </tr>
+      <tr>
+        <td style="padding-left: 10px; padding-right: 10px;">Suurin sallittu massa</td>
+        <td th:text="${road.weightLimit.maxVehicleMass}"></td>
+      </tr>
+      <th:block th:if="${road.weightLimit.extraRoadSigns != ''}">
+        <tr>
+          <td style="padding-left: 10px; padding-right: 10px;">Painorajoituksen lisäkilvet</td>
+          <td th:text="${road.weightLimit.extraRoadSigns}"></td>
+        </tr>
+      </th:block>
+    </th:block>
+
+    <th:block th:if="${road.roadThaw != null && road.roadThaw.recurrent}">
+      <tr>
+        <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; padding-right: 10px;">Kelirikko</td>
+        <th:block th:if="${road.roadThaw.recurrent && road.roadThaw.duration == '' && road.roadThaw.weightLimit == ''}">
+          <td>Kyllä, ilman ajankohtaa tai painorajoituksia.</td>
+        </th:block>
+      </tr>
+      <th:block th:if="${road.roadThaw.duration != ''}">
+        <tr>
+          <td style="padding-left: 10px; padding-right: 10px;">Kelirikkon ajankohta</td>
+          <td th:text="${road.roadThaw.duration}"></td>
+        </tr>
+      </th:block>
+      <th:block th:if="${road.roadThaw.weightLimit != ''}">
+        <tr>
+          <td style="padding-left: 10px; padding-right: 10px;">Kelirikon aikainen painorajoitus</td>
+          <td th:text="${road.roadThaw.weightLimit}"></td>
+        </tr>
+      </th:block>
+    </th:block>
+
+    <th:block th:if="${road.vehicleRestriction != null && road.vehicleRestriction.restrictionType != null && road.vehicleRestriction.restrictionType != ''}">
+      <tr>
+        <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; padding-right: 10px;">Ajokielto</td>
+      </tr>
+      <tr>
+        <td style="padding-left: 10px; padding-right: 10px;">Ajokiellon tyyppi</td>
+        <td th:text="${road.vehicleRestriction.restrictionType}"></td>
+      </tr>
+      <th:block th:if="${road.vehicleRestriction.extraRoadSigns != ''}">
+        <tr>
+          <td style="padding-left: 10px; padding-right: 10px;">Ajokiellon lisäkilvet</td>
+          <td th:text="${road.vehicleRestriction.extraRoadSigns}"></td>
+        </tr>
+      </th:block>
+    </th:block>
+
+    <th:block th:if="${road.roadBarrier != '' && road.roadBarrier != null}">
+      <tr>
+        <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; padding-right: 10px;">Ajoeste</td>
+        <td th:text="${road.roadBarrier}"></td>
+      </tr>
+    </th:block>  
+
+    <th:block th:if="${road.otherInfo != '' && road.otherInfo != null}">
+      <tr>
+        <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; padding-right: 10px;">Muut tiedot</td>
+        <td th:text="${road.otherInfo}"></td>
+      </tr>
+    </th:block>
+
+    <th:block th:if="${road.mapURL != '' && road.mapURL != null}">
+      <tr>
+        <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; padding-right: 10px;">Karttalinkit</td>
+        <td th:text="${road.mapURL}"></td>
+      </tr>
+    </th:block>
+
+    <th:block th:if="${road.screenshots != null && road.screenshots.size() != 0}">
+      <tr>
+        <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; padding-right: 10px;">Karttakuvat liitteenä</td>
+        <td><li th:each="image, im_iter : ${road.screenshots}" th:text="${image.description} + ' : screenshot_' + ${iter.index + 1} + '_' + ${im_iter.index + 1} + '.png'"></li></td>
+      </tr>
+    </th:block>
+  </table>
+
+  <br>
+</th>

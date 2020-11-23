@@ -1,0 +1,38 @@
+<h3>Tiekunnan tiedot:</h3>
+
+<table style="border: 1px solid darkgray">
+  <tr>
+    <td style="font-weight: bold; padding-right: 10px;">Tiekunnan nimi</td>
+    <td th:text="${associationName}"></td>
+  </tr>
+  <tr>
+    <td style="font-weight: bold; padding-right: 10px;">Kunta</td>
+    <td th:text="${municipality}"></td>
+  </tr>
+  <th:block th:if="${mmlidcode != '' && mmlidcode != null}">
+    <tr>
+      <td style="font-weight: bold; padding-right: 10px;">Käyttöoikeusyksikkötunnus</td>
+      <td th:text="${mmlidcode}"></td>
+    </tr>
+  </th:block>
+  <tr>
+    <td style="font-weight: bold; padding-right: 10px;">Ilmoittajan nimi</td>
+    <td th:text="${reporter}"></td>
+  </tr>
+  <tr>
+    <td style="font-weight: bold; padding-right: 10px;">Puhelinnumero</td>
+    <td th:text="${phone}"></td>
+  </tr>
+  <th:block th:if="${email != '' && email != null}">
+    <tr>
+      <td style="font-weight: bold; padding-right: 10px;">Sähköposti</td>
+      <td th:text="${email}"></td>
+    </tr>
+  </th:block>
+  <th:block th:if="${relationToAssociation != '' && relationToAssociation != null}">
+    <tr>
+      <td style="font-weight: bold; padding-right: 10px;">Ilmoittajan suhde tiekuntaan</td>
+      <td th:text="${relationToAssociation}"></td>
+    </tr>
+  </th:block>
+</table>

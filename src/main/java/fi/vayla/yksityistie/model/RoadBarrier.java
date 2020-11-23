@@ -16,10 +16,7 @@ public enum RoadBarrier {
 		if (connectionInFinnish.equals("Ei ajoesteitä")) {
 			return "";
 		} else {
-		return String.format(
-				"  Tiellä on ajoeste: \n"+
-				"    Ajoesteen tyyppi: %s \n", 
-				connectionInFinnish);
+			return connectionInFinnish;
 		}
 	}
 

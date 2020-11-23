@@ -1,6 +1,5 @@
 package fi.vayla.yksityistie.api;
 
-
 import fi.vayla.yksityistie.model.MaintenanceAssociation;
 import fi.vayla.yksityistie.service.EmailNotificationService;
 import fi.vayla.yksityistie.service.PDFService;
@@ -17,14 +16,13 @@ import java.io.ByteArrayInputStream;
 @RequestMapping(value = "api/v1/privateroad", consumes = "application/json", produces="application/json")
 @RestController
 public class PrivateRoadController {
-    private final PDFService pdfServise = new PDFService();
+	private final PDFService pdfServise = new PDFService();
 
-    @Autowired
-    private EmailNotificationService emailNotificationService;
+	@Autowired
+	private EmailNotificationService emailNotificationService;
 
-    @Autowired
-    private ReCAPTCHAService reCAPTCHAService;
-
+	@Autowired
+	private ReCAPTCHAService reCAPTCHAService;
 
     @PostMapping
     public ResponseEntity<InputStreamResource> addPrivateRoad(

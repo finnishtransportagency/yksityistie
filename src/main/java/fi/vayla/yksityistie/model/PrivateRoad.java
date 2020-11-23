@@ -1,5 +1,7 @@
 package fi.vayla.yksityistie.model;
 
+import java.util.List;
+
 public class PrivateRoad {
     private final String roadName;
     private final ReportType reportType;
@@ -7,83 +9,75 @@ public class PrivateRoad {
     private final RoadThaw roadThaw;
     private final VehicleRestriction vehicleRestriction;
     private final RoadBarrier roadBarrier;
-    private final SpeedLimit speedLimit;   
-    private final String mapURL;
+    private final SpeedLimit speedLimit;
     private final String otherInfo;
+    private final String mapURL;
+    private final List<Screenshot> screenshots;
 
-    public PrivateRoad(
-            String roadName,
-            ReportType reportType,
-            WeightLimit weightLimit,
-            RoadThaw roadThaw,
-            VehicleRestriction vehicleRestriction,
-            RoadBarrier roadBarrier,
-            SpeedLimit speedLimit,
-            String mapURL,
-            String otherInfo
-    ) {
-        this.roadName = roadName;
-        this.reportType = reportType;
-        this.weightLimit = weightLimit;
-        this.roadThaw = roadThaw;
-        this.vehicleRestriction = vehicleRestriction;
-        this.roadBarrier = roadBarrier;
-        this.speedLimit = speedLimit;
-        this.mapURL = mapURL;
-        this.otherInfo = otherInfo;
-    }
+	public PrivateRoad(String roadName, ReportType reportType, WeightLimit weightLimit, RoadThaw roadThaw, VehicleRestriction vehicleRestriction, RoadBarrier roadBarrier, SpeedLimit speedLimit, String otherInfo, String mapURL, List<Screenshot> screenshots) {
+		this.roadName = roadName;
+		this.reportType = reportType;
+		this.weightLimit = weightLimit;
+		this.roadThaw = roadThaw;
+		this.vehicleRestriction = vehicleRestriction;
+		this.roadBarrier = roadBarrier;
+		this.speedLimit = speedLimit;
+		this.otherInfo = otherInfo;
+		this.mapURL = mapURL;
+		this.screenshots = screenshots;
+	}
 
-    @Override
-    public String toString() {
-    	switch (reportType) {
-    	case REPORT_CHANGES:
-    		return String.format(
-            		"Tien nimi: %s \n" + // roadName(String)
-            		"%s" 	+ 	// SpeedLimit(enum)
-            		"%s" 	+ 	// WeightLimit(class)
-            		"%s" 	+	// RoadThaw(class)
-            		"%s" 	+  	// VehicleRestriction(class)
-            		"%s"	+	// RoadBarrier(enum)
-            		"%s"	+	// mapURL(String)
-            		"%s",		// otherInfo(String)
-            		roadName, 
-            		speedLimit != null ? speedLimit : "",
-            		weightLimit != null ? weightLimit.toString() : "",
-            		roadThaw != null ? roadThaw.toString() : "",
-    				vehicleRestriction != null ? vehicleRestriction.toString() : "",
-    				roadBarrier != null ? roadBarrier.toString() : "",
-    				formatMapURL(),
-    				formatOtherInfo());
-    	case CORRECT:
-    		return String.format(
-    				"Tien nimi: %s \n" +
-    				"  - Tiekunnan tiedot on jo ilmoitettu Digiroadiin ja \n" +
-    				"    ne eivät ole muuttuneet edellisen ilmoituksen jälkeen. \n", 
-    				roadName);
-    	case NO_RESTRICTIONS:
-    		return String.format(
-    				"Tien nimi: %s \n" +
-    				"  - Tiellä ei ole rajoituksia tai kieltoja \n", 
-    				roadName);
-    	default:
-    		return String.format("Tien nimi: %s \n", roadName);
-    	}
-    }
-    
-    private String formatMapURL() {
-    	if (mapURL != null && !mapURL.isEmpty()) {
-    		return "  Karttalinkit: " + mapURL + "\n";
-    	} else {
-    		return "";
-    	}
-    }
-    
-    private String formatOtherInfo() {
-    	if (otherInfo != null && !otherInfo.isEmpty()) {
-    		return "  Muut tiedot: " + otherInfo + " \n";
-    	} else {
-    		return "";
-    	}
-    }
+	public String getRoadName() {
+		return roadName;
+	}
+
+	public String getReportType(){
+		return  reportType.toString();
+	}
+
+	public String getSpeedLimit() {
+		if (speedLimit != null) {
+			return speedLimit.toString();
+		}  else {
+			return null;
+		}
+	}
+
+	public WeightLimit getWeightLimit() {
+		if (weightLimit != null && weightLimit.getMaxVehicleMass() != "") {
+			return weightLimit;
+		} else {
+			return null;
+		}
+	}
+
+	public RoadThaw getRoadThaw() {
+		return roadThaw;
+	}
+
+	public VehicleRestriction getVehicleRestriction() {
+		return vehicleRestriction;
+	}
+
+	public String getOtherInfo() {
+		return otherInfo;
+	}	
+	
+	public String getMapURL() {
+		return mapURL;
+	}
+
+	public String getRoadBarrier() {
+		if(roadBarrier != null) {
+			return roadBarrier.toString();
+		} else {
+			return null;
+		}
+	}
+
+	public List<Screenshot> getScreenshots() {
+		return screenshots;
+	}
+
     
 }

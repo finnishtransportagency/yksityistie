@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body 
+    style="
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif, Geneva, sans-serif, Arial;
+      font-size: 14px;
+    ">
+    <h2>Kiitos yksityistieilmoituksesta</h2>
+    <p>Kiitos yksityistien tietojen toimittamisesta Väylän Digiroad-järjestelmään. Olemme vastaanottaneet ilmoituksen.</p>
+    <p>Tarkistathan tämän viestin lopusta, että ilmoittamasi tiedot ovat oikein. Jos havaitset virheitä ilmoituksessa, voit lähettää korjauksen vastaamalla tähän sähköpostiviestiin tai täyttämällä ilmoituslomakkeen uudelleen osoiteessa <a href='http://www.vayla.fi/yksityistiet'>vayla.fi/yksityistiet</a>.</p>
+    <p>Ilmoitetut rajoitustiedot viedään osaksi Digiroad-aineistoa mahdollisimman pian ja tiedot tuleva näkyviin karttapalveluun <strong>noin 2 viikon</strong> kuluessa ilmoituksesta. Tosite on tämän sähköpostiviestin liitteenä.</p>
+    <p style="padding-top: 20px;">Oikein hyvää jatkoa!</p>
+    <p><b>Ystävällisin terveisin,</b><br>Digiroad-operaattori</p>
+    <p>040 507 2301<br><a href='mailto:info@digiroad.fi'>info@digiroad.fi</a><br><a href='http://www.vayla.fi/digiroad'>vayla.fi/digiroad</a></p>
+    <hr>
+    <th th:replace="association"></th>
+    <th th:replace="road"></th>
+  </body>
+</html>

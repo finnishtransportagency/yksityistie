@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "./static/css/main.d28c7c06.chunk.css",
-    "main.js": "./static/js/main.a8079d0d.chunk.js",
-    "runtime-main.js": "./static/js/runtime-main.e6a5d320.js",
-    "static/css/2.b6e0e1ff.chunk.css": "./static/css/2.b6e0e1ff.chunk.css",
-    "static/js/2.af3315b5.chunk.js": "./static/js/2.af3315b5.chunk.js",
+    "main.css": "./static/css/main.7aa93837.chunk.css",
+    "main.js": "./static/js/main.6b73abd7.chunk.js",
+    "runtime-main.js": "./static/js/runtime-main.6c27103f.js",
+    "static/css/2.4688aa61.chunk.css": "./static/css/2.4688aa61.chunk.css",
+    "static/js/2.5ceb88af.chunk.js": "./static/js/2.5ceb88af.chunk.js",
     "index.html": "./index.html",
-    "precache-manifest.8d65c9140a4c39c519facc45e085ed12.js": "./precache-manifest.8d65c9140a4c39c519facc45e085ed12.js",
+    "precache-manifest.002bc0019c96dfaa55ab205bc2e9d80d.js": "./precache-manifest.002bc0019c96dfaa55ab205bc2e9d80d.js",
     "service-worker.js": "./service-worker.js",
-    "static/media/YT_banneri.PNG": "./static/media/YT_banneri.7645fd6e.PNG",
+    "static/media/YT_banneri.PNG": "./static/media/YT_banneri.0a1b23f3.PNG",
     "static/media/semantic.min.css": "./static/media/outline-icons.ef60a4f6.woff"
   },
   "entrypoints": [
-    "static/js/runtime-main.e6a5d320.js",
-    "static/css/2.b6e0e1ff.chunk.css",
-    "static/js/2.af3315b5.chunk.js",
-    "static/css/main.d28c7c06.chunk.css",
-    "static/js/main.a8079d0d.chunk.js"
+    "static/js/runtime-main.6c27103f.js",
+    "static/css/2.4688aa61.chunk.css",
+    "static/js/2.5ceb88af.chunk.js",
+    "static/css/main.7aa93837.chunk.css",
+    "static/js/main.6b73abd7.chunk.js"
   ]
 }
