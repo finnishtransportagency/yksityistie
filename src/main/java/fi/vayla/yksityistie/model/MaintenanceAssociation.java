@@ -8,7 +8,7 @@ public class MaintenanceAssociation {
     private String associationName;
 	@NotEmpty
     private String municipality;
-	// MMLIDCode = "käyttöoikeusyksikkötunnus" which is used in National Land Survey of Finland's systems.
+	// mmlidcode = "käyttöoikeusyksikkötunnus" which is used in National Land Survey of Finland's systems.
     private String mmlidcode;
     @NotEmpty
     private String reporter;
