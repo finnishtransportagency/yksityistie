@@ -1,28 +1,30 @@
 package fi.vayla.yksityistie.model;
 
 public enum SpeedLimit {
-	NONE(0),
-	TWENTY(20),
-	THIRTY(30),
-	FORTY(40),
-	FIFTY(50),
-	SIXTY(60),
-	SEVENTY(70),
-	EIGHTY(80);
+	NONE("Ei tietoa"),
+	TWENTY("20 km/h"),
+	THIRTY("30 km/h"),
+	FORTY("40 km/h"),
+	FIFTY("50 km/h"),
+	SIXTY("60 km/h"),
+	SEVENTY("70 km/h"),
+	EIGHTY("80 km/h"),
+	GENERAL("Yleisrajoitus"),
+	UNKNOWN("Ei tietoa");
 	
-	private Integer speed;
+	private final String speed;
 	
-	private SpeedLimit(int speed) {
+	private SpeedLimit(String speed) {
 		this.speed = speed;
 	}
 	
 	@Override
 	public String toString() {
-		if (speed == 0) {
+		if (speed.equals("Ei tietoa")) {
 			return "";
 		}
 		else {
-			return speed + " km/h";
+			return speed;
 		}
 	}
 }
