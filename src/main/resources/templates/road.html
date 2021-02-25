@@ -24,7 +24,7 @@
       </tr>
     </th:block>
 
-    <th:block th:if="${road.weightLimit != '' && road.weightLimit != null}">
+    <th:block th:if="${road.weightLimit != null && road.weightLimit.recurrent}">
       <tr>
         <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
       </tr>
@@ -37,7 +37,7 @@
       </tr>
       <th:block th:if="${road.weightLimit.extraRoadSigns != ''}">
         <tr>
-          <td style="padding-left: 10px; padding-right: 10px;">Painorajoituksen lisäkilvet</td>
+          <td style="padding-left: 10px; padding-right: 10px;">Painorajoituksen lisätiedot ja liikennemerkit</td>
           <td th:text="${road.weightLimit.extraRoadSigns}"></td>
         </tr>
       </th:block>
