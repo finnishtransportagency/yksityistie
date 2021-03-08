@@ -19,7 +19,7 @@ public class RoadThaw {
 	}
 
 	public String getDuration(){
-		if (isRecurrent) {
+		if (isRecurrent && this.dateStart.length() > 0) {
 			return (this.dateStart + " - " + this.dateEnd);
 		} else {
 			return "";
@@ -36,7 +36,7 @@ public class RoadThaw {
 
 	@Override
 	public String toString() {
-		if (isRecurrent) {
+		if (isRecurrent && this.dateStart.length() > 0) {
 			return (this.dateStart + " - " + this.dateEnd);
 		} else {
 			return "";
