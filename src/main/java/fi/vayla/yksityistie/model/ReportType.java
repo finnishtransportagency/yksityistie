@@ -2,8 +2,7 @@ package fi.vayla.yksityistie.model;
 
 public enum ReportType {
 	REPORT_CHANGES("Ilmoita muuttuneet tai puuttuvat tiedot"),
-	CORRECT("Tien tiedot ovat jo oikein Digiroadissa"),
-	NO_RESTRICTIONS("Tiellä ei ole rajoituksia tai kieltoja");
+	CORRECT("Tien tiedot on ilmoitettu aiemmin Digiroadiin, ja ovat jo oikein");
 
 	private final String description;
 
