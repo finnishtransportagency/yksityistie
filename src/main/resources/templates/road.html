@@ -96,23 +96,23 @@
       </tr>
     </th:block>  
 
+    <th:block th:if="${road.trafficSigns.recurrent && road.trafficSigns.info != ''}">
+      <tr>
+        <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; padding-right: 10px;">Liikennemerkkien tiedot</td>
+        <td th:text="${road.trafficSigns.info}"></td>
+      </tr>
+    </th:block>
+
     <th:block th:if="${road.otherInfo != '' && road.otherInfo != null}">
       <tr>
         <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
       </tr>
       <tr>
-        <td style="font-weight: bold; padding-right: 10px;">Muut tiedot</td>
+        <td style="font-weight: bold; padding-right: 10px;">Muut lisätiedot</td>
         <td th:text="${road.otherInfo}"></td>
-      </tr>
-    </th:block>
-
-    <th:block th:if="${road.mapURL != '' && road.mapURL != null}">
-      <tr>
-        <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
-      </tr>
-      <tr>
-        <td style="font-weight: bold; padding-right: 10px;">Karttalinkit</td>
-        <td th:text="${road.mapURL}"></td>
       </tr>
     </th:block>
 
