@@ -14,7 +14,7 @@
       <td th:text="${road.reportType}"></td>
     </tr>
 
-    <th:block th:if="${road.reportType == 'REPORT_CHANGES'}">
+    <th:block th:if="${road.reportType == 'Ilmoita muuttuneet tai puuttuvat tiedot'}">
 
       <th:block th:if="${road.speedLimit != '' && road.speedLimit != null}">
         <tr>
