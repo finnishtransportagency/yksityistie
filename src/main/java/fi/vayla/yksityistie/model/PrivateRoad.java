@@ -67,12 +67,8 @@ public class PrivateRoad {
 		return otherInfo;
 	}
 
-	public String getRoadBarrier() {
-		if(roadBarrier != null) {
-			return roadBarrier.toString();
-		} else {
-			return null;
-		}
+	public RoadBarrier getRoadBarrier() {
+		return this.roadBarrier;
 	}
 
 	public List<Screenshot> getScreenshots() {
