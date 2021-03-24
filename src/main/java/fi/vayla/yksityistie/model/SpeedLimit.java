@@ -9,7 +9,8 @@ public enum SpeedLimit {
 	SIXTY("60 km/h"),
 	SEVENTY("70 km/h"),
 	EIGHTY("80 km/h"),
-	GENERAL("Yleisrajoitus"),
+	GENERAL_50("Yleisrajoitus (50 km/h)"),
+	GENERAL_80("Yleisrajoitus (80 km/h)"),
 	UNKNOWN("Ei tietoa");
 	
 	private final String speed;

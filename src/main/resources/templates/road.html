@@ -88,13 +88,13 @@
         </th:block>
       </th:block>
 
-      <th:block th:if="${road.roadBarrier != '' && road.roadBarrier != null}">
+      <th:block th:if="${road.roadBarrier.recurrent}">
         <tr>
           <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
         </tr>
         <tr>
           <td style="font-weight: bold; padding-right: 10px;">Ajoeste</td>
-          <td th:text="${road.roadBarrier}"></td>
+          <td th:text="${road.roadBarrier.type}"></td>
         </tr>
       </th:block>  
 
@@ -120,16 +120,6 @@
 
     </th:block>
 
-
-    <th:block th:if="${road.screenshots != null && road.screenshots.size() != 0}">
-      <tr>
-        <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
-      </tr>
-      <tr>
-        <td style="font-weight: bold; padding-right: 10px;">Karttakuvat liitteenä</td>
-        <td><li th:each="image, im_iter : ${road.screenshots}" th:text="${image.description} + ' : screenshot_' + ${iter.index + 1} + '_' + ${im_iter.index + 1} + '.png'"></li></td>
-      </tr>
-    </th:block>
   </table>
 
   <br>
