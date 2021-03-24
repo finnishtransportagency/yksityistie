@@ -1,0 +1,5 @@
+
+<th:block th:if="${screenshots != null && screenshots.size() != 0}">
+  <h5>Liitetyt karttakuvat:</h5>
+  <li th:each="image, im_iter : ${screenshots}" th:text="${image.description} + ' : screenshot_' + ${im_iter.index + 1} + '.png'"></li></td>
+</th:block>
