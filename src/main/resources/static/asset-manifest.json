@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.css": "./static/css/main.7aa93837.chunk.css",
-    "main.js": "./static/js/main.2445811b.chunk.js",
+    "main.css": "./static/css/main.a57d105e.chunk.css",
+    "main.js": "./static/js/main.32b1eb1a.chunk.js",
     "runtime-main.js": "./static/js/runtime-main.6c27103f.js",
     "static/css/2.4688aa61.chunk.css": "./static/css/2.4688aa61.chunk.css",
     "static/js/2.a029ad5c.chunk.js": "./static/js/2.a029ad5c.chunk.js",
     "index.html": "./index.html",
-    "precache-manifest.48be46eef1c170ff132056ca523dd53a.js": "./precache-manifest.48be46eef1c170ff132056ca523dd53a.js",
+    "precache-manifest.035d49bf207c765eb03bb58785b9b563.js": "./precache-manifest.035d49bf207c765eb03bb58785b9b563.js",
     "service-worker.js": "./service-worker.js",
     "static/media/YT_banneri.PNG": "./static/media/YT_banneri.0a1b23f3.PNG",
     "static/media/semantic.min.css": "./static/media/outline-icons.ef60a4f6.woff"
@@ -15,7 +15,7 @@
     "static/js/runtime-main.6c27103f.js",
     "static/css/2.4688aa61.chunk.css",
     "static/js/2.a029ad5c.chunk.js",
-    "static/css/main.7aa93837.chunk.css",
-    "static/js/main.2445811b.chunk.js"
+    "static/css/main.a57d105e.chunk.css",
+    "static/js/main.32b1eb1a.chunk.js"
   ]
 }
