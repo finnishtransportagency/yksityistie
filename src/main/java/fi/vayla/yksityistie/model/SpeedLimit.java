@@ -21,11 +21,6 @@ public enum SpeedLimit {
 	
 	@Override
 	public String toString() {
-		if (speed.equals("Ei tietoa")) {
-			return "";
-		}
-		else {
-			return speed;
-		}
+		return this.speed;
 	}
 }

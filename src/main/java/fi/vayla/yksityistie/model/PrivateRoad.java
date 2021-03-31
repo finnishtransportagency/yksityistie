@@ -10,10 +10,9 @@ public class PrivateRoad {
     private final VehicleRestriction vehicleRestriction;
     private final RoadBarrier roadBarrier;
     private final SpeedLimit speedLimit;
-	private final TrafficSigns trafficSigns;
     private final String otherInfo;
 
-	public PrivateRoad(String roadName, ReportType reportType, WeightLimit weightLimit, RoadThaw roadThaw, VehicleRestriction vehicleRestriction, RoadBarrier roadBarrier, SpeedLimit speedLimit, TrafficSigns trafficSigns, String otherInfo) {
+	public PrivateRoad(String roadName, ReportType reportType, WeightLimit weightLimit, RoadThaw roadThaw, VehicleRestriction vehicleRestriction, RoadBarrier roadBarrier, SpeedLimit speedLimit, String otherInfo) {
 		this.roadName = roadName;
 		this.reportType = reportType;
 		this.weightLimit = weightLimit;
@@ -21,7 +20,6 @@ public class PrivateRoad {
 		this.vehicleRestriction = vehicleRestriction;
 		this.roadBarrier = roadBarrier;
 		this.speedLimit = speedLimit;
-		this.trafficSigns = trafficSigns;
 		this.otherInfo = otherInfo;
 	}
 
@@ -55,10 +53,6 @@ public class PrivateRoad {
 
 	public VehicleRestriction getVehicleRestriction() {
 		return vehicleRestriction;
-	}
-
-	public TrafficSigns getTrafficSigns() {
-		return this.trafficSigns;
 	}
 
 	public String getOtherInfo() {

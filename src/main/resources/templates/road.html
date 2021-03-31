@@ -16,7 +16,7 @@
 
     <th:block th:if="${road.reportType == 'Ilmoita muuttuneet tai puuttuvat tiedot'}">
 
-      <th:block th:if="${road.speedLimit != '' && road.speedLimit != null}">
+      <th:block">
         <tr>
           <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
         </tr>
@@ -97,16 +97,6 @@
           <td th:text="${road.roadBarrier.type}"></td>
         </tr>
       </th:block>  
-
-      <th:block th:if="${road.trafficSigns.recurrent && road.trafficSigns.info != ''}">
-        <tr>
-          <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
-        </tr>
-        <tr>
-          <td style="font-weight: bold; padding-right: 10px;">Liikennemerkkien tiedot</td>
-          <td th:text="${road.trafficSigns.info}"></td>
-        </tr>
-      </th:block>
 
       <th:block th:if="${road.otherInfo != '' && road.otherInfo != null}">
         <tr>
