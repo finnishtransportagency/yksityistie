@@ -11,9 +11,9 @@
 	</parent>
 	<groupId>fi.vayla</groupId>
 	<artifactId>yksityistie</artifactId>
-	<version>1.0.16</version>
+	<version>1.0.17</version>
 	<name>yksityistie</name>
-	<description>Sitowise - Vayla - Yksityistie</description>
+	<description>Vayla - Yksityistie</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -12,14 +12,18 @@ public class RoadThaw {
 			String dateStart,
 			String dateEnd
 			) {
-        this.isRecurrent = isRecurrent;
+		if (isRecurrent == null) {
+			this.isRecurrent = false;
+		} else {
+			this.isRecurrent = isRecurrent;
+		}
 		this.weightLimit = weightLimit;
 		this.dateStart = dateStart;
 		this.dateEnd = dateEnd;
 	}
 
 	public String getDuration(){
-		if (isRecurrent) {
+		if (isRecurrent && this.dateStart.length() > 0) {
 			return (this.dateStart + " - " + this.dateEnd);
 		} else {
 			return "";
@@ -36,14 +40,10 @@ public class RoadThaw {
 
 	@Override
 	public String toString() {
-		if (isRecurrent) {
+		if (isRecurrent && this.dateStart.length() > 0) {
 			return (this.dateStart + " - " + this.dateEnd);
 		} else {
 			return "";
 		}
 	}
-	
-
-
-	
 }

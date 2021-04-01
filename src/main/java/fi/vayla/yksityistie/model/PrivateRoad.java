@@ -11,10 +11,8 @@ public class PrivateRoad {
     private final RoadBarrier roadBarrier;
     private final SpeedLimit speedLimit;
     private final String otherInfo;
-    private final String mapURL;
-    private final List<Screenshot> screenshots;
 
-	public PrivateRoad(String roadName, ReportType reportType, WeightLimit weightLimit, RoadThaw roadThaw, VehicleRestriction vehicleRestriction, RoadBarrier roadBarrier, SpeedLimit speedLimit, String otherInfo, String mapURL, List<Screenshot> screenshots) {
+	public PrivateRoad(String roadName, ReportType reportType, WeightLimit weightLimit, RoadThaw roadThaw, VehicleRestriction vehicleRestriction, RoadBarrier roadBarrier, SpeedLimit speedLimit, String otherInfo) {
 		this.roadName = roadName;
 		this.reportType = reportType;
 		this.weightLimit = weightLimit;
@@ -23,8 +21,6 @@ public class PrivateRoad {
 		this.roadBarrier = roadBarrier;
 		this.speedLimit = speedLimit;
 		this.otherInfo = otherInfo;
-		this.mapURL = mapURL;
-		this.screenshots = screenshots;
 	}
 
 	public String getRoadName() {
@@ -61,23 +57,10 @@ public class PrivateRoad {
 
 	public String getOtherInfo() {
 		return otherInfo;
-	}	
-	
-	public String getMapURL() {
-		return mapURL;
 	}
 
-	public String getRoadBarrier() {
-		if(roadBarrier != null) {
-			return roadBarrier.toString();
-		} else {
-			return null;
-		}
+	public RoadBarrier getRoadBarrier() {
+		return this.roadBarrier;
 	}
-
-	public List<Screenshot> getScreenshots() {
-		return screenshots;
-	}
-
     
 }

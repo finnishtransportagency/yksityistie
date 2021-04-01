@@ -18,6 +18,8 @@ public class MaintenanceAssociation {
     private String relationToAssociation;
    @NotEmpty(message = "Maintenance Association must have at least one road.")
     private List<PrivateRoad> roads;
+    private List<Screenshot> screenshots;
+    private String lang;
     private VoucherDeliveryMethod voucherDeliveryMethod;
 
 
@@ -40,6 +42,12 @@ public class MaintenanceAssociation {
     public List<PrivateRoad> getRoads() {
         return roads;
     }
+
+    public List<Screenshot> getScreenshots() {
+        return screenshots;
+    }
+
+    public String getLang() { return lang; }
 
     public VoucherDeliveryMethod getVoucherDeliveryMethod() { return voucherDeliveryMethod; }
     

@@ -71,16 +71,13 @@ public class EmailNotificationService {
             helper.addAttachment("Digiroad_tosite.pdf", attachment);
 
             // add screenshots
-            List<PrivateRoad> roads = maintenanceAssociation.getRoads();
-            for (int i = 0; i < roads.size(); i++) {
-                List<Screenshot> screenshots = roads.get(i).getScreenshots();
-                if (screenshots == null) continue; 
-                for (int j = 0; j < screenshots.size(); j++) {
-                    String imgStr = screenshots.get(j).getImage().split(",")[1];
-                    byte[] img = Base64.getDecoder().decode(imgStr.getBytes("UTF-8"));
-                    helper.addAttachment(String.format("screenshot_%d_%d.png", i+1, j+1), new ByteArrayDataSource(img, "image/png"));
-                }
+            List<Screenshot> screenshots = maintenanceAssociation.getScreenshots();
+            for (int i = 0; i < screenshots.size(); i++) {
+                String imgStr = screenshots.get(i).getImage().split(",")[1];
+                byte[] img = Base64.getDecoder().decode(imgStr.getBytes("UTF-8"));
+                helper.addAttachment(String.format("screenshot_%d.png", i+1), new ByteArrayDataSource(img, "image/png"));
             }
+            
 
             javaMailSender.send(mail);
 
