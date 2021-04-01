@@ -12,7 +12,11 @@ public class RoadThaw {
 			String dateStart,
 			String dateEnd
 			) {
-        this.isRecurrent = isRecurrent == null ? false : true;
+		if (isRecurrent == null) {
+			this.isRecurrent = false;
+		} else {
+			this.isRecurrent = isRecurrent;
+		}
 		this.weightLimit = weightLimit;
 		this.dateStart = dateStart;
 		this.dateEnd = dateEnd;
