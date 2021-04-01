@@ -16,15 +16,13 @@
 
     <th:block th:if="${road.reportType == 'Ilmoita muuttuneet tai puuttuvat tiedot'}">
 
-      <th:block">
-        <tr>
-          <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
-        </tr>
-        <tr>
-          <td style="font-weight: bold; padding-right: 10px;">Nopeusrajoitus</td>
-          <td th:text="${road.speedLimit}"></td>
-        </tr>
-      </th:block>
+      <tr>
+        <td style="border-bottom:1px solid lightgray" colspan="100%"></td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; padding-right: 10px;">Nopeusrajoitus</td>
+        <td th:text="${road.speedLimit}"></td>
+      </tr>
 
       <th:block th:if="${road.weightLimit != null && road.weightLimit.recurrent}">
         <tr>
@@ -57,7 +55,7 @@
         </tr>
         <th:block th:if="${road.roadThaw.duration != ''}">
           <tr>
-            <td style="padding-left: 10px; padding-right: 10px;">Kelirikkon ajankohta</td>
+            <td style="padding-left: 10px; padding-right: 10px;">Kelirikon ajankohta</td>
             <td th:text="${road.roadThaw.duration}"></td>
           </tr>
         </th:block>
