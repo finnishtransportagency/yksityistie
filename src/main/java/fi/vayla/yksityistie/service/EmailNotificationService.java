@@ -59,11 +59,8 @@ public class EmailNotificationService {
             helper.setTo(to);
             helper.setFrom("info@digiroad.fi");
 
-            if (template.equals("submitter")) {
-                helper.setSubject("Kiitos yksityistieilmoituksesta");
-            } else {
-                helper.setSubject("Uusi yksityistielomake: " + maintenanceAssociation.getAssociationName());
-            }
+            helper.setSubject("Kiitos yksityistieilmoituksesta: "  + maintenanceAssociation.getAssociationName());
+
             helper.setText(html, true);
 
             // adding pdf attachment
